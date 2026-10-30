@@ -1,0 +1,72 @@
+apply plugin: 'com.android.library'
+
+def sourceLayoutFile = file('../source-layout.properties')
+def sourceLayout = new Properties()
+sourceLayoutFile.withInputStream { sourceLayout.load(it) }
+def librarySourceDirs = sourceLayout.getProperty('Android.source.roots').split(';').collect {
+    file('../' + it).canonicalFile
+}
+
+task verifySourceLayout {
+    inputs.file sourceLayoutFile
+    inputs.files librarySourceDirs.collect { fileTree(it) }
+    doLast {
+        def paths = [:]
+        librarySourceDirs.each { root ->
+            if (!root.isDirectory()) {
+                throw new GradleException("Missing source root: $root")
+            }
+            fileTree(root).matching {
+                include '**/*.java', 'com/**', 'META-INF/**'
+                exclude '**/*.class'
+            }.files.each { source ->
+                def relative = root.toPath().relativize(source.toPath()).toString().replace('\\', '/')
+                def key = relative.toLowerCase(Locale.ROOT)
+                if (paths.containsKey(key)) {
+                    throw new GradleException("Duplicate source/resource: $relative (${paths[key]} and $source)")
+                }
+                paths[key] = source
+            }
+        }
+    }
+}
+tasks.matching { it.name == 'preBuild' }.all {
+    dependsOn verifySourceLayout
+}
+
+dependencies {
+    implementation fileTree(include: '*.jar', dir: 'libs')
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = librarySourceDirs
+            resources.srcDirs = librarySourceDirs
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        androidTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+
+    }
+    defaultConfig {
+        minSdkVersion 8
+    }
+}
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="shared-common/|shared-desktop/" kind="src" path=""/>
+	<classpathentry kind="src" path="shared-common"/>
+	<classpathentry kind="src" path="shared-desktop"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="../libs/org.eclipse.draw2d_3.9.0.201308190730.jar"/>
+	<classpathentry kind="lib" path="../libs/org.eclipse.jface_3.9.1.v20130725-1141.jar"/>
+	<classpathentry kind="lib" path="../libs/org.eclipse.swt.win32.win32.x86_64_3.102.1.v20140206-1358.jar"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

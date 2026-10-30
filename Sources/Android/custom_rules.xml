@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TeeChart-shared-sources">
+    <!-- Keep legacy SDK/ADT Ant builds working without another build runtime.
+         Gradle and Eclipse use the shared roots directly instead. -->
+    <target name="-pre-build">
+        <delete dir="${basedir}/build/ant-src"/>
+        <mkdir dir="${basedir}/build/ant-src"/>
+        <copy todir="${basedir}/build/ant-src">
+            <fileset dir="../Common/src">
+                <include name="**/*.java"/>
+                <include name="com/**"/>
+                <include name="META-INF/**"/>
+                <exclude name="**/*.class"/>
+            </fileset>
+            <fileset dir="src">
+                <include name="**/*.java"/>
+                <include name="com/**"/>
+                <include name="META-INF/**"/>
+                <exclude name="**/*.class"/>
+            </fileset>
+        </copy>
+    </target>
+</project>

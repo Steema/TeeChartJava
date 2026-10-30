@@ -1,0 +1,202 @@
+<resources>
+    <string name="app_name">TeeChart</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_chart_view">Chart</string>
+    <string name="itAbout">About us</string>
+    <string name="itEMail">E-Mail</string>
+    <string name="itWeb">Web Site</string>
+    <string name="tvAboutSteema">Steema Software has been providing developers with tools for charting since 1995. The TeeChart for Android Library forms part of ongoing development to make available for Android application development all of the charting features that form part of the TeeChart Libraries. This preview application shows a few of the possibilities available to developers. The Pie style shows values displayed as slices of a cheese or pie. Options include 2D and 3D, moving the slices, marks, patterns, ellipse shape, border, shadow, grouping of small values, partial pies, multiple pies, etc.</string>
+    <string name="itCall">Call us</string>
+    <string name="itEditor">Editor</string>
+    <string name="itChangeTheme">Change Theme</string>
+    <string name="itSettings">Settings</string>
+    <string name="itDescription">Description</string>
+    <string name="itSaveAsFile">Save as file...</string>
+    <string name="itSaveAsImage">Save as image...</string>
+    <string name="itShare">Share</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_aspect">Aspect</string>
+
+    <string name="pref_title_3d_view">3D view</string>
+    <string name="pref_description_3d_view">Enable or disable the 3D view
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+    <string-array name="array_dashboards">
+        <item>Scroll Pager</item>
+        <item>Unfinished</item>
+        <item>Web Analytics</item>
+        <item>Server Status</item>
+        <item>Real Time</item>
+    </string-array>
+
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="pref_title_orthogonal_projection">Orthogonal projection</string>
+    <string name="pref_description_orthogonal_projection">Enable or disable the orthogonal projection</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+    <string name="prefPerspective">Perspective</string>
+    <string name="swVisibleAxes">Visible</string>
+    <string name="swInvertedAxes">Inverted</string>
+    <string name="pref3dPercent">3D Percent</string>
+
+
+    <!--options axes list preference-->
+    <string-array name="lsAxes">
+        <item>Left</item>
+        <item>Right</item>
+        <item>Top</item>
+        <item>Bottom</item>
+        <item>Depth</item>
+        <item>Depth Top</item>
+    </string-array>
+
+    <!--options zoomPosition preference-->
+    <string-array name="lsZoom">
+        <item>INCHART</item>
+        <item>FULLCHART</item>
+        <item>INCHART_MULTI</item>
+    </string-array>
+
+    <!--options legendPosition preference-->
+    <string-array name="lsLegend">
+        <item>Left</item>
+        <item>Right</item>
+        <item>Top</item>
+        <item>Bottom</item>
+    </string-array>
+
+
+    <string name="title_activity_chart_view_dashboards">ChartViewDashboards</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_dashboard_scroll_pager">Scroll Pager</string>
+    <string name="title_activity_dashboard_web_analytics">Web Analytics</string>
+    <string name="title_activity_dashboard_server_status">Server Status</string>
+    <string name="title_activity_dashboard_realtime">Real Time</string>
+    <string name="selectTheme">Select a theme</string>
+
+    <!--Descriptions-->
+
+        <string name="pie_description"> The Pie style shows values displayed as slices of
+		a cheese or pie. Options include 2D and 3D, moving the slices, marks,
+		patterns, ellipse shape, border, shadow, grouping of small values,
+		partial pies, multiple pies, etc.</string>
+    <string name="line_description"> Line series displays points drawing one line from
+		each point to the next.
+		Options include 2D and 3D, "stairs" mode, null
+		points, pointers, border,
+		filling pattern, height 3D, stacking,
+		overlaping, clicking, dark 3D
+		and marks.</string>
+    <string name="bar_description"> The Bar style allows single or multiple bars, with
+		different layouts ( 3D, side-to-side, side-all, stacked, stacked 100%
+		).
+		Options include 2D and 3D, color-each-bar, bar style, patterns, dark
+		3D,
+		bottom origin, auto-mark positions, stacking groups, marks, border,
+		etc.</string>
+    <string name="area_description">The Area style allows single or multiple areas,
+		with different layouts ( 3D, overlap, stacked, stacked 100% ). Options
+		include 2D and 3D, color-each-area, patterns, gradients, dark 3D,
+		bottom origin, stairs mode, marks, border, transparency, etc.</string>
+    <string name="points_description">Point series displays XY values using a Pointer.
+		Each pointer has many different methods, like color, 3D, shadow,
+		style, marks, pattern, border, width, height, etc.</string>
+    <string name="candle_description">Candle (OHLC) series displays financial data in
+		several ways (Candle, Bar and Stick). Candle colors are determined by
+		the Open and Close values. Weekend data can be removed using a
+		sequential index for the X value.
+		Configuration options include border, draw 3D, open and close colors, candle style,
+		marks, etc. Candle charts are the base for financial functions (RSI,
+		etc).</string>
+    <string name="surface_description">Surface displays a grid of XYZ floating point
+		values. Options include palette, border, pattern, null values,
+		wire-frame, dots, surface sides, marks, gradients, inverted axes, etc.</string>
+    <string name="tower_description">Tower series displays bars in 3D grid mode. Several methods configure the aspect and size of each bar.</string>
+    <string name="contour_description">The Contour Series displays lines corresponding to "Level" values on 3D XYZ data. The number of levels, the level intervals, the levels positions, colors and Legend can be fully customized. It can also be viewed in 2D, or rotated in 3D mode.</string>
+    <string name="colorgrid_description">ColorGrid series is a 2D surface. Each "cell" has a value and an optional color. The add method is used to fill the color grid. An optional "grid" over cells is displayed using the Pen method.</string>
+    <string name="polar_description">Polar and radar series now support null points (controlled via the TreatNulls property). Uncheck the "Hide null points" checkbox to see the difference between "normal" and "null" style(s).</string>
+    <string name="smith_description">Smith Series is a chart style to draw Smith charts. Each point is defined with Resistance and Reactance values. It inherits most common methods from Polar and Circled ancestor series.</string>
+    <string name="fastline_description">The Fast-Line chart style is, at it\'s name implies, the fastest way to plot many points. It simply draws a thin line connecting all points. Some optimizations (like not drawing repeated values) are performed. It can be used in real-time applications to plot new added points.</string>
+    <string name="radar_description">Polar and radar series now support null points (controlled via the TreatNulls property). Uncheck the "Hide null points" checkbox to see the difference between "normal" and "null" style(s).</string>
+    <string name="isosurface_description">Surface displays a grid of XYZ floating point
+		values. Options include palette, border, pattern, null values,
+		wire-frame, dots, surface sides, marks, gradients, inverted axes, etc.</string>
+    <string name="bubble_description">The Area style allows single or multiple areas with different layouts ( 3D, overlap, stacked, stacked 100% ).
+Options include 2D and 3D, color-each-area, patterns, gradients, dark 3D, bottom origin, stairs mode, marks, border, transparency, etc.</string>
+    <string name="circulargauge_description">CircularGauge series may be used to dial display data. </string>
+    <string name="lineargauge_description">LinearGauge series may be used to display data with high frequency changes.</string>
+    <string name="map_description">Map series now has a new transparency property.</string>
+    <string name="highlow_description">High-Low series draws (and optionally fills) two lines with High and Low values for each point.</string>
+    <string name="btnBrowse">Browse</string>
+    <string name="btnGenerateHistogram">Generate Histogram</string>
+    <string name="btnSave">Save Changes</string>
+    <string name="btnScan">Start scan</string>
+    <string name="title_activity_new_chart">NewChart</string>
+
+
+</resources>

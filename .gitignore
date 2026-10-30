@@ -1,0 +1,43 @@
+# IDE state and local SDK settings
+.idea/
+*.iml
+*.ipr
+*.iws
+**/nbproject/private/
+**/local.properties
+.gradle/
+__pycache__/
+*.pyc
+
+# Generated output
+**/build/
+**/bin/
+**/gen/
+**/dist/
+**/classes/
+*.class
+*.apk
+*.ap_
+*.aar
+*.zip
+*.exe
+*.dll
+*.dcu
+*.log
+
+# Never commit signing/credential material
+**/signkeys/
+**/keystore/
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
+.env
+.env.*
+
+# Only specifically reviewed binary dependencies may be added
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+!Demos/AndroidDemo/gradle/wrapper/gradle-wrapper.jar

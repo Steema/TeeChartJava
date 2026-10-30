@@ -1,0 +1,16 @@
+TeeChart Java
+Copyright Steema Software SL and the respective contributors identified in files.
+
+Steema-owned material in this repository is licensed under Apache License 2.0.
+See LICENSE and LICENSING.md for scope.
+
+The Android color-picker examples contain material:
+Copyright (C) 2007 The Android Open Source Project
+Their original Apache-2.0 notices are retained.
+
+The Gradle wrapper binaries are upstream Gradle material, not Steema-owned code.
+See LICENSES/Gradle-5.4.1-LICENSE.txt, LICENSES/Gradle-5.4.1-NOTICE.txt,
+LICENSES/Gradle-5.6.4-LICENSE.txt and LICENSES/Gradle-5.6.4-NOTICE.txt.
+
+Eclipse dependencies are external downloads, not part of the Git distribution.
+Their separate terms and source locations are documented in THIRD_PARTY.md.

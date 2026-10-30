@@ -1,0 +1,116 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.steema.teechart.tools;
+
+import org.eclipse.swt.widgets.Composite;
+
+import com.steema.teechart.Chart;
+import com.steema.teechart.IBaseChart;
+import com.steema.teechart.Rectangle;
+import com.steema.teechart.TChart;
+import com.steema.teechart.misc.Utils;
+
+/**
+ *
+ * @author Shunyata Kharg
+ */
+public class SubChart {
+    private Tool iTool;
+    private TChart chart; 
+    private String data;
+    private Composite composite;
+    private int style;
+    
+    public SubChart(IBaseChart c) {	
+    }
+    
+    public SubChart(ChartCollection collection, Composite comp, int style) {
+    	this.composite = comp;
+    	this.style = style;
+    	
+        if(collection != null) {
+            iTool = collection.getOwner();
+            if(iTool != null) {
+                getChart();
+            }
+         } 
+    }
+    
+    public SubChart(ChartCollection collection) {
+       if(collection != null) {
+          iTool = collection.getOwner();
+          if(iTool != null) {
+              getChart();
+          }
+       } 
+    }
+    
+    public SubChart() {
+        this((ChartCollection)null);
+    }
+        
+    public final TChart getChart() {
+        if(chart == null) {
+            chart = new InnerChart(this, composite, style);
+            getData();
+        }
+        return chart;
+    }
+    
+    public void setChart(TChart value) {
+       chart = value; 
+    }
+    
+    public boolean clicked(int x, int y) {
+        return getBounds().contains(x, y);
+    }
+    
+    public int getHeight() {
+        return getChart().getHeight();
+    }
+    
+    public void setHeight(int value) {
+        getChart().setHeight(value);
+    }
+    
+    public int getWidth() {
+        return getChart().getWidth();
+    }
+    
+    public void setWidth(int value) {
+        getChart().setWidth(value);
+    } 
+    
+    public int getTop() {
+        return getChart().getBounds().y;
+    }
+    
+    public void setTop(int value) {
+        getChart().setBounds(getChart().getBounds().x, value, getWidth(), getHeight());
+    }
+    
+    public int getLeft() {
+        return getChart().getBounds().x;
+    }
+    
+    public void setLeft(int value) {
+        getChart().setBounds(value, getChart().getBounds().y, getWidth(), getHeight());
+    }
+    
+    public Tool getITool() {
+        return iTool;
+    }
+    
+    public Rectangle getBounds() {
+        return new Rectangle(getChart().getBounds());
+    }
+    
+    private void getData() {
+        if(!Utils.isNullOrEmpty(data)) {
+           Chart c = chart.getChart(); 
+           //chart.getImport().in
+        }
+    }
+}

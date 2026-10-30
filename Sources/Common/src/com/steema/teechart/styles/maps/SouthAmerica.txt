@@ -1,0 +1,29 @@
+260 Brazil
+19 Argentina
+615 Chile
+2100 Venezuela
+2101 Venezuela
+2102 Venezuela
+745 Colombia
+794 Ecuador
+795 Ecuador
+1517 Peru
+1063 Guyana
+1894 Trinidad and Tobago
+1895 Trinidad and Tobago
+1497 Suriname
+817 French Guiana
+219 Bolivia
+1514 Paraguay
+2097 Uruguay
+840 Argentina (Falkland Islands)
+841 Argentina (Falkland Islands)
+1324 Martinique (France)
+190 Barbados
+873 Grenada
+0 Aruba (Netherlands)
+1498 Antilles (Netherlands)
+1499 Antilles (Netherlands)
+746 Colombia (Malpelo Island)
+2099 Saint Vincent and the Grenadines
+1855 Saint Lucia

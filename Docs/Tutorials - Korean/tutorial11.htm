@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=EUC-kr">
+<title>TeeChart tutorial 11</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT>
+<font SIZE="2">&nbsp; <a HREF="Contents.HTM">목차</a>&nbsp;<br>
+    &nbsp; <a HREF="Tutorial10.htm">이전</a>&nbsp;</font>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<h2><a name="TeeChart_tutorial_14"></a>Tutorial 11 - 차트 인쇄하기</h2>
+
+
+
+
+<hr>
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#StdPrinting">차트 인쇄하기 (Standard Printing)</a></h3>
+<P>
+<A HREF="#PrintChart">간단한 프린트 명령 (Simple Print command)</A><BR>
+<A HREF="#Orientation">인쇄 방향 (Print Orientation)</A><BR>
+<A HREF="#Preview">인쇄 미리보기(Print Preview)</A><BR>
+<A HREF="#Greyscale">흑백톤으로 인쇄하기 (Greyscale printing)</A><BR>
+</p><h3><A HREF="#ExtPrinting">확장된 인쇄 메소드 (Extended Printing methods)</a></h3>
+<A HREF="#PrintMulti">다중 페이지 차트 인쇄하기 (Printing multiple page Charts)</A><BR>
+<A HREF="#PrintMany">한 페이지에 몇개의 차트 인쇄 미리보기 (Printing several Charts on one page)</A><BR>
+<A HREF="#MixingPrintOutput">다른 인쇄 출력과 인쇄된 차트 출력 혼합하기 (Mixing printed Chart output with other print output)</A><BR>
+
+  <p>
+</p></td></tr>
+</table>
+<hr>
+<h3><A Name="StdPrinting">표준 인쇄 (Standard Printing)</a></h3>
+<p>TeeChart Pro는 Onscreen 차트를 '있는 그대로' 프린터로 인쇄하는 표준 인쇄 메소드를 제공합니다.</p>
+<h4><A Name="PrintChart">간단한 인쇄 명령</a></h4>
+<p>차트를 인쇄하기 위해서 PrintChart 메소드를 사용합니다. 이것은 차트를 스크린에 나타난 것 그대로 인쇄하게 해 줍니다. </p>
+<p><i>예제</i></p>
+<pre>tChart1.getPrinter().print();
+</pre>
+<br>
+
+<h4><A Name="Orientation">프린트 방향 (Print Orientation)</a></h4>
+<p>PrintPortrait와 PrintLandscape 메소드는 비록 기본값으로 정의되어 있지 않더라도 이들은 인쇄방향을 결정할 수 있습니다. 기본값 인쇄 방향은 인쇄가 완성된 후에 다시 효과를 나타냅니다. 기본값 인쇄방향은 Orientation 속성을 이용하여 바꿀 수 있습니다. Orientation 메소드는 인쇄를 하게 하지는 않을 것입니다. 인쇄를 나중에 실행시켜야만 합니다: </p>
+<p><i>예제</i></p>
+<pre>tChart1.getPrinter().setLandscape(true);
+tChart1.getPrinter().print();</pre>
+<br>
+<h4><A Name="Preview">인쇄 미리보기 (Print Preview)</a></h4>
+<p>PrintPreview 창은 인쇄된 후에 어떻게 차트가 나타나는지를 보여줍니다. 인쇄 미리보기 창에서 인쇄 매개변수들을 변경할 수 있습니다.  PrintPreview (인쇄 미리보기)를 실행시키려면 다음과 같이 하십시오: </p>
+<pre>tChart1.getPrinter().preview(); 
+</pre>
+<br>
+<h4><A Name="Greyscale">흑백톤으로 인쇄하기</a></h4>
+<p>흑백프린터로 인쇄할 때는  차트의 색상이  회색 음영으로 바뀌면서 서로 쉽게 구분이 가는지를 살펴서 처리해야 합니다. 인쇄될 때 차트 시리즈에 브러쉬 스타일을 추가하면 좀 더 쉽게 시리즈를 구분할 수 있습니다.<br>
+<br>
+You can also print Grayscale Charts to color printers using the Grayscale 
+property: <br>
+&nbsp;</p>
+<pre>tChart1.getPrinter().setGrayscale(true);
+tChart1.getPrinter().print(true);</pre><br>
+
+<h3><A Name="ExtPrinting">확장된 인쇄 메소드 (Extended Printing methods)</a></h3>
+<h4><b><a name="PrintMulti">부분 인쇄 (Printing multiple Charts)</a></b></h4>
+<p>프린터에서 페이지를 꺼내지 않고 beginPrint()와 endPrint()를 사용하여 챠트를 보낼수가 있습니다;
+프린터 작업을 할때 시작과 마무리를 BeginPrint() 과 EndPrint()으로 할수있습니다.
+또한 하나 이상의 차트를 같은 페이지/프린터 작업에 보낼 수 있으며 사용자 정의 입력도 포함될 수 있습니다. 
+<br>
+&nbsp;</p>
+<i>예제</i> (한페이지에 2개차트 프린트 - Prints 2 Charts to a page):<pre>     
+public void button1_actionPerformed(ActionEvent e) {
+
+	tChart1.getPrinter().beginPrint();
+        tChart1.getPrinter().print(tChart2.getChart().chart,new com.steema.teechart.Rectangle(100,10,300,200)); 
+        tChart1.getPrinter().print(new com.steema.teechart.Rectangle(100,300,300,200));        
+        tChart1.getPrinter().endPrint(); 
+}<br></pre>
+
+<h4><A name="PrintMany">한 페이지에 여러개의 차트 인쇄 미리보기(Print previewing several Charts on one page)</A></h4>
+<p>인쇄 미리보기 패널 (또는 TeePanel)은 이제 하나 이상의 차트를 허용합니다. 
+챠트 위치는 프린트 속성의 Rectangle을 세팅함으로으로 콘트롤 됩니다.<br>
+&nbsp;</p>
+<p><i>예제</i> (프린트 미리보기에서 2개차트 보여주기 - Shows 2 Charts in the Print Previewer): </p>
+<pre>    public void button1_actionPerformed(ActionEvent e) {
+
+        tChart1.getPrinter().beginPrint();
+        tChart1.getPrinter().print(tChart2.getChart().chart,new com.steema.teechart.Rectangle(100,10,300,200)); 
+        tChart1.getPrinter().print(new com.steema.teechart.Rectangle(100,300,300,200));        
+        tChart1.getPrinter().preview(); 
+}</pre>
+
+<h4><A name="MixingPrintOutput">다른 인쇄 출력과 인쇄된 차트 출력 혼합하기 (Mixing printed Chart output with other print output)</A></h4>
+<p>ChartPrint() 이벤트를 이용하여  TeeChart  인쇄 출력을 차트가 아닌 프린터 출력과 혼합할 수 있습니다. <BR>
+아래의 예제는 두개의 텍스트 박스로부터 텍스트를 끌어내어 TeeChart와 함께 한 페이지 위에 인쇄되게 합니다:
+<BR>
+</p>
+<pre>    public void button1_actionPerformed(ActionEvent e) {
+
+        tChart1.getPrinter().beginPrint();
+        tChart1.getPrinter().print(tChart2.getChart().chart,new com.steema.teechart.Rectangle(100,10,300,200)); 
+        tChart1.getPrinter().print(new com.steema.teechart.Rectangle(100,300,300,200));        
+        tChart1.getPrinter().endPrint(); 
+}
+
+    public void doChartPrint(Object sender, PrintPageEventArgs e) {        
+        e.drawString("Chart: "+((com.steema.teechart.printer.ChartPrintJob)sender).getChart().getHeader().getText(), 
+                     100,((com.steema.teechart.printer.ChartPrintJob)sender).getChart().getChartRect().getBottom()+10); 
+    }</pre>
+<br>
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial10.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2012 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

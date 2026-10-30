@@ -1,0 +1,366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<title>Tutorial 1 - Getting started</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TOPMARGIN=4>
+
+<DIV ID=one STYLE="z-index:-10;background-image:url('timages/headerback.png');position:absolute;top:0;left:0;height:75;width:110%">
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table>
+</DIV>
+
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+  <img src="timages/HeaderLogo.gif">
+</TD>
+<TD ALIGN=RIGHT>&nbsp;<A HREF="contents.htm">Contents&nbsp;page</A>&nbsp;<BR>&nbsp;<A HREF="tutorial2.htm">Next</A>&nbsp;
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<H2><a name="TeeChart_tutorial_1">Tutorial 1 - Getting started</a></H2>
+
+<p><b>Getting Started - building Charts and populating Data Series</b></p>
+<p><b>Contents</b><br>
+<b><a href="#Introduction">Introduction</a><br>
+
+<a href="#BuildChart">Building a Chart</a><br>
+<a href="#IncTChart">Including TeeChart on the Android Page</a><br>
+<a href="#PopSeries">Populate a new data Series</a><br>
+<a href="#SelSeries">Selecting a Series type to suit your needs</a><br>
+
+&nbsp;</b></p>
+
+<hr>
+
+<u><b>
+
+<a name="Introduction"><font size="3" face="Arial">Introduction</font></a></b></u><br> 
+<br>
+You may define the Chart appearance, titles, Legend characteristics and 3D aspect without having to include a data Series. 
+<br>
+That gives you the freedom to add and remove different data Series types at runtime without having to redefine the whole Chart look and feel.
+<br><br>
+<table><tr><td><img src="timages/pieces.png" border=0 width="188" height="86">&nbsp;<br><br>
+Everything comes together to make the final Chart, with Chart axes being the interface between Chart and Series. 
+  <br>
+  A Series has data, and its values will influence the label characteristics of the Chart axes. 
+  <br>
+  The axes appearance, colours, grid frequency and label fonts may all be defined for the Chart before adding data Series.
+  <br>
+  TeeChart will make a best estimate of most values to minimise the need for you to manually define Chart and Series 
+  methods.
+</td></tr></table>
+<p> <br>
+<br>
+The steps in this tutorial highlight how easy it is to build a Chart from scratch to enable you to modify and further enhance the appearance and functionality of the Chart 
+at runtime. Good Charting !!
+<br>&nbsp; </p>
+<HR>
+<font face="Arial">
+<a name="BuildChart"><u><b><font size="3">Building a Chart</font></b></u></a><font size="3">
+</font></font>
+<a name="IncTChart"><h3><font size="2">Including TeeChart on the Android Page</font></h3></a>
+
+You Android project will contain Activities in which you will want to include a TeeChart.
+
+For example:
+<pre>public class TeeChartDemo extends Activity { ...</pre>
+
+At some location in the code process you need to create the Chart. In the TeeChart demo it is created in the constructor of the class.
+
+Eg. (Your .java unit should include an import to '<b>com.steema.teechart.Chart</b>').
+<pre>
+/** Called when the activity is first created. */
+@Override
+public void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+
+	mainInstance = this;
+
+	Settings.initPreferences(this);
+
+	chart = new TChart(this); // new GLChart(this);
+	
+	//chart.setAutoRepaint(false); //optional, disable repaints whilst setting up chart variables
+	//...call here to any Chart setup routines
+
+	initLayout();
+
+	//chart.setAutoRepaint(true); //optional re-enable auto chart repaints
+}
+</pre>
+
+The call to initPreferences is optional, setting up the language for TeeChart messages and menus.
+
+<pre>
+final String currentLanguage = getCurrentLanguage();
+final String language = prefs.getString("language", currentLanguage);
+       
+if (! language.equalsIgnoreCase(currentLanguage))
+     	Language.activate(language);
+</pre>
+
+<hr>
+<p><b><a name="PopSeries"><font size="2">Populate a new data Series</font></a></b></p>
+
+For programmed input of data you will need to write some code. This section will show you the steps necessary to build a chart with coded input.
+<br><br>
+&nbsp;At runtime the Series will be empty of data unless you manually populate it. Create a button for the page and add the following code:
+
+<p>(Your .java unit should include an import to '<b>com.steema.teechart.styles.*</b>').</p>
+<pre>			
+Series bar = new Bar(chart.getChart());
+chart.getAxes().getBottom().setIncrement(1);
+bar.add(123, "Apples", Color.green);
+bar.add(456, "Oranges", Color.red);
+bar.add(321, "Kiwis", Color.yellow);
+bar.add(78, "Bananas", Color.orange);
+</pre>
+<p>Run the project and press the button. Four new bars will appear on your Chart. That's it !! There's no more to it.</p>
+
+<p>If you leave the colour variables out TeeChart will assign colours according to the selected Chart Theme Colour Palette.</p>
+e.g.
+<pre>			
+Series bar = new Bar(chart.getChart());
+bar.add(123, "Apples");
+bar.add(456, "Oranges");
+bar.add(321, "Kiwis");
+bar.add(78, "Bananas");
+</pre>
+<p>will give the following result:</p>
+<img border=0 src="timages/androidChart.jpg">
+<br><br>
+<p>The basic Series' <i><b>add</b></i> method accepts 3 variables, Value, Label and Colour. 
+
+The <i><b>add</b></i> method thus assumes equal spacing of values on the Label axis (in this case the X-Axis). 
+
+Several <i><b>add</b></i> overloads are available according to the Series Type you are using. The Bar Series will accept x and y values.
+<br>Add another button to your project and put this code in it. Run the Project and add points using this code:</p>
+<br>
+<pre>java.util.Random rnd = new java.util.Random();
+
+Series bar = new Bar(chart.getChart());
+
+if (bar.getCount() > 0)
+{
+// Increment X Axis value and add a new random point 
+	bar.add((bar.getXValues().getLast() + rnd.nextInt(10)), 
+		((bar.getYValues().getLast() / (bar.getYValues().getLast() - 1.0)) + 
+		rnd.nextInt(10)), "Lemons", Color.greenYellow); 
+}
+else
+{
+	// Add a new random point
+	bar.add(1, rnd.nextInt(10), "Lemons", Color.yellow);
+}
+</pre>
+<br>
+<p>
+<br>
+</p>
+<hr>
+<a name="SelSeries"><b><font size="2">Selecting a Series type to suit your needs</font></b></a>
+</p>
+<TABLE BORDER=1 BORDERCOLOR=#b5b500 CELLSPACING=1 CELLPADDING=7 WIDTH=450>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ceceff">
+<P><b>Series Type</b></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ceceff">
+<b>No. of variables</b></TD><TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ceceff">
+<P><b>Datasource Properties</b></TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Standard types</B></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Line</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Horizontal Line</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Fast Line</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Bar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues (called Bar), XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>HorizBar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues (called Bar), XLabel</TD>
+</TR>
+<tr>
+  <TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Area</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</tr>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P><span lang="es">HorizArea</span></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Point</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Xvalues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Pie</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+1</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>PieValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Arrow</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+4</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>StartXValues, StartYValues, XLabel, EndXValues, EndYValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Bubble</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Xvalues, YValues, XLabel, RadiusValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Gantt</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>StartValues, EndValues, AY (Y axis level), AXLabel (Label optionally shown on 
+Y-axis or as mark)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Shape</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+4</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>X0 (Top), Y0 (Bottom), X1 (Left), Y1 (Right)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Subset of Extended Types</B></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Bezier</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Candle</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+5</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>OpenValues, CloseValues, HighValues, LowValues, DateValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Contour</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel, ZValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Error Bar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel, ErrorValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Point3D</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel, ZValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Polar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, Labels (Polar has Angle and Radius)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Radar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, Labels (Radar has Angle and Radius)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>3D Surface</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, ZValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Volume</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues (VolumeValues), XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff" Colspan="3">
+<B><P>Other Series types</B></TD></TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff" Colspan="3">
+<P>There are many more TeeChart Series Types. Please check the definition
+of the Series type you wish to use, using either the programming environment's
+intellisense code prompt or the TeeChart Javadoc reference document.</TD></TR>
+</TABLE>
+
+<BR><BR><hr>
+<ALIGN="CENTER"><TABLE BORDER=0 CELLSPACING=1 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+</TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial2.htm">
+<img src="timages/fwdtut.gif" border=0 width="116" height="81"></a></TD>
+</TR>
+</TABLE>
+<hr>
+&copy; 1996-2018 Steema Software SL. All rights reserved.
+
+</BODY>
+</HTML>

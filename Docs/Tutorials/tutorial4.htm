@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Tutorial 4 - Axis Control</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD WIDTH=60%>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT><FONT SIZE=2>&nbsp;
+<A HREF="contents.htm">Contents&nbsp;page</A>&nbsp;<BR>&nbsp;
+<A HREF="tutorial3.htm">Previous</A>&nbsp;|&nbsp;<A HREF="tutorial5.htm">Next</A>&nbsp;<P></FONT>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<H2><A NAME="TeeChart_tutorial_4"></A>Tutorial 4 - Axis Control</H2>
+<hr>
+<p>
+TeeChart Pro will automatically define all Axis labelling for you and offers plenty of flexibility to tailor any specific requirements you may have. TeeChart Pro offers true Multiple Axes. These are available at
+design or run time and offer countless possibilities and flexibility for Axis definition. See the section in this tutorial for more information.
+</p>
+
+<!--Axes-->
+
+<table border=0 width=80% cellpadding=5><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#AxesControl">Axes control - Key areas</a></h3>
+
+<P>
+<A HREF="#Scales">Scales</A><BR>
+<A HREF="#Increment">Increment</A><BR>
+<A HREF="#Titles">Titles</A><BR>
+<A HREF="#Labels">Labels</A><BR>
+<A HREF="#Ticks">Ticks</A><BR>
+<A HREF="#Position">Axis position</A><BR>
+</p>
+<h3><A HREF="#AdditionalAxes">Additional Axes</a></h3>
+<A HREF="#CustomDraw">Copying axes</A><BR>
+<A HREF="#MultiAxis">Multiple Custom axes</A> (Pro version only)<BR>
+
+  <BR>
+</td></tr></table>
+<hr>
+<h3><A NAME="AxesControl">Axes control - Key areas</A></h3>
+
+<H4><A NAME="Scales"></A>Scales</H4>
+<p>
+Axis scales are set automatically when you add Series data to your Chart. You may change from the defaults at design time 
+by code or at runtime by using Axis methods.
+</p>
+<table height="297"><tr><td height="275"><img src="timages/axscale1.gif" width="555" height="370" ></td>
+  <td height="275">&nbsp;<p><br>When adding a new Series, the Scales section of the Axis Page of the Chart Editor will show<b> 
+  Visible</b> and<b> Automatic</b> selected and <b>Inverted </b>unchecked. In 
+  the bottom part of the editor there are two tabs, Maximum and Minimum. Here 
+  you can set the <b>Offset</b> values to displace the chart along the selected 
+  axis when <b>Auto</b> is unchecked.</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</td></tr>
+</table>
+<p>
+<b>Automatic</b> selects the best axis scale range to fit your data. If you turn Automatic off, the Scales section will activate options and you can change Axis values. <b>Important</b>, remember to select the Axis that you wish to configure from the Axis 
+list at the left of the page.
+</p>
+<p>Add a Line Series to a Chart add a Command Button with the following code:</p>
+<pre>tChart1.removeAllSeries();
+tChart1.addSeries(new Line()).fillSampleValues(40);</pre>
+<p>Running the code in the button will draw a Line Series with 40 random values.  You may now configure Maximum and 
+Minimum values for the Axis scale. </p>
+<pre>tChart1.getAxes().getBottom().setAutomatic(false);
+tChart1.getAxes().getBottom().setMaximum(36);
+tChart1.getAxes().getBottom().setMinimum(5);
+</pre>
+<p>Running the code again will show values depending on the values you configured for the Axis. Using the right button of of the mouse you may scroll to see the remaining values. </p>
+<p>You may set Axis scale Maximum and Minimum to automatic individually. eg:</p>
+<pre>tChart1.getAxes().getBottom().setAutomaticMaximum(true);
+tChart1.getAxes().getBottom().setMinimum(5);
+</pre>
+
+<h4><A NAME="Increment"></A><b>Increment</b></h4>
+<p>You may tailor the intervals for the Axis. Select the <b>Desired Increment</b> combobox from the Scales section of the Axis page and add the increment you require. You may change this by code at runtime:</p>
+<pre>tChart1.getAxes().getBottom().setIncrement(20);
+</pre>
+<p><b>Datetime data</b></p>
+<table height="297"><tr><td height="275"><img src="timages/SeriesGeneral.gif" width="483" height="390" ></td>
+  <td height="275">If your data is datetime (You may set the data to <b>DateTime</b> for your Series by going to the Series, General page, 
+  as seen in this image.), the Chart, Axis
+page and scales section will show a datetime range. Select from the range shown in the
+<b> Desired Increment</b> combobox.</td></tr>
+</table>
+<p><br>
+<br>
+<i>add some sample data</i></p>
+<pre>tChart1.getAxes().getBottom().setIncrement(Utils.getDateTimeStep(DateTimeStep.ONEDAY));
+tChart1.getAxes().getBottom().getLabels().setDateTimeFormat(&quot;dd
+MMM yyyy&quot;);
+
+DateTime d = DateTime.getNow(); d.add(5,1);
+tChart2.getSeries(0).add(d, 20); d.add(5,1);
+tChart2.getSeries(0).add(d, 30); d.add(5,1);
+tChart2.getSeries(0).add(d, 40); d.add(5,1);
+tChart2.getSeries(0).add(d, 35);
+
+</pre>
+<p>Change the Increment at runtime:</p>
+<pre> tChart2.getAxes().getBottom().setIncrement(com.steema.teechart.DateTimeStep.ONEWEEK);
+</pre>
+<p>See the Axis.ExactDateTime 
+method for more information about date axis labelling.</p>
+<p><i><b>Note</b></i></p>
+<p align="left">When changing axis label frequency, bear in mind that TeeChart will avoid label overlap according to the setting of the LabelsSeparation 
+method. This means that if the label frequency is too high for the labels to fit, then TeeChart will allocate 'best fit'. Changing the label angle and label separation are 2 options that may help you fit the labels you require. See the <A HREF="#Labels">Labels</a> section and LabelsAngle 
+method.</p>
+
+<h4><A NAME="Titles"></A><b>Titles</b></h4>
+<p>Titles are set in the Titles section of the Axis page. You may change the Title text for the Axis and its font. The angle may be selected from values 0, 90, 180, 270 degrees. For runtime see
+the TChartAxisTitle Component.</p>
+
+<h4><A NAME="Labels"></A><b>Labels</b></h4>
+
+<p><i><b>Note</b></i></p>
+<p>When changing axis label frequency, bear in mind that TeeChart will avoid label overlap according to the setting of the LabelsSeparation 
+method. This means that if the label frequency is too high for the labels to fit, then TeeChart will allocate
+a 'best fit'. Changing the label angle and label separation are 2 options that may help you fit the labels you require. See the <A HREF="#Labels">Labels</a> section and
+the LabelsAngle 
+method.</p>
+
+<p><b>Label formats</b><br>
+You may apply all standard number and date formats to Axis labels. The Axis page, Labels section contains the field "Values format". If your data is datetime the field name changes to "Date time format". In the Editor drag the help "?" icon onto the field to get a full listing of options. at runtime use:</p>
+<pre>tChart1.getAxes().getBottom().getLabels().setValueFormat(&quot;#,##0.00;(#,##0.00)&quot;);<span style="background-color: #FFFF00">
+
+</span>//or for Datetime data<span style="background-color: #FFFF00">
+
+</span>tChart1.getAxes().getBottom().getLabels().setDateTimeFormat(&quot;dddd/mmmm/yyyy&quot;);
+
+</pre>
+
+<p><b>MultiLine labels</b><br>
+Axis labels can be displayed as multi-line text instead of a single line of text.
+Lines are separated using the TeeLineSeparator global constant, which by default is the carriage-return ascii character ( #13 ).</p>
+
+<i>Example</i> 
+<pre>//Add the Series labels in this way and apply 'Marks' as Axis labelling style
+tChart1.getSeries(0).add(1234, &quot;New&quot;+com.steema.teechart.Texts.LineSeparator+&quot; cars&quot;, Color.Blue );
+tChart1.getSeries(0).add(2000, &quot;Old&quot;+com.steema.teechart.Texts.LineSeparator+&quot; bicycles&quot;, Color.Green);
+tChart1.getPanel().setMarginBottom(10);
+</pre>
+
+<i>Example for DateTime labels:</i>
+
+</p>
+
+
+<H4><A NAME="Ticks"></A>Ticks</H4>
+
+<table><tr><td><img src="timages/ticks.gif" width="275" height="150" ></td><td>&nbsp;&nbsp;&nbsp;</td><td><p>There are 3 tick types. You
+      can change the length, width and colour of each tick type. If the tick width is set to 1 (default) then you may change the style to one of several line types (dot, dash, etc.). Style will be ignored if width is greater than 1.</p></td></tr></table>
+<pre>tChart1.getAxes().getBottom().getTicks().setLength(7);
+tChart1.getAxes().getBottom().getTicks().setColor(Color.GREEN);
+tChart1.getAxes().getBottom().setMinorTickCount(10);
+</pre>
+
+<H4><A NAME="Position"></A>Axis position</H4>
+<p>Axes have a method which modifies where each axis is to be located. In this example, the axis is moved
+to 50% of the total Chart width, so it is shown at the chart center:</p>
+<pre>tChart1.getAxes().getLeft().setRelativePosition(50);
+</pre>
+
+
+<br>
+<hr>
+<h3><A NAME="AdditionalAxes">Additional Axes</a></h3>
+
+<H4><A NAME="Customdraw"></A>Copying axes</H4>
+<p>TeeChart offers 5 axes to be associated with data Series: Left, Top, Bottom,
+Right and Depth. When you add a new series to a Chart you may define to which of the axes the Series should be related (Go to the Series tab, General page). You may repeat
+any one (or all) of the 4 front axes at any place on the Chart by using the Axis Customdraw method. Note that this method makes a copy of your Axis, it does not add a new Custom Axis.  </p>
+<pre><span style="background-color: #FFFF00">//</span><span style="background-color: #FFFF00">fill</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> Series </span><span style="background-color: #FFFF00">for</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">this</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">example</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">with</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">random</span><span style="background-color: #FFFF00"> data
+</span><span style="background-color: #FFFF00">procedure</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">TForm1</span><span style="background-color: #FFFF00">.BitBtn1Click(Sender: </span><span style="background-color: #FFFF00">TObject</span><span style="background-color: #FFFF00">);
+</span><span style="background-color: #FFFF00">Var</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">t:integer</span><span style="background-color: #FFFF00">;
+</span><span style="background-color: #FFFF00">begin</span><span style="background-color: #FFFF00">
+  </span><span style="background-color: #FFFF00">For</span><span style="background-color: #FFFF00"> t := 0 </span><span style="background-color: #FFFF00">To</span><span style="background-color: #FFFF00"> 20 do
+    Series1.</span><span style="background-color: #FFFF00">AddXY(t</span><span style="background-color: #FFFF00">, </span><span style="background-color: #FFFF00">Random</span><span style="background-color: #FFFF00">(100) - </span><span style="background-color: #FFFF00">Random</span><span style="background-color: #FFFF00">(70), '', </span><span style="background-color: #FFFF00">clRed</span><span style="background-color: #FFFF00">);
+</span><span style="background-color: #FFFF00">end</span><span style="background-color: #FFFF00">;
+
+//</span><span style="background-color: #FFFF00">Put</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">this</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">code</span><span style="background-color: #FFFF00"> in </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">OnBeforeDrawValues</span><span style="background-color: #FFFF00">() </span><span style="background-color: #FFFF00">event</span><span style="background-color: #FFFF00">:
+</span><span style="background-color: #FFFF00">procedure</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">TForm1</span><span style="background-color: #FFFF00">.Series1BeforeDrawValues(Sender: </span><span style="background-color: #FFFF00">TObject</span><span style="background-color: #FFFF00">);
+</span><span style="background-color: #FFFF00">var</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> :</span><span style="background-color: #FFFF00">Integer</span><span style="background-color: #FFFF00">;
+</span><span style="background-color: #FFFF00">begin</span><span style="background-color: #FFFF00">
+  </span><span style="background-color: #FFFF00">With</span><span style="background-color: #FFFF00"> Chart1 do
+  </span><span style="background-color: #FFFF00">begin</span><span style="background-color: #FFFF00">
+    </span><span style="background-color: #FFFF00">If</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">LeftAxis.Maximum</span><span style="background-color: #FFFF00"> &gt; 0 </span><span style="background-color: #FFFF00">Then</span><span style="background-color: #FFFF00">
+    </span><span style="background-color: #FFFF00">begin</span><span style="background-color: #FFFF00">
+      //</span><span style="background-color: #FFFF00">When</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">scrolling</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">or</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">on</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">zoom</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">always</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">keep</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">gridlines</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">enclosed</span><span style="background-color: #FFFF00"> in </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">Chart</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">rectangle</span><span style="background-color: #FFFF00">
+      </span><span style="background-color: #FFFF00">Canvas.ClipRectangle(ChartRect</span><span style="background-color: #FFFF00">);
+      //</span><span style="background-color: #FFFF00">Always</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">draw</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> 2nd vertical </span><span style="background-color: #FFFF00">Axis</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">at</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">middle</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">point</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">of</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">Chart</span><span style="background-color: #FFFF00">
+      </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> := (</span><span style="background-color: #FFFF00">ChartRect.Left</span><span style="background-color: #FFFF00">) + (</span><span style="background-color: #FFFF00">ChartRect.Right</span><span style="background-color: #FFFF00"> - </span><span style="background-color: #FFFF00">ChartRect.Left</span><span style="background-color: #FFFF00">) </span><span style="background-color: #FFFF00">div</span><span style="background-color: #FFFF00"> 2;
+      </span><span style="background-color: #FFFF00">LeftAxis.CustomDraw(posaxis</span><span style="background-color: #FFFF00"> - 10, </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> - 20, </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00">, </span><span style="background-color: #FFFF00">True</span><span style="background-color: #FFFF00">);
+      //</span><span style="background-color: #FFFF00">Draw</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> 2nd Horizontal </span><span style="background-color: #FFFF00">axis</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">at</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">level</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">of</span><span style="background-color: #FFFF00"> &quot;10&quot; </span><span style="background-color: #FFFF00">on</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> vertical </span><span style="background-color: #FFFF00">axis</span><span style="background-color: #FFFF00">
+      </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> := (</span><span style="background-color: #FFFF00">LeftAxis.CalcYPosValue</span><span style="background-color: #FFFF00">(10));
+      </span><span style="background-color: #FFFF00">BottomAxis.CustomDraw(posaxis</span><span style="background-color: #FFFF00"> + 10, </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> + 40, </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00">, </span><span style="background-color: #FFFF00">True</span><span style="background-color: #FFFF00">);
+      </span><span style="background-color: #FFFF00">Canvas.UnClipRectangle</span><span style="background-color: #FFFF00">;
+    </span><span style="background-color: #FFFF00">end</span><span style="background-color: #FFFF00">;
+  </span><span style="background-color: #FFFF00">end</span><span style="background-color: #FFFF00">;
+</span><span style="background-color: #FFFF00">end</span><span style="background-color: #FFFF00">;</span>
+</pre>
+<table><tr><td><img src="timages/custaxis.gif" width="478" height="282" ></td><td>&nbsp;&nbsp;&nbsp;</td><td><b>Custom axes</b></td></tr></table>
+<p>In this example, TeeChart will plot the New axes, one horizontal and one vertical in the centre of your Chart. When you scroll the Chart (dragging with right mouse button), the new vertical axis will always remain central to the Chart, the new horizontal axis will move up and down with vertical scrolling. The new axes are exact copies of the default axes.</p>
+<hr>
+<H4><A NAME="MultiAxis"></A>Multiple Custom Axes (Pro version only)</H4>
+<p>Together with the PositionPercent and stretching properties, it’s possible to have unlimited axes floating anywhere on the chart. Scroll , zoom , and axis hit-detection also apply to custom-created axes.  Creating extra axes is
+now possible both at designtime via the Chart Editor and at runtime via a few lines of code:</p>
+<p>&nbsp;</p>
+<p><b>Via the Chart Editor</b><br>
+TeeChart offers you the ability to create custom axes at designtime enabling 
+them to be saved in TeeChart's tee file format. To achieve this, open the Chart 
+Editor and click on the Axis tab and then select the &quot;+&quot; button to add a Custom 
+Axis. Then select the Position tab making sure you have your new Custom Axis 
+highlighted. The Horizontal checkbox on this page allows you to define your new 
+Custom Axis as an horizontal axis or to leave it as the default vertical axis. 
+The rest of this page and the other tabs in the Axis page can be used to change 
+the Scales, Increment, Titles, Labels, Ticks, Minor Ticks and Position of the 
+Custom Axis as explained above. To associate this new Custom Axis with the Data 
+Series you desire select the Series tab and go to the General page where the 
+dropdown Comboboxes 'Horizontal Axis' and 'Vertical Axis' will enable you to 
+select your new Custom Axis depending on whether you previously defined it as 
+vertical or horizontal. </p>
+<p><b>Via Code</b></p>
+<i>Example</i>
+<pre>Line line1 = new Line();
+Line line2 = new Line();
+  tChart2.getAspect().setView3D(false);
+  tChart2.getPanel().getGradient().setVisible(true);
+  tChart2.getHeader().setText(&quot;TeeChart Multiple Axes&quot;);
+  tChart2.getSeries(0).add(line1);
+  tChart2.getSeries(1).add(line2);
+    for(int t = 0; t &lt;= 10; ++t) {
+      line1.add(t, (10 + t), Color.Red);
+      if(t &gt; 1) { 
+        line2.add(t, t, Color.Green);
+    }
+} 
+  tChart2.getAxes().getLeft().setStartPosition(0);
+  tChart2.getAxes().getLeft().setEndPosition(50);
+  tChart2.getAxes().getLeft().getAxisPen().color = Color.Red;
+  tChart2.getAxes().getLeft().getTitle().getFont().setColor(Color.Red);
+  tChart2.getAxes().getLeft().getTitle().getFont().setBold(true);
+  tChart2.getAxes().getLeft().getTitle().setText(&quot;1st Left Axis&quot;);</pre>
+You are able to then position the new Axis in overall relation to the Chart by <br>using the StartPosition and EndPosition methods.
+These figures are expressed as percentages of the Chart Rectangle with 0 (zero) (in the case of a <br>vertical Axis) being Top. These properties can be applied to the Standard Axes to create<br>completely partitioned 'SubCharts' within the Chart. </pre>
+<pre><span style="background-color: #FFFF00">
+</span>&nbsp; Axis axis1 = new Axis(false, false, tChart2.getChart());
+&nbsp; tChart2.getAxes().getCustom().add(axis1);
+&nbsp; line2.setCustomVertAxis(axis1);
+&nbsp;&nbsp;&nbsp; axis1.setStartPosition(50);
+&nbsp;&nbsp;&nbsp; axis1.setEndPosition(100);
+&nbsp;&nbsp;&nbsp; axis1.getAxisPen().setColor(Color.Green);
+&nbsp;&nbsp;&nbsp; axis1.getTitle().getFont().setColor(Color.Green);
+&nbsp;&nbsp;&nbsp; axis1.getTitle().getFont().setBold(true);
+&nbsp;&nbsp;&nbsp; axis1.getTitle().setText(&quot;Extra Axis&quot;);
+&nbsp;&nbsp;&nbsp; axis1.setRelativePosition(20);
+&nbsp;&nbsp;&nbsp; }
+}&nbsp;&nbsp;&nbsp;
+</pre><p>The above coded example will show the following Chart:</p><table><tr><td><img src="timages/multaxis.gif" width="401" height="251" ></td><td>&nbsp;&nbsp;&nbsp;</td><td><b>Multiple axes</b></td></tr></table><p><br>
+
+</p>
+<p>Options are limitless! We advise caution when using Custom Axes as it is easy to start filling the screen with new axes and to lose track of which one you wish to manage !</p><p>&nbsp;</p>
+
+<hr>
+<BR>
+<P ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial3.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD><TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial5.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD></TR></TABLE></CENTER><hr>
+&copy; 1996-2018 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

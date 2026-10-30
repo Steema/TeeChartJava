@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : features.xml
+    Author     : tom
+    Description: TeeChart features demo population tree.
+-->
+
+<features>
+    <all>
+        <group caption="Welcome!">
+                <feature caption="Basic features" classpath="BasicFeatures" />
+       		<group caption="New Series">
+                        <feature caption="Kernel Density Estimator Violin" classpath="style.violin.ViolinDemo"/>
+                        <feature caption="KDE Horizontal Violin" classpath="style.violin.HorizViolinDemo"/>                    
+                        <feature caption="Kernel Density Estimator BeeSwarm" classpath="style.beeswarm.BeeSwarmDemo"/>
+                        <feature caption="KDE Horizontal BeeSwarm" classpath="style.horizbeeswarm.HorizBeeSwarmDemo"/>                    
+       		</group>
+        </group>
+    </all>
+</features>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Data/tcoherence/TeeChart Java/Version 3/Demos/SWT/Features/src"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TeeChartSWT"/>
+	<classpathentry kind="lib" path="E:/Program Files (x86)/eclipse-installer/plugins/org.eclipse.swt.win32.win32.x86_3.104.1.v20150825-0743.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,64 @@
+<PreferenceScreen
+    android:key="prefScreen"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+            android:key="pcAspect"
+            android:title="Aspect">
+        <SwitchPreference
+            android:key="sw3d"
+            android:title="@string/pref_title_3d_view"
+            android:summary="@string/pref_description_3d_view"/>
+        <SwitchPreference
+            android:key="swOrthogonal"
+            android:title="@string/pref_title_orthogonal_projection"
+            android:summary="@string/pref_description_orthogonal_projection"/>
+
+        <android.teechart.steema.com.androiddemo.NumberPickerPreference
+            android:key="prefPerspective"
+            android:title="@string/prefPerspective"
+            android:defaultValue="100" />
+        <android.teechart.steema.com.androiddemo.NumberPickerPreference
+            android:key="pref3dPercent"
+            android:title="@string/pref3dPercent"
+            android:defaultValue="10" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Axes" android:key="pcAxes">
+        <ListPreference
+            android:key="lsAxes"
+            android:defaultValue="Left"
+            android:title="Axis"
+            android:entries="@array/lsAxes"
+            android:entryValues="@array/lsAxes"/>
+        <SwitchPreference
+            android:key="swVisibleAxes"
+            android:title="@string/swVisibleAxes"/>
+        <SwitchPreference
+            android:key="swInvertedAxes"
+            android:title="@string/swInvertedAxes"/>
+        <SwitchPreference
+            android:key="swGrid"
+            android:title="Grid">
+            </SwitchPreference>
+        <EditTextPreference
+            android:key="EtPref"
+            android:title="Title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Legend">
+        <SwitchPreference
+            android:key="swVisibleLegend" android:title="Visible"/>
+        <ListPreference android:title="Legend Position" android:key="lsLegendPos" android:entryValues="@array/lsLegend" android:entries="@array/lsLegend"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Series" android:key="pcMarks">
+        <SwitchPreference android:title="Marks" android:key="swMarks"/>
+        <SwitchPreference android:title="Color each" android:key="swColorsEach"/>
+        <EditTextPreference android:title="Title" android:key="etSerieTitle"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Zoom">
+        <ListPreference android:title="Select Zoom type" android:entries="@array/lsZoom" android:entryValues="@array/lsZoom" android:key="lsZoom"/> <!--Add sumary-->
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/itSettings"
+        android:title="@string/itSettings"
+        />
+    <item
+        android:id="@+id/itChangeTheme"
+        android:title="@string/itChangeTheme"
+        />
+    <item
+        android:id="@+id/itEditor"
+        android:title="@string/itEditor"
+        />
+    <item
+        android:id="@+id/itDescription"
+        android:title="@string/itDescription"
+        />
+    <item
+        android:id="@+id/itShare"
+        android:title="@string/itShare"
+        />
+    <item
+        android:id="@+id/itSaveAsFile"
+        android:title="@string/itSaveAsFile"
+        />
+    <item
+        android:id="@+id/itSaveAsImage"
+        android:title="@string/itSaveAsImage"
+        />
+</menu>

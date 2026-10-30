@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Tutorial 8 - Zoom and Scroll</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT>
+<font SIZE="2">&nbsp; <a HREF="contents.htm">Contents&nbsp;page</a>&nbsp;<br>
+    &nbsp; <a HREF="tutorial7.htm">Previous</a>&nbsp;|&nbsp;<a HREF="tutorial9.htm">Next</a>&nbsp;</font>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<h2><a name="TeeChart_tutorial_11"></a>Tutorial 8 - Zoom and Scroll</h2>
+
+<hr>
+<p>Zoom and Scroll are useful aids for focusing on specific data in a densely populated Chart. See the Visual Basic example code in folders 'Animated Zoom' and 'Scrolling'.</p>
+
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#Manual">How to Zoom and Scroll using the Mouse</a></h3>
+<P>
+<A HREF="#ManZoom">Zoom</A><BR>
+<A HREF="#ManScroll">Scroll</A><BR>
+</p>
+<h3><A HREF="#Code">How to Zoom and Scroll by code</a></h3>
+<p>
+<A HREF="#CodeZoom">Zoom</A><BR>
+<A HREF="#CodeAnimZoom">Animated Zoom</A><BR>
+<A HREF="#ZoomEvents">Zoom events</A><BR>
+<A HREF="#CodeScroll">Scroll</A><BR>
+</p>
+</td></tr></table>
+<hr>
+<h3><A Name="Manual">How to Zoom and Scroll using the Mouse</a></h3>
+<h4><A Name="ManZoom">Zoom</a></h4>
+<p>To zoom in on a Chart, press the <b>right mousebutton</b> at the top left hand corner of the area you wish to zoom in on and, maintaining the mousebutton pressed, drag out the rectangle to the bottom righthand corner of the zoom area.
+Releasing the mousebutton will force the Chart to redraw the area selected.</p>
+<p>To undo the zoom, press the left mousebutton anywhere on the Chart area and drag up and left with the mousebutton depressed.
+Releasing the button will force the Chart to redraw to the originally defined Chart area.</p>
+<h4><A Name="ManScroll">Scroll</a></h4>
+<p>To scroll a Chart across, press the <b>left mousebutton</b> and, maintaining the mousebutton pressed, drag the mouse in the direction you wish to scroll the Chart. When you release the mousebutton the Chart will remain at the new location.</p>
+<p>To undo the scroll, press the left mousebutton anywhere on the Chart area and drag up and left with the mousebutton depressed.
+Release the button and the Chart will redraw to the originally defined Chart area.</p>
+
+<h3><A Name="Code">How to Zoom and Scroll by code</a></h3>
+<h4><A Name="CodeZoom">Zoom</A></h4>
+<p>Zoom is, by default, enabled. Use the Zoom.getAllow method to disable zoom. 
+<br>
+See the Zoom Class for a full list of methods associated with Zoom. To define a 
+rectangular area over which to Zoom use the ZoomRect method. <br>
+&nbsp;</p>
+<p><i>Example</i></p>
+<pre>tChart1.getZoom().zoomRect(new com.steema.teechart.Rectangle(100,100,120,120));
+</pre>
+<p>The ZoomRect co-ordinates are defined in screen pixels where 0,0 is the top left hand point of the Chart Panel.
+The following code will zoom in on an area between the 2nd and 5th x-axis points, setting the y-axis to the scale of the maximum and minimum points of the entire Chart:</p>
+<pre>int x = points1.calcXPos(2); 
+int y = tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMaxYValue()); 
+int height = tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMinYValue()) - 
+tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMaxYValue()); 
+int width = points1.calcXPos(5) - x; 
+com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(x,y,width,height); 
+tChart1.getZoom().zoomRect(r);
+
+</pre>
+<p>Use 'Undo' to Zoom back out.</p>
+<pre>tChart1.getZoom().undo();
+</pre>
+<br>
+<h4><A Name="CodeAnimZoom">Animated Zoom</a></h4>
+<p>Animated Zoom offers stepped zooming. Instead of jumping from 'zoomed out' to 'zoomed in' in one step, you may set AnimatedZoom to enabled and define staggered steps for the zoom. Once AnimatedZoom is enabled you may zoom manually with the Mouse or by code.</p>
+<p><i>Example</i></p>
+<pre><span style="background-color: #FFFF00">
+</span>int x = points1.calcXPos(2); 
+int y = tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMaxYValue()); 
+int height = tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMinYValue()) - 
+tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMaxYValue()); 
+int width = points1.calcXPos(5) - x; 
+com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(x,y,width,height); 
+tChart1.getZoom().setAnimated(true); 
+tChart1.getZoom().setAnimatedSteps(100); 
+tChart1.getZoom().zoomRect(r);
+</pre>
+<br>
+
+<h4><A NAME="ZoomEvents">Zoom events</A></h4>
+<p>Zooming in manually, or by code, will trigger the
+<span style="background-position: 0% 0%">T</span>Chart.Zoomed event. Zooming out will trigger the 
+TChart.UndoneZoom event.</p>
+<br>
+
+
+<h4><A Name="CodeScroll">Scroll</a></h4>
+<p>Scroll is enabled in all directions as default. Use the Scroll.Allow property 
+to disable Scroll or limit Scroll to one direction.<br> The easiest way to scroll by 
+code is to use the Axis Scroll method:</p>
+<p><i>Example</i></p>
+<pre>tChart2.getAxes().getBottom().scroll(3, false);
+</pre>
+<p>The value is the offset. 'False' refers to whether or not TeeChart will allow 
+scrolling beyond Series value limits. <br>
+<br>
+Another way to control scroll is to define Axis maximum and minumum to scroll by 
+code: <br>
+<br>
+&nbsp;</p>
+<p><i>Example</i></p>
+<pre>private void Load() {
+        int range = com.steema.teechart.Utils.Round((bar1.getXValues().getMaximum() - bar1.getXValues().getMinimum() / 2)); 
+        bar1.fillSampleValues(20); 
+        tChart1.getPanning().setAllow(ScrollModes.NONE); 
+        jScrollBar1.setValue(range); 
+        jScrollBar1.setMinimum(range - 50); 
+        jScrollBar1.setMaximum(range + 50); 
+}
+
+    public void jScrollBar1_propertyChange(PropertyChangeEvent evt) {
+        tChart1.getAxes().getBottom().setAutomatic(false);         
+        tChart1.getAxes().getBottom().setMinimum(jScrollBar1.getValue());
+        tChart1.getAxes().getBottom().setMaximum(jScrollBar1.getValue() + bar1.getCount()); 
+}
+</pre>
+
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial7.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial9.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2018 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

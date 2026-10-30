@@ -1,0 +1,25 @@
+25 Australia
+28 Australia
+50 Australia
+53 Australia
+238 Solomon Islands
+240 Solomon Islands
+245 Solomon Islands
+246 Solomon Islands
+254 Solomon Islands
+256 Solomon Islands
+258 Solomon Islands
+1501 New Zealand
+1502 New Zealand
+1503 New Zealand
+1504 New Zealand
+1511 New Zealand
+1538 Papua New Guinea
+1539 Papua New Guinea
+1540 Papua New Guinea
+1541 Papua New Guinea
+1560 Papua New Guinea
+1397 New Caledonia
+831 Fiji
+834 Fiji
+1407 Vanuatu

@@ -1,0 +1,4 @@
+include ':teechart'
+
+include ':Sources:Android'
+project(':Sources:Android').projectDir = new File('../../Sources/Android')

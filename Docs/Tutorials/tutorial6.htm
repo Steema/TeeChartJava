@@ -1,0 +1,614 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Tutorial 6 - Working with Series</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#ffffff TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT>
+<FONT SIZE=2>&nbsp;
+<A HREF="contents.htm">Contents&nbsp;page</A>&nbsp;<BR>&nbsp;
+<A HREF="tutorial5.htm">Previous</A>&nbsp;|&nbsp;<A HREF="tutorial7.htm">Next</A>&nbsp;</FONT>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<H2><A NAME="TeeChart_tutorial_6"></A>Tutorial 6 - Working with Series</H2>
+<hr>
+
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#SeriesTypes">Series Types</a></h3>
+<P>
+<A HREF="#SeriesHierarchy">Series Class structure</A><BR>
+<A HREF="#ChooseSeries">Choosing a Series Type</A><BR>
+<A HREF="#AddToSeries">Adding data to a Series</A><BR>
+<A HREF="#DeleteFromSeries">Deleting data points from a Series</A><BR>
+<A HREF="#NullPoints">Adding Null points to a Series</A><BR>
+</p>
+<h3><A HREF="#MixingSeries">Mixing Series Types on a Chart</a></h3>
+<p>
+<A HREF="#AddSeries">Adding New Series</A><BR>
+<A HREF="#ChooseAxis">Choose Axes for a Series</A><BR>
+<A HREF="#ConnectSeries">Connecting Series</A><BR>
+<A HREF="#ChangeSeriesOrder">Changing Series order</A><BR>
+</p>
+<h3><A HREF="#Valuelist">Series Value list</a></h3>
+<p>
+<A HREF="#EgValues">Example using Values</A><BR>
+</p>
+<h3><A HREF="#SeriesEvents">Series Events</A><BR></h3>
+<A HREF="#GetPointer">OnGetSeriesPointerStyle<</A><BR>
+<A HREF="#GetMarkText">OnGetSeriesMark</A><BR>
+</p>
+</td></tr></table>
+<hr>
+<h3><A NAME="SeriesTypes">Series Types</A></h3>
+<p>The TChartSeries component is the common ancestor for all Series types.</p>
+<H4><A NAME="SeriesHierarchy">Series Class structure</A></h4>
+<p>As a little background on the structure of the TeeChart Type Library, here is 
+an explanation of the Series classes and interfaces. The diagram below shows the 
+relationship between TeeChart Series classes. All classes derive from the 
+generic &quot;Series&quot; class and thus share &quot;Series&quot; methods. Several 
+abstract Classes derive from Series (Custom3DSeries, CustomBarSeries and 
+CircledSeries), these are highlighted in grey and their interfaces are not 
+directly accessible for programming, their characteristics are inherited by 
+their descendant Series types. All derived Series (in orange) are accessible in 
+the TeeChart gallery for inclusion in your Chart. TeeChart Series, derived in 
+this way, allow programmable access to the inherited methods via 
+a common index structure (see example code later in this section). <br>
+&nbsp;</p>
+
+<table border=0 width=80% cellpadding = 3><tr><td>
+  <img border="0" src="timages/seriestree.png"></td><td><b>TeeChart Pro's internal Series Class hierarchy</b></td></tr></table>
+
+<p>You can create and add new and differing Series types to the same Chart at 
+design time.</p>
+
+<pre>//Add a series at runtime 
+public void jButton2_actionPerformed(ActionEvent e) {
+
+	Area area1 = new Area(tChart1.getChart());
+        area1.fillSampleValues(4);
+      
+//Or 
+//Area area1 = new Area();
+//tChart1.getSeries().add(area1);
+//area1.fillSampleValues(4);//tChart1.Series.Add(tmpAreaSeries); 
+}
+</pre>
+
+
+<p>An example of mixing different series classes in the same Chart would be to 
+add a Area (Series(0)), Bar (Series(1)) and Line (Series(2)) Series to a Chart at design time.<br> All access a common index structure, 
+the Chart's Series list. To work with the Series may look something like the 
+below: </p>
+
+<p>
+<pre>//You could add the Series at runtime  
+               Area area1 = new Area(tChart1.getChart().chart); 
+               Bar bar1 = new Bar(tChart1.getChart().chart); 
+               Line line1 = new Line(tChart1.getChart().chart); 
+          
+               //Use Series common properties  
+               tChart1.getSeries(0).fillSampleValues(10); 
+               tChart1.getSeries(1).fillSampleValues(10); 
+               tChart1.getSeries(2).fillSampleValues(10); 
+               tChart1.getSeries(1).getMarks().setVisible(false); 
+               tChart1.getSeries(2).getMarks().setVisible(false); 
+          
+               //Modify Bar specific properties  
+               bar1.setBarStyle(BarStyles.PYRAMID);
+               bar1.getPen().setColor(Color.Yellow);
+                         
+               //Modify Line specific properties  
+               line1.setStairs(true); //Set line to Stairs  
+               line1.getLinePen().setColor(Color.Blue); //LineSeries bounding lines colour  
+          
+               //Modify Area specific properties  
+               area1.getAreaBrush().setStyle(HatchStyle.CROSS); //Area fill pattern
+</pre> <br>
+&nbsp;</p>
+
+<H4><A NAME="ChooseSeries">Choosing a Series Type</A></H4>
+<p>Choosing a Series Type for a Chart will very much depend on your own requirements for the Chart. There are occasions, however,
+where the choice of Chart depends on which Series types support the number of input
+variables because of the high number of variables to plot. The following table shows the number of variables allowed by a sample of Series types.</p>
+<BR>
+<ALIGN="LEFT"><LEFT><TABLE BORDER=1 BORDERCOLOR=#b5b500 CELLSPACING=1 CELLPADDING=7 WIDTH=450>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ceceff">
+<P><b>Series Type</b></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ceceff">
+<b>No. of variables</b></TD><TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ceceff">
+<P><b>Datasource Properties</b></TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Basic</B></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Line</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Fast Line</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Bar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues (called Bar), XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>HorizBar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues (called Bar), XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Area</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Point</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Xvalues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Pie</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+1</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>PieValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Arrow</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+4</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>StartXValues, StartYValues, XLabel, EndXValues, EndYValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Bubble</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Xvalues, YValues, XLabel, RadiusValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Gantt</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>StartValues, EndValues, AY (Y axis level), AXLabel (Label optionally shown on Y-axis or as mark)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Shape</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+4</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>X0 (Top), Y0 (Bottom), X1 (Left), Y1 (Right)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Extended</B></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Bezier</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Candle</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+5</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>OpenValues, CloseValues, HighValues, LowValues, DateValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Contour</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel, ZValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Error Bar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel, ErrorValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Point3D</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel, ZValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Polar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, Labels (Polar has Angle and Radius)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Radar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, Labels (Radar has Angle and Radius)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>3D Surface</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, ZValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Volume</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues (VolumeValues), XLabel</TD>
+</TR>
+</TABLE>
+
+<p>Labelling can be used to extend the value of a 2 variable Series Type. See the example below that uses 3 instances of the Bar Series type in the same Chart.</p>
+<p><b>Example</b></p>
+<p><i>Uses Bar Series types</i></p>
+<table>
+<tr><td><b>Product code</b></td><td><b>Month</b></td><td><b>Quantity produced</b></td></tr>
+<tr><td>10</td><td>Jan</td><td>300</td></tr>
+<tr><td>10</td><td>Feb</td><td>325</td></tr>
+<tr><td>10</td><td>Mar</td><td>287</td></tr>
+<tr><td>12</td><td>Jan</td><td>175</td></tr>
+<tr><td>12</td><td>Feb</td><td>223</td></tr>
+<tr><td>12</td><td>Mar</td><td>241</td></tr>
+<tr><td>14</td><td>Jan</td><td>461</td></tr>
+<tr><td>14</td><td>Feb</td><td>470</td></tr>
+<tr><td>14</td><td>Mar</td><td>455</td></tr>
+</table>
+<p>In its simplest form, the data produces the following Chart, grouping the information by month:</p>
+<img src="timages/series1.gif" width="364" height="247">
+<p>or (grouping by product):</p>
+<img src="timages/series2.gif" width="364" height="247">
+<p><br></p>
+<p>We have added new values to the table above (Stock).</p> 
+<table>
+<tr><td><b>Product code</b></td><td><b>Month</b></td><td><b>Quantity produced</b></td><td><b>Stock level</b></td></tr>
+<tr><td>10</td><td>Jan</td><td>300</td><td>600</td></tr>
+<tr><td>10</td><td>Feb</td><td>325</td><td>715</td></tr>
+<tr><td>10</td><td>Mar</td><td>287</td><td>676</td></tr>
+<tr><td>12</td><td>Jan</td><td>175</td><td>245</td></tr>
+<tr><td>12</td><td>Feb</td><td>223</td><td>270</td></tr>
+<tr><td>12</td><td>Mar</td><td>241</td><td>315</td></tr>
+<tr><td>14</td><td>Jan</td><td>461</td><td>800</td></tr>
+<tr><td>14</td><td>Feb</td><td>470</td><td>755</td></tr>
+<tr><td>14</td><td>Mar</td><td>455</td><td>835</td></tr>
+</table>
+<p>The values of stock are generally higher than those of monthly production so displaying them gives the following chart (2D this time). The Chart uses Line Series to differentiate Stocks.</p>
+<img src="timages/series3.gif" width="347" height="281">
+<p><br></p>
+<h4><A NAME="AddToSeries">Adding data to a Series</A></h4>
+<p>Most Series types (other than Functions <A HREF="Tutorial7.htm">Tutorial 7</A>) use the Add and ADDXY methods for adding data. There are some exceptions, see the following table:</p>
+<BR>
+<ALIGN="LEFT"><LEFT><TABLE BORDER=1 BORDERCOLOR=#b5b500 CELLSPACING=1 CELLPADDING=7 WIDTH=450>
+<TR><TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ceceff">
+<b>Series Type</b></TD>
+<TD WIDTH="25%" VALIGN="TOP" BGCOLOR="#ceceff">
+<b>Add Series points</b></TD><TD WIDTH="25%" VALIGN="TOP" BGCOLOR="#ceceff">
+<b>Delete Series points</b></TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">&nbsp;</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+&nbsp;</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">&nbsp;</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+<B>Standard Series types</B></TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+&nbsp;</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">&nbsp;</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Line</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Add<br>Series.AddXY<br>Series.AddNull<br>Series.AddNullXY</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>
+Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Horiz Line</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Add<br>Series.AddXY<br>Series.AddNull<br>
+Series.AddNullXY</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>
+Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Fast Line</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Add<br>Series.AddXY<br>Series.AddNull<br>Series.AddNullXY</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Bar</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Add<br>Series.AddXY<br>Series.AddNull<br>Series.AddNullXY</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+HorizBar</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Add<br>Series.AddXY<br>
+Series.AddNull<br>
+Series.AddNullXY</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>
+Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Area</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Add<br>Series.AddXY<br>
+Series.AddNull<br>
+Series.AddNullXY</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>
+Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Point</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Add<br>Series.AddXY<br>Series.AddNull<br>
+Series.AddNullXY</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Pie</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Add<br>Series.AddNull</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Arrow</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+ArrowSeries.AddArrow<br>Series.AddNull<br>Series.AddNullXY</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Bubble</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+BubbleSeries.AddBubble<br>Series.AddNull<br>Series.AddNullXY</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Gantt</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+GanttSeries.AddGantt<br>GanttSeries.AddGanttColor</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Series.Delete<br>Series.Clear</TD>
+</TR>
+<TR><TD VALIGN="TOP" BGCOLOR="#ffffd9">
+Shape</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+ShapeSeries.X0,<br>ShapeSeries.Y0,<br>ShapeSeries.X1,<br>ShapeSeries.Y1</TD>
+<TD VALIGN="TOP" BGCOLOR="#ffffd9">
+TChart.RemoveSeries<br>(Each Shape is a unique Series)</TD>
+</TR>
+</TABLE>
+ 
+<p><b>Colour</b></p>
+<p>Colour may be manually added for a point when adding the point.</p>
+<p>Example</p>
+<pre>tChart1.addSeries(new Bar());
+tChart1.getSeries(0).add(50,&quot;oranges&quot;, Color.Orange);
+</pre>
+<p>Alternatively, you can allow TeeChart to allocate a colour. TeeChart will 
+choose one of up to 19 unique and as yet unused colours for each new Series, or 
+for each new Series point if ColorEach is set to true. <br>
+Example</p>
+<pre>Random rnd = new Random();
+    tChart1.getSeries(0).setColorEach(true);
+     for(int i = 0; i &lt; 19; ++i) {
+         int higher = i + 65;
+         tChart1.getSeries(0).add(rnd.nextInt(100));
+   }
+}
+</pre>
+<p>&nbsp;</p>
+<h4><A NAME="DeleteFromSeries">Deleting data points from a Series</A></h4>
+<p>Use Series.Delete to delete a point from a Series.</p>
+<p>Example</p>
+<pre>tChart1.getSeries(0).delete(7);<br> //(8th point - Points index start at zero)
+</pre>
+<p>Series.Clear clears all points from a Series.</p>
+<p>&nbsp;</p>
+<h4><A NAME="NullPoints">Adding Null points to a Series</A></h4>
+<p>See the table <A HREF="#AddToSeries">Adding data to a Series</A> for a list of Series Types that support the AddNull method. As the name suggests, AddNull will add a Null point to the Series allowing you to define a label for the point but leaving a break in the Series at that point. In the case of a Line Series, the last point before the break will not join to the first point after the break. 
+See Series.AddNull.</p>
+<p>example</p>
+<pre>Line line = new Line();
+line.addNull();
+</pre>
+<p>&nbsp;</p>
+<hr>
+<h3><A NAME="MixingSeries">Mixing Series Types on a Chart</a></h3>
+<p>TeeChart Pro offers an empty Chart Canvas as a backdrop to data Series. That means that no Chart types are predefined. You define the Chart type you require as a mix of the Series Types that you wish to display. Due to the specialised nature of some Series types it is impractical to mix a few
+of the Series types together on a Chart. TeeChart helps you by greying out unsuitable Series types in the Chart Gallery when you arrive to add a new Series. There is no practical limit to the number of Series that you can put in one Chart.</p>
+<h4><A NAME="AddSeries">Adding New Series</A><BR></h4>
+<p>Add a Series using the Chart Editor (see <A HREF="Tutorial1.htm">Tutorial 1</A>) or by code.</p>
+<p>Example</p>
+<pre>public void jButton1_actionPerformed(ActionEvent e) {
+
+    Bar bar1 = new Bar(tChart1.getChart().chart);
+        bar1.fillSampleValues(10);
+    } 
+};
+</pre>
+
+<br>
+<h4><A NAME="ChooseAxis">Choose Axes for a Series</A><BR></h4>
+<p>Series added to the Chart will automatically take the Left and Bottom axes as their reference axes. You may change the reference axes in the Chart Editor by selecting the Series General page for the relevant Series. There are 4 axes available, Top, Left, Bottom and Right. By code, changing the axes will look like this:</p>
+<pre>bar1.setHorizontalAxis(HorizontalAxis.TOP);
+bar1.setVerticalAxis(VerticalAxis.RIGHT);
+</pre>
+<p>More than 1 Series may be associated with each Axis. TeeChart will decide the best scale to fit the Series matched to the Axis but you may change Axis scales yourself (See the <a href="Tutorial4.htm#Scales">Axis Tutorial</A>). Additional axes may be added, they will copy the scales associated with their counterparts from the first 4 axes (see the Tutorial section <a href="tutorial4.htm#AdditionalAxes">Additional axes</a>).</p>
+<br>
+<h4><A NAME="ConnectSeries">Connecting Series</A><BR></h4>
+<p>You may use a Series as the datasource for another Series. This can be done with the Chart Editor by setting the datasource for the 2nd Series. Go to the Series tab, Datasource page. Select 'Function' as the datasource type. Two Listboxes will appear, available Series and Selected Series. Select the Series you wish to use as the datasource for the present Series, then, in the Combobox above, entitled <b>Function:</b>, select Copy as the function type. Note that any Series, in this way, may be defined as a function of other Series and the Function Type may be any
+in the list available in the Function combobox. To do the same by code see below:</p>
+<pre>public void bFuncion_actionPerformed(ActionEvent e) {
+Bar bar1 = new Bar();
+bar1.fillSampleValues();
+Line line1 = new Line();
+
+com.steema.teechart.functions.Average average1 = new com.steema.teechart.functions.Average();
+line1.setFunction(average1);
+line1.setDataSource(bar1);
+line1.checkDataSource(); 
+}
+</pre>
+<p>See <a href="Tutorial7.htm">tutorial 7 - Working with Functions</a> for more information about how to use TeeChart functions.</p>
+<br>
+<h4><A NAME="ChangeSeriesOrder">Changing Series order</A><BR></h4>
+<p>Changing series order is very easy with the Chart Editor. Go to the front page of the Editor and highlight the Series that you wish to move. Use the arrow buttons on the right to move the Series up or down in the Series order. Series order will decide the relative display position of the Series in the Chart with respect to other Series. By code use the SeriesList property or the ExchangeSeries method.</p>
+<i>Example</i>
+<pre>tChart1.exchangeSeries(0,1);  //Change Series(0) with Series(1) in the index order
+</pre>
+<p><b>*Note</b>. After exchanging Series, the index for the Series will be changed. Thus the line of code above will perpetually interchange the 2 Series '0' and '1' if the code is rerun, as 0 becomes 1 and 1 becomes 0.</p>
+<p>Setting a Series to 'Active:=False' will hide the Series from the Chart but maintain its data content intact.</p>
+
+<h3><A NAME="Valuelist">Series Value list</a></h3>
+<p>TeeChart Series store their values in a Valuelist accessible and modifiable via the TChartValueList component.</p>
+
+<h4><A NAME="EgValues">Example using Values</A></h4>
+<p>This code modifies the value of a BarSeries Bar according to the user's mouseclick.</p>
+<p><i>Example</i></p>
+<pre>upDatePoint(valueIndex,tChart1.getAxes().getLeft().calcPosPoint(e.Y));
+</pre>
+<p>Call the UpdatePoint Sub routine to modify the Bar's value:</p>
+<pre>private void upDatePoint(int Bar, double Y)
+	{ 
+		if(Bar &lt; tChart1.getSeries(0).getCount())
+		{
+			tChart1.getSeries(0).getYValues().setValue(Bar,Y);
+			tChart1.paint(tChart1.getGraphics());
+		}
+	}
+</pre>
+<h4 class="dtH4"><a NAME="SeriesEvents">Series events</a> <br>
+&nbsp;</h4>
+<p>The previous section introduces some use of Series events. This section shows 
+some additional uses. <br>
+&nbsp;</p>
+<div id="content">
+  <b><a name="GetPointer">OnGetSeriesPointerStyle</a></b> <br>
+  For those Series that use the TChart Pointer, you may access and modify the 
+  Pointer using the OnGetSeriesPointer event: <br>
+  <br>
+  Drawing an Uptriangle if the Point is higher than the last, DownTriangle if 
+  lower, etc. <br>
+&nbsp;<pre class="code"> 
+if(e.ValueIndex > 0)  {
+            if(line1.getYValues().getValue(e.ValueIndex) > 
+               line1.getYValues().getValue(e.ValueIndex - 1))  {                
+                e.Style = PointerStyles.TRIANGLE;
+            }
+            else if(line1.getYValues().getValue(e.ValueIndex) < 
+                    line1.getYValues().getValue(e.ValueIndex - 1)) {
+                e.Style = PointerStyles.DOWNTRIANGLE;
+            }
+            else {
+                e.Style = PointerStyles.DIAMOND;
+            }
+        }
+        else {
+            e.Style = PointerStyles.DIAMOND;
+        } 
+</pre>
+  <p><br>
+  <b><a name="GetMarkText">OnGetSeriesMark</a></b> <br>
+  Use the OnGetSeriesMark event to modify the Mark contents at runtime. The 
+  following code varies the MarkText according to the value relative to the last;
+  <br>
+  TeeChart supports the dragging of Marks in cases of overlapping via the 
+  DragMarks Tool: <br>
+&nbsp;</p>
+  <pre class="code">              
+     if(e.ValueIndex > 0)  {
+                 if(line1.getYValues().getValue(e.ValueIndex) >
+			line1.getYValues().getValue(e.ValueIndex - 1)) {
+                     e.MarkText = e.MarkText + " (Up)";
+                 }
+                 else if(line1.getYValues().getValue(e.ValueIndex) < 
+			line1.getYValues().getValue(e.ValueIndex - 1)) { 
+                    e.MarkText = e.MarkText + " (Down)";
+                 }
+                 else {
+                     e.MarkText = e.MarkText + " (No Change)";
+                 }
+             }
+         }
+</pre>
+  <p><br>
+  The Chart appearance resulting from the last 2 events is: <br>
+&nbsp;</div>
+<p>&nbsp;</p>
+<p>
+<br>
+</p>
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial5.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial7.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2018 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=EUC-kr">
+<title>TeeChart tutorial 10</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT>
+<font SIZE="2">&nbsp; <a HREF="Contents.HTM">목차</a>&nbsp;<br>
+    &nbsp; <a HREF="Tutorial9.htm">이전</a>&nbsp;|&nbsp;<a HREF="Tutorial11.htm">다음</a>&nbsp;</font>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<h2><a name="TeeChart_tutorial_13"></a>Tutorial 10 - 차트 패널에서 사용자 그리기(Custom drawing on the Chart Panel)</h2>
+
+
+
+<hr>
+<p>TeeChart는 Canvas 객체를 통하여 광범위한 사용자 정의 그리기 기능을 제공합니다. 캔버스를 가지고 도형, 선과 텍스트를 차트 패널 어디에나 추가할 수 있으며, 그 색상과 펜, 브러쉬 스타일도 정의할 수 있습니다.</p>
+
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#Canvas">TeeChart 캔버스 (TeeChart Canvas)</a></h3>
+<P>
+<A HREF="#AddLines">그리기 순서(Drawing Lines)</A><BR>
+<A HREF="#PenBrush">캔버스 팬과 브러쉬(Canvas Pen and Brush)</A><BR>
+<A HREF="#AddShapes">2D 형태 추가하기 (Adding 2D Shapes)</A><BR>
+<A HREF="#Add3DShapes">3D 형태 추가하기 (Adding 3D Shapes)</A><BR>
+<A HREF="#AddText">텍스트 추가하기 (Adding text)</A><BR>
+<A HREF="#egCanvas">적용된 예제 (Applied example)</A><BR>
+<BR>
+</p>
+</td></tr></table>
+<hr>
+<h3><A Name="Canvas">TeeChart 캔버스 (TeeChart Canvas)</a></h3>
+
+<h4><A Name="AddLines">선 그리기(Drawing Lines)</a></h4>
+
+<p><b>2D 차트</b><br>
+캔버스 선을 추가해 보겠습니다:</p>
+<p><i>예제</i></p>
+<pre>private void Load() { 
+        line1.fillSampleValues(20); 
+        line1.setVertAxis(VerticalAxis.BOTH); 
+        line1.setHorizAxis(HorizontalAxis.BOTH); 
+        tChart1.getAspect.setView3D(false); 
+} 
+
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D(); 
+
+        Point s = new Point(tChart1.getAxes().getLeft().getPosition(), tChart1.getAxes().getTop().getPosition()); 
+        Point e = new Point(tChart1.getAxes().getRight().getPosition(), tChart1.getAxes().getBottom().getPosition()); 
+  
+        g.MoveTo(s); 
+        g.LineTo(e,0); 
+
+        }
+    }</pre>
+<p><b>3D 차트</b><br>
+3D 챠트에서 축 포지션은 3D 직교 치환에 대한 권리를 받아 오프셋 됩니다. 따라서 선을 이동시킬수 있습니다.
+</p> 
+<p><i>예제 </i>(drawing a Line diagonally from top left to bottom right in 
+the Chart Area of a 3D Chart)</p>
+<pre>private void Load() { 
+        line1.fillSampleValues(20); 
+        line1.setVertAxis(VerticalAxis.BOTH); 
+        line1.setHorizAxis(HorizontalAxis.BOTH); 
+        tChart1.getAspect.setChart3DPercent(50); 
+} 
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D(); 
+        com.steema.teechart.Point3D s = new com.steema.teechart.Point3D(); 
+        s.x = tChart1.getAxes().getLeft().getPosition(); 
+        s.y = tChart1.getAxes().getTop().getPosition(); 
+        s.z = 0; 
+
+        com.steema.teechart.Point3D e = new com.steema.teechart.Point3D(); 
+        e.x = tChart1.getAxes().getRight().getPosition(); 
+        e.y = tChart1.getAxes().getBottom().getPosition(); 
+        e.z = tChart1.getAspect().width3D; 
+
+        g.moveTo(s); 
+        g.lineTo(e); 
+
+	}
+}</pre>
+
+<h4><A Name="PenBrush">캔버스 펜과 브러시Canvas Pen and Brush</a></h4>
+<p>위에 있는 선은, 선이 그려지기 전에 그려지는 마지막 객체로 정의된 펜과 브러쉬를 이용해서 그려진 것입니다.  이것은 당신이 원하는 펜일 수도 있고 아닐 수도 있습니다. 펜을 적절히 바꾸십시오:</p>
+<p><i>예제 </i>(선그리기 전 펜 정의)</p>
+<pre>    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D();                       
+	    Point p5 = new Point(line1.calcXPos(5), line1.calcYPos(5)); 
+      	    Point p15 = new Point(line1.calcXPos(15), line1.calcYPos(15)); 
+            g.getPen().setDashCap(DashCap.SQUARE);
+            g.getPen().setEndCap(LineCap.MITER);
+            g.getPen().setStyle(DashStyle.DASHDOTDOT); 
+            g.getPen().setTransparency(70); 
+            g.getPen().setWidth(3); 
+            g.getPen().setColor(Color.blue); 
+            g.moveTo(p5); 
+            g.lineTo(p15, 0);   
+       }
+   }</pre>
+
+<h4><A Name="AddShapes">2D 형태 추가하기 (Adding 2D Shapes)</a></h4>
+<p>2D 캔버스 형태를 캔버스 선과 비슷한 방법으로 추가하십시오. 다음의 예제는 차트 영역의 중심에 사각형을 추가하는 것입니다:</p>
+
+<p><b>2D 차트</b><br>
+2D 차트는 오직  2D 형태만을 지원합니다.</p>
+<i>예제</i>
+<pre>    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D();                       
+
+        Dimension d = new Dimension(100,100); 
+        Point p = new Point(((int)(g.getXCenter() - (d.getWidth()/2))),((int)(g.getYCenter() - (d.getHeight()/2))));         
+        com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(p,d); 
+        g.getPen().setColor(Color.cyan); 
+        g.getBrush().setColor(Color.blue); 
+        g.rectangle(r);
+       }
+   }</pre>
+<p><b>3D 차트</b><br>
+3D 차트에서는 사각형을 Z 면에서도 옮길 수 있습니다.  RectangleWithZ 메소드를 보십시오.  이 예제는 직각이나 Nativemode/OpenGL 차트가 사각형을 왼쪽 벽에 위치시키고 그것을 차트의 뒤쪽 방향으로( 뒷벽을 향해서) 절반 정도 전치시키는 것입니다. <p>
+<pre>private void Load() { 
+        point3D1.LinePen.Visible = false; 
+        point3D1.fillSampleValues(20); 
+        point3D1.setVertAxis(VerticalAxis.BOTH); 
+        point3D1.setHorizAxis(HorizontalAxis.BOTH); 
+        tChart1.getAspect.setChart3DPercent(50); 
+        tChart1.getAxes().getDepth().setVisible(true); 
+} 
+
+    public void chartEvent(EventArgs e) {
+      if (e instanceof AfterDrawEventArgs) {
+        IGraphics3D g = tChart1.getGraphics3D();   
+        Dimension d = new Dimension(100, 100); 
+        Point l = new Point(((int)tChart1.getAxes().getLeft().getPosition()),((int)(g.getYCenter() - (d.getHeight() / 2)))); 
+        com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(l,d); 
+        g.getPen().setColor(Color.cyan); 
+        g.getBrush().setColor(Color.blue); 
+        g.rectangle(r, tChart1.getAspect().width3D/2);         
+    }
+</pre>
+<br>
+<h4><A Name="Add3DShapes">3D 형태 추가하기 (Adding 3D Shapes)</a></h4>
+<p>3D 형태를 3D 차트에 추가할 수 있습니다. 이 예제는  정육면체를 차트 사각형의 왼쪽 위 4분원에 그리는 것입니다: </p>
+<pre>private void Load() { 
+        point3D1.getLinePen().setVisible(false); 
+        point3D1.fillSampleValues(20); 
+        tChart1.getAspect().setChart3DPercent(50); 
+        tChart1.getLegend().setVisible(false); 
+        tChart1.getAxes().getDepth().setVisible(true); 
+} 
+
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D();                       
+
+        Dimension d = new Dimension(50,50); 
+        Point p = new Point(((int)(g.getXCenter() - (d.getWidth()/2))),((int)(g.getYCenter() - (d.getHeight()/2))));         
+        com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(p,d); 
+        g.cube(r, 0, 20, true);     
+}
+}
+</pre>
+
+
+<br>
+<h4><A Name="AddText">텍스트 추가(Adding text)</a></h4>
+<p><b>2D 텍스트 위치 (2D Text location)</b><br>
+사각형에 텍스트 추가하기 (Add Text to the last Rectangle):</p>
+<p><i>Example</i></p>
+<pre>    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            String text = "My Text"; 
+            IGraphics3D g = tChart1.getGraphics3D();                       
+            Dimension d = new Dimension(150, 50); 
+            Point p = new Point(((int)(g.getXCenter() - (d.getWidth()/2))),((int)(g.getYCenter() - (d.getHeight()/2)))); 
+            com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(p,d); 
+            g.getPen().setColor(Color.blue); 
+            g.rectangle(r); 
+    
+            g.textOut(((int)(g.getXCenter() - (g.textWidth(text)/2))), 
+                  ((int)(g.getYCenter() - (g.textHeight(text)/2))), text);             
+        }
+    }
+</pre>
+<p><b>3D 텍스트 위치 (3D Text location)</b><br>
+TextOut 을 사용하여 다른3D 면에서 Z좌표와 함께 보여줄수 있습니다.</p>
+<i>예제</i>
+<pre> private void Load() { 
+        point3D1.fillSampleValues(20); 
+        point3D1.getLinePen().setVisible(false); 
+        tChart1.getAspect().setChart3DPercent(50); 
+}
+
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            String text = "My Text"; 
+            IGraphics3D g = tChart1.getGraphics3D();            
+            g.textOut(g.getXCenter(), g.getYCenter(), tChart1.getAspect().width3D / 2, text); 
+        }
+    }</pre>
+<br>
+
+<h4><A Name="egCanvas">적용된 예제(Applied example)</a></h4>
+<p>이 예제는 시리즈의 3번째와 10번째 값을 가지고 그 둘 사이에 선을 플롯하고 새로운 선의 첫번째와 마지막 포인트의 값과 그것들 사이의 차이에 대해서 알려줍니다:</p>
+<p><i>예제</i></p>
+<pre>'First add some data to the empty Chart
+procedure TForm1.BitBtn1Click(Sender: TObject);
+begin
+  Series1.FillSampleValues(20);
+end;
+</pre>
+<pre>private void Load() { 
+        tChart1.getAspect().setView3D(false); 
+        line1.fillSampleValues(20); 
+} 
+
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D();            
+            if(tChart1.getSeriesCount() > 0){ 
+                if(tChart1.getSeries(0).getCount() > 10) { 
+                    Series s = tChart1.getSeries(0);
+                    int h = Convert.ToInt32(g.TextHeight("H"));
+                    Point p1 = new Point(s.calcXPos(3), s.calcYPos(3));
+                    Point p2 = new Point(s.calcXPos(10), s.calcYPos(10));
+                    g.getPen().setColor(Color.blue);
+                    g.getPen().setWidth(2);
+                    g.getPen().setStyle(com.steema.teechart.drawing.DashStyle.DASH);
+                    g.moveTo(p1);
+                    g.lineTo(p2, 0);                
+                    g.textOut(p1.x, p1.y - h, "Point value: " + s.getYValues(3).toString()); 
+                    g.textOut(p2.x, p2.y, "Point value: " + s.getYValues(10).toString()); 
+                    g.textOut(p2.x, p2.y + h, "Change is: " + s.getYValues(3).toString() - 
+    s.getYValues(10).toString()); 
+            }             
+        }
+    }<br></pre>
+
+<p>&nbsp;</p>
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial9.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial11.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2012 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

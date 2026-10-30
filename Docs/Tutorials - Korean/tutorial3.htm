@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=EUC-KR">
+<META NAME="Generator" CONTENT="Microsoft FrontPage 6.0">
+<TITLE>Tutorial 3 - Chart Paging</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css"></HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#ffffff" TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT><FONT SIZE=2>&nbsp;
+<A HREF="Contents.HTM">목차</A>&nbsp;<BR>&nbsp;<A HREF="Tutorial2.htm">이전</A>&nbsp;|&nbsp;<A HREF="Tutorial4.htm">다음</A>&nbsp;<P></FONT>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<H2><A NAME="TeeChart_tutorial_3"></a>Tutorial 3 - 챠트 페이징</H2>
+<hr color="#AFBFDF">
+
+<P>차트에서 데이터 소스가 차트 화면에 명료하게 디스플레이 될 수 있는 것보다 더 많은 데이터를 가지고 있다면, 차트를 페이지들로 나누어 페이지를 넘겨볼 수 있도록 만들고 싶어질 것입니다. 차트 에디터나 프로그램을 이용하면 이것을 가능하게 할 수 있습니다. </P>
+
+<hr color="#AFBFDF">
+
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td>
+<A HREF="#EditorPaging">차트 에디터로 페이징하기</A><BR>
+<A HREF="#CodePaging">코드로 페이징하기</a><BR>
+</td></tr>
+</table>
+
+<H4><a name="EditorPaging">차트 에디터로 페이지하기</a></H4>
+
+<P>페이지의 크기는 차트 에디터를 가지고 정의할 수 있습니다. 
+사용자가 에디터를 가지고 페이지를 바꾸기 위해서는 프로젝트에 페이지 버튼을 추가하거나  당신의 프로젝트에 차트 에디터를 실행시에 사용가능하도록 해 주어야 합니다.
+</P>
+
+<P>디자인타임시에 차트 에디터에서 Paging 탭을 선택하십시오. .</P>
+
+<P><IMG SRC="timages/TeePaging.gif" width="483" height="375"></P>
+
+
+<P>In the <B>Points per Page:</B> box, 상자에서, 차트 페이지에서 보고자 하는 시리즈 포인트의 개수를 입력 또는 스크롤해서 넣어줍니다. 만약 시리즈를 위해 데이터 값을 코딩하고 있다면, 검색 버튼은 당신이 프로젝트를 실행시키고 시리즈를 채운 후 실행시에 차트 에디터를 보이게 하기 전까지는 검색 버튼은 강조되지 않을 것입니다. 
+만약 당신이 데이터소스를 연결했다면 디자인타임에 즉각 페이지 효과가 나타나는 것을 볼 수 있습니다. </P>
+
+<P>실행시:</P>
+
+<P>챠트 에디터를 통하여 실행시에 페이징 속성에 접근하려면 EditChart 또는 EditDBChart 메소드를 사용합니다.</P>
+<P>예제  (당신의 프로젝트에  EditChart와 Editpro를 사용하는데 필요합니다.)</P>
+
+<PRE>EditChart(self, Chart1);</PRE>
+
+<br>
+<p>
+
+<br>
+</p>
+<H4><a name="CodePaging">코드로 페이징하기</a></h4>
+
+<P>페이지 속성과 메소드는 Page Class를 통해 가능해집니다..</P>
+
+<P>챠트에 페이징추가하기 위한 요구단계:</P>
+
+<OL>
+
+<LI>페이지 당 포인트를 설정 </LI>
+
+<P>페이지당 최대 포인트를 사용하여 각 페이지마다 디스플레이 되는 포인트의 개수를 정의하십시오.</P>
+
+<P>예제</P>
+<P><pre>tChart1.setMaxPointsPerPage := 10;</pre></P>
+
+<P>&nbsp;</P>
+
+<LI>챠트폼에 네비게이션 버튼 추가하기.</LI>
+
+<P>예제: </P>
+
+<P>첫번째 페이지 </P>
+<PRE>tChart1.getPage().setCurrent(1);</PRE>
+
+<P>다음 페이지</P>
+<PRE>tChart1.getPage().next();</PRE>
+
+<P>이전페이지 가기</P>
+<PRE>tChart1.getPage().previous();</PRE>
+
+<P>마지막 페이지</P>
+<PRE>tChart1.getPage().setCurrent(tChart1.getChart().getNumPages());
+</PRE>
+
+<LI>마지막 페이지로 무엇을 할 것인지를 결정하십시오.</LI>
+
+
+<P>마지막 페이지는 다른 차트 페이지의 포인트 수량에 정확히 일치되는 수를 가지지 못하는 경우가 많습니다. 마지막 페이지의 규모를 선택하고 축 규모도 이에 따라 조정하여 페이지에 남아있는 수를 "최적화" 할 수 있습니다. 아니면 마지막 페이지도 앞의 페이지들과 마찬가지로 같은 수의 포인트를 가지도록 할 수 있으며 이는 만약 마지막 페이지에 많은 포인트가 남아있지 않다면, 마지막 페이지는 차라리 비어 있게 할 수도 있습니다.</P>
+
+<PRE>tChart1.getPage().setScaleLastPage(false);   (default = True)</PRE>
+<BR>
+
+<LI>페이지 번호를 사용자에게 보여주기 </LI>
+
+<P>TTchart의 OnPageChange 이벤트는 사용자에게 존재하는 페이지 번호를 보여주는데 사용할 수 있습니다. 여기서는 페이지 번호에 라벨을 사용합니다.:</P>
+<PRE>jLabel1.setText(String.valueOf(tChart1.getPage().getCurrent())+ &quot; of &quot; + String.valueOf(tChart1.getChart().getNumPages()));</PRE>
+</OL>
+<pre>&nbsp;</pre>
+<p>이번장은 마쳤습니다. ! 다음 학습에선 고급의 축과 범례 조작하는 방법을 다루겠습니다.</p>
+
+
+
+<BR>
+<hr>
+<P ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial2.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial4.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+<hr>
+&copy; 1996-2012 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

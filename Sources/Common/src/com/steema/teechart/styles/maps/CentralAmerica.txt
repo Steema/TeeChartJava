@@ -1,0 +1,35 @@
+1061 Guatemala
+215 Belize
+217 Belize
+814 El Salvador
+1070 Honduras
+1069 Honduras (Swan Islands)
+1500 Nicaragua
+750 Costa Rica
+1525 Panama
+1287 Jamaica
+752 Cuba
+753 Cuba
+754 Cuba
+755 Cuba
+756 Cuba
+757 Cuba
+758 Cuba
+1065 Haiti
+1066 Haiti
+1067 Haiti
+792 Dominican Republic
+793 Dominican Republic
+197 The Bahamas
+199 The Bahamas
+205 The Bahamas
+207 The Bahamas
+738 Cayman Islands (UK)
+2117 Virgin Islands (UK)
+2111 Virgin Islands (USA)
+1904 Turks and Caico Islands (UK)
+1026 Guadeloupe
+1 Antigua and Barbuda
+2 Antigua and Barbuda
+1826 Saint Kitts and Nevis
+59 Anguilla

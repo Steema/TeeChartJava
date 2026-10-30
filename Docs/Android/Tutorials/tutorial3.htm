@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft FrontPage 6.0">
+<TITLE>Tutorial 3 - Chart Paging</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css"></HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#800080" BGCOLOR="#ffffff" TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image:url('timages/headerback.png');position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif"></TD>
+<TD ALIGN=RIGHT><FONT SIZE=2>&nbsp;<A HREF="contents.htm">Contents&nbsp;page</A>&nbsp;<BR>&nbsp;<A HREF="tutorial2.htm">Previous</A>&nbsp;|&nbsp;<A HREF="tutorial4.htm">Next</A>&nbsp;<P></FONT>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<H2><A NAME="TeeChart_tutorial_3"></A>Tutorial 3 - Chart Paging</H2>
+<hr color="#AFBFDF">
+
+<P>If the data source for your Chart contains more data than can be legibly displayed on one Chart screen you may wish to divide the Chart into pages that can be leafed through. This can be achieved via the Chart Editor or
+programmatically.</P>
+
+<hr color="#AFBFDF">
+
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td>
+<A HREF="#CodePaging">Paging by code</a><BR>
+</td></tr>
+</table>
+
+<H4><a name="CodePaging">Paging by code</a></h4>
+
+<P>Paging properties and methods are available via the Page class.</P>
+
+<P>Steps required to add paging to your Chart:</P>
+
+<OL>
+
+<LI>Define Points per page</LI>
+
+<P>Use MaxPointsPerPage to define the number of points to display on each page.</P>
+
+<P>e.g.</P>
+<P><pre>tChart1.setMaxPointsPerPage := 10;</pre></P>
+
+<P>&nbsp;</P>
+
+<LI>Add Navigation buttons to the Chart's Form.</LI>
+
+<P>Example: </P>
+
+<P>First Page </P>
+<PRE>tChart1.getPage().setCurrent(1);</PRE>
+
+<P>Advance a page</P>
+<PRE>tChart1.getPage().next();</PRE>
+
+<P>Go to a previous page</P>
+<PRE>tChart1.getPage().previous();</PRE>
+
+<P>Last Page</P>
+<PRE>tChart1.getPage().setCurrent(tChart1.getChart().getNumPages());
+</PRE>
+
+<LI>Decide what to do with the last page.</LI>
+
+
+<P>The last page is unlikely to have exactly the correct number of points to match the point quantity in the other Chart pages. You may choose to Scale the Last page which will 'best fit' the remaining points to the page, adjusting the axis scale accordingly, or you may treat the page as previous pages with the same number of points which may leave the last page rather empty if there are not many points
+on the page.</P>
+
+<PRE>tChart1.getPage().setScaleLastPage(false);   (default = True)</PRE>
+<BR>
+
+<LI>Show the user a page number</LI>
+
+<P>The TChart OnPageChange event may be used to show the user the existing page number. Here using a Label
+for the Page number:</P>
+<PRE>jLabel1.setText(String.valueOf(tChart1.getPage().getCurrent())+ &quot; of &quot; + String.valueOf(tChart1.getChart().getNumPages()));</PRE>
+</OL>
+<pre>&nbsp;</pre>
+<p>That's all for this tutorial ! The next tutorial deals with advanced Axis and 
+Legend manipulation.</p>
+
+
+
+<BR>
+<hr>
+<P ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial2.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial4.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+<hr>
+&copy; 1996-2018 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

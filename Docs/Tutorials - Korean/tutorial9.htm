@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=EUC-KR">
+<title>TeeChart tutorial 9</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('%27url(%27url(url(url(url(url(url(url(url(url(url(url(url(url(url(url(url(url(url(url(url(timages/headerback.png))%27)%27')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT>
+<font SIZE="2">&nbsp; <a HREF="Contents.HTM">목차</a>&nbsp;<br>
+    &nbsp; <a HREF="Tutorial8.htm">이전</a>&nbsp;|&nbsp;<a HREF="Tutorial10.htm">다음</a>&nbsp;</font>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<h2><a name="TeeChart_tutorial_9"></a>Tutorial 9 - 차트 내보내기와 불러오기(Exporting and Importing Charts)</h2>
+
+
+<hr>
+<p>이 자습서는 TeeChart를 다양한 포맷으로 내보내기하고  TeeChart 스스로의 .tej 포맷 차트 템플릿을 가져오기하는 것에 대해 전반적으로 다루고 있습니다.  당신의 TeeChart 설치 폴더 아래 있는 예제 폴더에서 비주얼 베이직 6 "파일로부터의 익스포트" 예제 코드를 보십시오.</p>
+
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#Export">차트 내보내기(Exporting Charts)</a></h3>
+<P>
+<A HREF="#Formats">사용가능한 포맷(Available formats)</A><BR>
+<h3><A HREF="#ExportImg">이미지 내보내기(Exporting Images)</a></h3>
+<A HREF="#JPEG">JPEG</A><BR>
+<A HREF="#GIF">GIF</A><BR>
+<A HREF="#PNG">PNG</A><BR>
+<h3><A HREF="#ExportImg">데이터 내보내기 (Exporting data)</a></h3>
+<p><A HREF="#ExportImg">Text, XML</a></p>
+<h3><A HREF="#ExportTee">TeeChart의 'Tej'템플릿과 데이터 내보내기와 불러오기 포맷(TeeChart's 'Tej' template and data export import format)</a></h3>
+<A HREF="#TeeExport">Tej files</A><BR>
+</p>
+<h3><A HREF="#Import">가져오기(Import)</a></h3>
+<p>
+<A HREF="#TeeFormat">Tej 포맷 파일 가져오기 (Importing Tej format files)</A><BR>
+<A HREF="#egImport">Tej 파일 가져오기 예제 (Example import Tej file)</A><BR>
+</p>
+</td></tr></table>
+<hr>
+<h3><A Name="Export">차트 내보내기 (Exporting Charts)</a></h3>
+<h4><A Name="Formats">사용가능한 포맷(Available Export formats)</a></h4>
+<p>사용 가능한 내보내기 포맷입니다. 모든 포맷은 파일이나 클립보드나 스트림으로 복사가 가능합니다.<br>
+&nbsp;</p>
+<p><pre>이미지 포맷(Image formats)</pre>
+<li>JPEG: JPEGFormat Class</li>
+<li>GIF: GIFFormat Class</li>
+<li>PNG: PNGFormat Class</li>
+<pre>데이터 포맷(Data formats)</pre>
+<li>Text: TextFormat Class</li>
+<li>XML: XMLFormat Class</li>
+<li>HTML: HTMLFormat Class</li>
+<li>Excel: ExcelFormat Class</li>
+<pre>다른 포맷 (Other formats)</pre>
+Tej format은 차트 속성 정보와 옵션으로 차트 데이터를 저장할 수 있는 융통성 있는 포맷입니다. 파일은 작고 (데이터에 따라서 달라집니다) 라이브 클라이언트에 기반을 둔 차트를 업데이트 하는 데 네트워크로 사용하기에 이상적입니다.  .
+<li>TEJ (TeeChart) TemplateExport Class</li></p>
+
+<h4><A Name="EgExport">내보내기 예제(Example export)</a></h4>
+<p>파일 내보내기는 합리적으로 수월하며, 대부분의 경우 대상이 되는 파일명만 정의해 주면 됩니다.</p>
+<p><i>예제</i></p>
+<pre>	    try {
+                tChart1.getExport().getImage().getBMP().save(fileName);
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+</pre>
+<h4><A Name="JPEG">JPEG</a></h4>
+<p>JPEG 파일을 내보낼때 속도와 퀄리티를 위하여 부가적인 매개변수를 갖고있다. <b>예제폴더</b>에 포함된 <b>JPEG Demo</b>를 보면된다.</p>
+<p><i>예제</i></p>
+<pre>	    int tmpResult = fc.showSaveDialog(JpegExportDemo.this);
+            if (tmpResult == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                String tmpName = file.getAbsolutePath();
+                if (!ExportUtils.isExtension(file, ExportUtils.JPG)) {
+                    tmpName = ExportUtils.replaceExtension(file, ExportUtils.JPG);
+                }                
+                myChart.getExport().getImage().getJPEG().save(tmpName);
+            }     
+</pre>
+<p> Compression Quality 비율값 (높은값으로 압축하면 )을 수행하면, 반면에 품질은 더 좋아지긴 하지만 파일의 용량을 더 크게 만들어 주며, 그에 따라 넷트워크를 통한 전송이 더 느려지게 됩니다 ! 당신의 응용프로그램에 적합한 최적의 밸런스를 결정해야 합니다. 
+</p>
+
+<h4><A Name="GIF">GIF</a></h4>
+<p>티차트에서 GIF챠트이미지를 만든다는 의미를 제공하나,  GIF LZW 의 인코드된 이용에 관한 보다 자세한 정보를 원한다면 <b><a href="http://Unisys.com">unisys</a></b>라이센스를 확인해봐야 합니다.
+
+RLE 인코딩을 선택 할경우 Unisys 라이센스를 고려할 필요는 없습니다.</p>
+
+<p><i>코드에 의한 예제(Example by code)</i></p>
+<pre>            int tmpResult = fc.showSaveDialog(GifExportDemo.this);
+            if (tmpResult == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                String tmpName = file.getAbsolutePath();
+                if (!ExportUtils.isExtension(file, ExportUtils.GIF)) {
+                    tmpName = ExportUtils.replaceExtension(file, ExportUtils.GIF);
+                }
+                myChart.getExport().getImage().getGIF().save(tmpName);
+            } </pre>
+
+<h4><A Name="PNG">PNG</a></h4>
+<p>PNG 포맷은 GIF 의 능력도 보유하고 있고 더많은 이득을 포함하고 있습니다.
+PNG는 GIF의 이미지를 보여줄때 GIF 만큼 진보된 능력을 포함한다.
+PNG는 GIF에서 이미지를 보여지는 것보다 혁신적으로 능력이 향상 되었습니다; 
+그것은 네트워크를 통한 연결에서 이미지에 접근할때 더나은 접근을 향상시키고, 디스플레도 강화시켰다.
+<br>
+<br><i>예제</i></p>
+<pre>            int tmpResult = fc.showSaveDialog(PngExportDemo.this);
+            if (tmpResult == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                String tmpName = file.getAbsolutePath();
+                if (!ExportUtils.isExtension(file, ExportUtils.PNG)) {
+                    tmpName = ExportUtils.replaceExtension(file, ExportUtils.PNG);
+                }
+                myChart.getExport().getImage().getPNG().save(tmpName);
+            } </pre>
+<br>
+<h3><A name="ExportImg">데이타 내보내기 (Exporting data)</a></h3>
+<p> 아래 예제에 따라 챠트 시리즈에서 텍스트 또는 XML 포맷으로부터 데이터를 내보낼수 있다.<br>
+아마 새롭게 생성고 챠트시리즈와 조합되어 파일 이나 스트림 또는 클립보드에 데이터가 출력될수 있다.<br>
+</p>
+<h4>Text files</a></h4><i>예제 </i>
+<pre>            <b>try</b> {
+                    myChart.getExport().getData().getText().save(tmpName);
+                }
+</pre>
+<h4>XML files</a></h4><i>예제 </i>
+<pre>            <b>try</b> {
+                    myChart.getExport().getTemplate().toXML(tmpName);
+                    showSavedFile(tmpName);
+                }
+
+</pre>
+
+
+<h3><A name="ExportTee">TeeChart의 'Tej'템플릿과 데이터 내보내기와 불러오기 포맷<br>
+(TeeChart's 'Tej' template and data export/import format)</a></h3>
+<h4><A Name="TeeExport">Tej 파일들(Tej files)</a></h4>
+<p>Tej파일은 티차트 소유의 템플릿 포멧으로 챠트를 저장하고 그들 데이타에서 Java IDE 에서 .tej 확장자를 갖고 있다.
+수정된 챠트 속성은 그 템플릿을 추가할때 새로운 챠트에 추가할때 복제하고 그 템플릿과 함께 저장된다. 
+</p>
+<p>이점(Advantages):</p>
+<ul><li>Tej 파일은 매우 작은 사이즈라, 모든 케이스에서 순수 그래픽 포맷을 제공하는 이점이 있다.(Quicker).</li> 
+<li>
+목표한 차트에 템플릿이 살아있는 동안, 그것의 속성들이 갖고있는것으로 줌과 스크롤 수정 할수있다.</li>
+<li>Tej 템플릿은 당신의 선택에 따라서 데이터가 임의 적으로 포함된다.</li></ul>
+<p><i>예제</i></p>
+<pre>	<b>    try</b> {
+        	    tChart1.getExport().getTemplate().toFile("/temp/chart1.tej");       
+        	} <b>catch</b> (IOException ex1) {
+          	    ex1.printStackTrace();
+        	}<br></pre>
+<h3><A Name="Import">불러오기 (Import)</a></h3>
+<h4><A Name="TeeFormat">URL로부터 XML 불러오기 (Importing XML from a URL) </A></h4>
+<p>XML 로 내보내고 불러오는 방법 보기예제 :
+<pre>XML에 저장하기 Save to xml; 
+
+             <b>try</b> {
+                    myChart.getExport().getTemplate().toXML(tmpName);
+                    showSavedFile(tmpName);
+                } <b>catch</b> (FileNotFoundException e) {
+                    System.out.println(e);
+                }
+
+
+XML을 불러오기 Load from xml:
+             <b>try</b> {                               
+            	    myChart.setChart(myChart.getImport().getTemplate().fromXML(tmpName));
+                    myChart.repaint();
+                }
+                <b>catch</b> (FileNotFoundException e) {
+                    System.out.println(e);
+                }
+</pre>
+
+<h4><A Name="TeeFormat">Tej 포맷 파일 가져오기 (Importing Tej format files)</A></h4>
+<p>로컬파일 소스 또는 http 데이타 소스로부터 저장된 Tej file 불러오기<br>
+<br>
+<h4><A Name="egImport">불러오기 예제(Example Imports)</a></h4>
+<p></p>
+<p><i>예제</i></p>
+<pre>	    import from file 
+    	    tChart1.getImport().getTemplate().fromFile("myFile.tej");
+    
+    or 
+    XML.. 
+    	    tChart1.getImport().getTemplate().fromXML("myFile.xml");
+
+
+    or 
+    Stream.. 
+            <b>try</b> {
+                //( 1) Save the template into a Stream...
+                ByteArrayOutputStream m = new ByteArrayOutputStream();                 
+                myChart.getExport().getTemplate().toStream(m);
+                //( 2) Load the template into other Chart...
+                copyChart.setChart(copyChart.getImport().getTemplate().fromStream(
+                        new ByteArrayInputStream(m.toByteArray())
+                ));
+                //( 3) repaint the Chart
+                copyChart.repaint();
+            } <b>catch</b> (IOException ex) {
+                System.out.println(ex);
+            } <b>catch</b> (ClassNotFoundException ex) {
+                System.out.println(ex);
+            }<br></pre>
+
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial8.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial10.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2012 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

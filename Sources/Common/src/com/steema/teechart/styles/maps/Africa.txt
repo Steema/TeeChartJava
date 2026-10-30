@@ -1,0 +1,49 @@
+1336 Morocco
+1829 South Africa
+4 Algeria
+1320 Lybia
+1912 Tunisia
+2118 Namibia
+802 Egypt
+1856 Sudan
+812 Eritrea
+815 Ethiopia
+1840 Somalia
+1292 Kenya
+1926 Tanzania
+1392 Mozambique
+1321 Madagascar
+2127 Swaziland
+1830 Lesotho
+191 Botswana
+2118 Namibia
+17 Angola
+595 Zaire
+2133 Zambia
+2134 Zimbabwe
+1330 Malawi
+594 Congo
+868 Gabon
+806 Equatorial Guinea
+740 Cameroon
+751 Central Africa Republic
+305 Burundi
+1821 Rwanda
+1930 Uganda
+1419 Nigeria
+591 Chad
+1404 Niger
+236 Benin
+1909 Togo
+871 Ghana
+1253 Ivory Coast
+2096 Burkina Faso
+1315 Liberia
+1836 Sierra Leona
+1062 Guinea
+1334 Mali
+1562 Guinea Bissau
+1833 Senegal
+867 Gambia
+1340 Mauritania
+2123 Western Sahara

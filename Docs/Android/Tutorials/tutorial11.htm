@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>TeeChart tutorial 11</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image:url('timages/headerback.png');position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif"></TD>
+<TD ALIGN=RIGHT>
+<font SIZE="2">&nbsp; <A HREF="contents.htm">Contents&nbsp;page</a>&nbsp;<br>
+    &nbsp; <A HREF="tutorial10.htm">Previous</a>&nbsp;</font>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<h2><a name="TeeChart_tutorial_14"></a>Tutorial 11 - Printing Charts</h2>
+
+
+
+
+<hr>
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#StdPrinting">Standard Printing</a></h3>
+<P>
+<A HREF="#PrintChart">Simple Print command</A><BR>
+<A HREF="#Orientation">Print Orientation</A><BR>
+<A HREF="#Preview">Print Preview</A><BR>
+<A HREF="#Greyscale">Greyscale printing</A><BR>
+</p><h3><A HREF="#ExtPrinting">Extended Printing methods</a></h3>
+<A HREF="#PrintMulti">Printing multiple page Charts</A><BR>
+<A HREF="#PrintMany">Printing several Charts on one page</A><BR>
+<A HREF="#MixingPrintOutput">Mixing printed Chart output with other print output</A><BR>
+
+  <p>
+</p></td></tr>
+</table>
+<hr>
+<h3><A Name="StdPrinting">Standard Printing</a></h3>
+<p>TeeChart Pro offers standard print methods to print the Onscreen Chart 'as is' to the Printer.</p>
+<h4><A Name="PrintChart">Simple Print command</a></h4>
+<p>To print a Chart use the Print method. This will print the chart as it appears onscreen.</p>
+<p><i>Example</i></p>
+<pre>tChart1.getPrinter().print();
+</pre>
+<br>
+
+<h4><A Name="Orientation">Print Orientation</a></h4>
+<p>The Print method allows you to print both Landscape and Portrait orientations, 
+even if they are not defined as the default, by the use of the boolean landscape 
+parameter. The default orientation will take effect again after the print is 
+complete. Default Orientation can be changed using the Landscape property (set 
+to true for Landscape, false for Portrait): </p>
+<p><i>Example</i></p>
+<pre>tChart1.getPrinter().setLandscape(true);
+tChart1.getPrinter().print();</pre>
+<br>
+<h4><A Name="Preview">Print Preview</a></h4>
+<p>The PrintPreview window will show you how the Chart will appear when printed. 
+You may modify print parameters in the Print Preview window. To call 
+PrintPreview run: </p>
+<pre>tChart1.getPrinter().preview(); 
+</pre>
+<br>
+<h4><A Name="Greyscale">Greyscale printing</a></h4>
+<p>When printing to Greyscale printers you should take care that the colours of 
+the Chart are easily distinguishable when translated to shades of grey. To help, 
+you could add Brush styles to the Chart Series to more easily distinguish Series 
+when printed. <br>
+<br>
+You can also print Grayscale Charts to color printers using the Grayscale 
+property: <br>
+&nbsp;</p>
+<pre>tChart1.getPrinter().setGrayscale(true);
+tChart1.getPrinter().print(true);</pre><br>
+
+<h3><A Name="ExtPrinting">Extended Printing methods</a></h3>
+<h4><b><a name="PrintMulti">Printing multiple Charts</a></b></h4>
+<p>Use beginPrint() and endPrint() to send a Chart to the printer without 
+ejecting the page; BeginPrint() and EndPrint() start and end the Printer job. 
+More than one Chart can be sent to the same page/printer job and user custom 
+input can be included too. <br>
+&nbsp;</p>
+<i>Example</i> (Prints 2 Charts to a page):<pre>     public void button1_actionPerformed(ActionEvent e) {
+
+        tChart1.getPrinter().beginPrint();
+        tChart1.getPrinter().print(tChart2.getChart().chart,new com.steema.teechart.Rectangle(100,10,300,200)); 
+        tChart1.getPrinter().print(new com.steema.teechart.Rectangle(100,300,300,200));        
+        tChart1.getPrinter().endPrint(); 
+}<br></pre>
+
+<h4><A name="PrintMany">Print previewing several Charts on one page</A></h4>
+<p>The Print Previewer now accepts more than one Chart. Chart positions are 
+controlled setting the Rectangle of the Print method. <br>
+&nbsp;</p>
+<p><i>Example</i> (Shows 2 Charts in the Print Previewer): </p>
+<pre>    public void button1_actionPerformed(ActionEvent e) {
+
+        tChart1.getPrinter().beginPrint();
+        tChart1.getPrinter().print(tChart2.getChart().chart,new com.steema.teechart.Rectangle(100,10,300,200)); 
+        tChart1.getPrinter().print(new com.steema.teechart.Rectangle(100,300,300,200));        
+        tChart1.getPrinter().preview(); 
+}</pre>
+
+<h4><A name="MixingPrintOutput">Mixing printed Chart output with other print output</A></h4>
+<p>Use the ChartPrint() event to mix TeeChart print output with non Chart printer 
+output. <BR>The following example takes the text from the TeeChart Headers and 
+prints them on a page with two TChart objects: <BR>
+</p>
+<pre>    public void button1_actionPerformed(ActionEvent e) {
+
+        tChart1.getPrinter().beginPrint();
+        tChart1.getPrinter().print(tChart2.getChart().chart,new com.steema.teechart.Rectangle(100,10,300,200)); 
+        tChart1.getPrinter().print(new com.steema.teechart.Rectangle(100,300,300,200));        
+        tChart1.getPrinter().endPrint(); 
+}
+
+    public void doChartPrint(Object sender, PrintPageEventArgs e) {        
+        e.drawString("Chart: "+((com.steema.teechart.printer.ChartPrintJob)sender).getChart().getHeader().getText(), 
+                     100,((com.steema.teechart.printer.ChartPrintJob)sender).getChart().getChartRect().getBottom()+10); 
+    }</pre>
+<br>
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial10.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2018 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

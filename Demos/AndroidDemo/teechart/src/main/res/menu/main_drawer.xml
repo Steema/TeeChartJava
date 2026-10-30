@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/nav_newChart"
+            android:icon="@drawable/ic_fiber_new_black_24dp"
+            android:title="Create a new chart"/>
+        <item
+            android:id="@+id/nav_openChart"
+            android:icon="@drawable/ic_open_in_browser_black_24dp"
+            android:title="Open a chart"
+            android:visible="true"/> <!--set visible to true if you want to make it visible-->
+    </group>
+
+    <item android:title="Information">
+        <menu>
+    <!--    <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Import" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Slideshow" />-->
+        <item
+            android:id="@+id/nav_web"
+            android:icon="@drawable/ic_web_black_24dp"
+            android:title="@string/itWeb" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="@string/itAbout" />
+        </menu>
+    </item>
+
+    <item android:title="Contact">
+        <menu>
+            <item
+                android:id="@+id/nav_mail"
+                android:icon="@drawable/ic_email_black_24dp"
+                android:title="@string/itEMail" />
+            <item
+                android:id="@+id/nav_call"
+                android:icon="@drawable/ic_call_black_24dp"
+                android:title="@string/itCall" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,68 @@
+0 A Coruña
+114 Lugo
+115 Asturias
+116 Cantabria
+119 Vizcaya
+1 Guipúzcoa
+121 Navarra
+124 Huesca
+125 Lleida
+31 Girona
+34 Girona (Llívia)
+127 Barcelona
+131 Tarragona
+61 Castelló
+67 València
+135 València
+137 Alacant
+87 Murcia
+95 Almería
+94 Granada
+102 Málaga
+138 Cádiz
+90 Huelva
+75 Badajoz
+64 Cáceres
+57 Salamanca
+44 Zamora
+25 Ourense
+13 Pontevedra
+59 Madrid
+133 Guadalajara
+53 Segovia
+58 Avila
+43 Valladolid
+7 Burgos
+10 Palencia
+5 León
+27 La Rioja
+123 Alava
+122 Alava
+20 Zaragoza
+132 Teruel
+134 Cuenca
+65 Toledo
+73 Ciudad Real
+74 Ciudad Real
+76 Albacete
+91 Sevilla
+88 Córdoba
+89 Jaén
+81 Illes Balears (Ibiza)
+69 Illes Balears (Mallorca)
+79 Illes Balears (Mallorca)
+80 Illes Balears (Mallorca)
+66 Illes Balears (Menorca)
+84 Illes Balears (Formentera)
+106 Ceuta
+110 Melilla
+103 Las Palmas
+104 Las Palmas
+105 Las Palmas
+108 Las Palmas
+112 Las Palmas
+109 Tenerife
+111 Tenerife
+107 Tenerife
+113 Tenerife
+49 Soria

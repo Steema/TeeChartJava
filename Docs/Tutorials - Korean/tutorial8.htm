@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=EUC-kr">
+<title>Tutorial 8 - Zoom and Scroll</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT>
+<font SIZE="2">&nbsp; <a HREF="Contents.HTM">목차</a>&nbsp;<br>
+    &nbsp; <a HREF="Tutorial7.htm">이전</a>&nbsp;|&nbsp;<a HREF="Tutorial9.htm">다음</a>&nbsp;</font>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<h2><a name="TeeChart_tutorial_11"></a>Tutorial 8 - 줌과 스크롤</h2>
+
+<hr>
+<p>줌과 스크롤은 빽빽하게 채워진 차트 안에서 특정한 데이터에 촛점을 맞추는 데 유용한 도우미입니다.  ''Animated Zoom'과 ' Scrolling' 폴더 안에 있는 비주얼 베이직 예제를 참고하십시오.</p>
+
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#Manual">마우스 이용하여 줌과 스크롤하기 (How to Zoom and Scroll using the Mouse)</a></h3>
+<P>
+<A HREF="#ManZoom">줌(Zoom)</A><BR>
+<A HREF="#ManScroll">스크롤(Scroll)</A><BR>
+</p>
+<h3><A HREF="#Code">코드를 이용하여 줌과 스크롤하기 (How to Zoom and Scroll by code)</a></h3>
+<p>
+<A HREF="#CodeZoom">줌(Zoom)</A><BR>
+<A HREF="#CodeAnimZoom">에니메이트 된 줌 (Animated Zoom)</A><BR>
+<A HREF="#ZoomEvents">줌 이벤트(Zoom events)</A><BR>
+<A HREF="#CodeScroll">스크롤(Scroll)</A><BR>
+</p>
+</td></tr></table>
+<hr>
+<h3><A Name="Manual">마우스를 이용하여 줌과 스크롤하기 (How to Zoom and Scroll using the Mouse)</a></h3>
+<h4><A Name="ManZoom">줌(Zoom)</a></h4>
+<p>차트에서 줌을 하기 위해서는,줌 하고자 하는 영역의 왼쪽 위 코너에서  <b>마우스 오른쪽 버튼</b> 을 누르고 나서 마우스 버튼을 누른 채로 줌 하고자 하는 영역의 오른쪽 아래 코너로 드래그를 하여 사각형을 만듭니다. 마우스 버튼에서 손을 떼면 선택된 영역으로 차트가 다시 그려집니다.
+</p>
+<p>줌 한 것을 취소하고자 하면, 왼쪽 마우스 버튼을 차트 영역 아무곳에서나 누르고 마우스 버튼이  눌린 상태로 왼쪽 위로 드래그를 합니다.  버튼에서 손을 떼면  차트는 본래 정의된 차트 영역에서 다시 그려집니다.  </p>
+<h4><A Name="ManScroll">스크롤(Scroll)</a></h4>
+<p>차트를 가로질러 스크롤 하기 위해서는, <b>마우스 왼쪽 버튼</b> and, 을 누르고 버튼이 눌려진 상태로 마우스를  차트를 스크롤 하고자 하는 방향으로 드래그합니다. 마우스 버튼에서 손을 떼면 차트는 새로운 장소에 남아있게 됩니다. 
+</p>
+<p>스크롤을 취소하고자 하면, 마우스  왼쪽 버튼을 누르고 차트 영역 아무곳에서나  누르고 마우스 버튼이 눌린 상태로 왼쪽 위로 드래그를 합니다. 버튼을 누르고 나면 차트는 본래 정의된 차트 영역에서 다시 그려집니다.</p>
+
+<h3><A Name="Code">코드를 이용하여 줌과 스크롤하기 (How to Zoom and Scroll by code)</a></h3>
+<h4><A Name="CodeZoom">줌(Zoom)</A></h4>
+<p>줌은 기본값에 의해 사용이 가능합니다  Zoom.getAllow 속성을 사용하면 줌을 사용할 수 없게 만들 수 있습니다. 
+<br>
+  줌과 관련된 속성과 메소드의 전체 리스트를 위해 줌 인터페이스를 보십시오. 줌을 할 사각형 영역을 정의하기 위해서는 ZoomRect 메소드를 사용합니다.  <br>
+&nbsp;</p>
+<p><i>예제</i></p>
+<pre>tChart1.getZoom().zoomRect(new com.steema.teechart.Rectangle(100,100,120,120));
+</pre>
+<p>ZoomRect 코디네이트는 차트 패널의 왼쪽 위 포인트가 0,0인 스크린 픽셀에서 정의됩니다.
+다음의 코드는 x축의 2번째와 5번째 사이의 영역에서, y축을 전체 차트의 최소와 최대 스케일로 세팅해 놓고 줌 인 하게 됩니다:</p>
+<pre>int x = points1.calcXPos(2); 
+int y = tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMaxYValue()); 
+int height = tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMinYValue()) - 
+tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMaxYValue()); 
+int width = points1.calcXPos(5) - x; 
+com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(x,y,width,height); 
+tChart1.getZoom().zoomRect(r);
+
+</pre>
+<p>줌을 취소하기 위해서는 'Undo (실행취소)'를 사용하십시오.</p>
+<pre>tChart1.getZoom().undo();
+</pre>
+<br>
+<h4><A Name="CodeAnimZoom">애니메이트 된 줌(Animated Zoom)</a></h4>
+<p>애니메이트 된 줌은 단계적인 줌을 제공합니다. '줌 인'에서 '줌 아웃' 로 한번에 뛰어가는 대신에  AnimatedZoom을 세팅하면 줌이 되기까지 엇갈린 단계들을 정의할 수 있게 됩니다. 한번  AnimatedZoom이 가능해지면 마우스나 코드를 이용하여 수동으로 줌할 수 있습니다.</p>
+<p><i>예제</i></p>
+<pre><span style="background-color: #FFFF00">
+</span>int x = points1.calcXPos(2); 
+int y = tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMaxYValue()); 
+int height = tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMinYValue()) - 
+tChart1.getAxes().getLeft().calcYPosValue(tChart1.getAxes().getLeft().getMaxYValue()); 
+int width = points1.calcXPos(5) - x; 
+com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(x,y,width,height); 
+tChart1.getZoom().setAnimated(true); 
+tChart1.getZoom().setAnimatedSteps(100); 
+tChart1.getZoom().zoomRect(r);
+</pre>
+<br>
+
+<h4><A NAME="ZoomEvents">줌 이벤트(Zoom events)</A></h4>
+<p>줌은 수동으로나 아니면 코드에 의해서,  TChart.OnZoom 이벤트를 유발시킵니다. 줌 아웃은  TChart.UndoZoom 이벤트를 유발시킵니다. </p>
+<br>
+
+
+<h4><A Name="CodeScroll">스크롤(Scroll)</a></h4>
+<p>스크롤은 기본값으로 모든 방향에서 가능합니다.  Scroll.Enable 속성을 이용하면 스크롤을 사용하지 않게 되거나 또는 한 방향으로만 스크롤을 제한합니다.  코드에 의한 가장 쉬운 스크롤 방법은 다음과 같이  Axis Scroll (축 스크롤) 메소드를 사용하는 것입니다. :</p>
+<p><i>예제</i></p>
+<pre>tChart2.getAxes().getBottom().scroll(3, false);
+</pre>
+<p>스크롤 기능을 중지한 상태입니다. 'False'를 시리즈 값에 제한하면 티차트에서 스크롤링을 허랄할지 안할건지를 위임합니다.
+<br>
+<br>
+스크롤을 컨트롤 하는 또다른 방법은 코드에 의해서 축 최대와 최소를 스크롤 하도록 정의하는 것입니다: <br>
+<br>
+&nbsp;</p>
+<p><i>예제</i></p>
+<pre>private void Load() {
+        int range = com.steema.teechart.Utils.Round((bar1.getXValues().getMaximum() - bar1.getXValues().getMinimum() / 2)); 
+        bar1.fillSampleValues(20); 
+        tChart1.getPanning().setAllow(ScrollModes.NONE); 
+        jScrollBar1.setValue(range); 
+        jScrollBar1.setMinimum(range - 50); 
+        jScrollBar1.setMaximum(range + 50); 
+}
+
+    public void jScrollBar1_propertyChange(PropertyChangeEvent evt) {
+        tChart1.getAxes().getBottom().setAutomatic(false);         
+        tChart1.getAxes().getBottom().setMinimum(jScrollBar1.getValue());
+        tChart1.getAxes().getBottom().setMaximum(jScrollBar1.getValue() + bar1.getCount()); 
+}
+</pre>
+
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial7.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial9.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2012 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

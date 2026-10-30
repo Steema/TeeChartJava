@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=EUC-KR">
+<title>Tutorial 4 - Axis Control</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD WIDTH=60%>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT><FONT SIZE=2>&nbsp;
+<A HREF="Contents.HTM">목차</A>&nbsp;<BR>&nbsp;
+<A HREF="Tutorial3.htm">이전</A>&nbsp;|&nbsp;<A HREF="Tutorial5.htm">다음</A>&nbsp;<P></FONT>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<H2><A NAME="TeeChart_tutorial_4"></A>Tutorial 4 - 축 제어(Axis Control)</H2>
+<hr>
+<p>
+TeeChart Pro는 자동적으로 모든 축이 라벨링 되도록 정의되어 있으며 당신의 어떠한 특정 요구 사항이라도 매우 융통성 있게 맞추어줍니다. Teechart Pro는 진정한 다중 축을 제공합니다. 이것은 디자인시나 실행시에 축 정의를 용이와 편리성을 제공합니다. 좀더 많은 정보를 얻기 위해서는 이 자습서의 해당 섹션을 보기 바랍니다. 
+</p>
+
+<!--Axes-->
+
+<table border=0 width=80% cellpadding=5><tr><td><b>목차</b></td></tr>
+<tr><td><h3><A HREF="#AxesControl">축 제어 - 키 영역</a></h3>
+
+<P>
+<A HREF="#Scales">스케일(Scales)</A><BR>
+<A HREF="#Increment">증가(Increment)</A><BR>
+<A HREF="#Titles">제목(Titles)</A><BR>
+<A HREF="#Labels">라벨(Labels)</A><BR>
+<A HREF="#Ticks">표식(Ticks)</A><BR>
+<A HREF="#Position">축위치(Axis position)</A><BR>
+</p>
+<h3><A HREF="#AdditionalAxes">부가적인 축(Additional Axes)</a></h3>
+<A HREF="#CustomDraw">축 복사(Copying axes)</A><BR>
+<A HREF="#MultiAxis">다중 축(Multiple Custom axes)</A> (Pro version only)<BR>
+
+  <BR>
+</td></tr></table>
+<hr>
+<h3><A NAME="AxesControl">축 제어(Axes control) - 키영역(Key areas)</A></h3>
+
+<H4><A NAME="Scales"></A>스케일(Scales)</H4>
+<p>
+축 스케일은 당신의 차트에 시리즈 데이터를 추가하면 자동적으로 세팅이 됩니다. Axis 속성을 사용하면 디자인 시나 실행시에 기본값을 바꿀 수 있습니다. 
+</p>
+<table height="297"><tr><td height="275"><img src="timages/axscale1.gif" width="555" height="370" ></td>
+  <td height="275">&nbsp;<p><br>
+새로운 시리즈를 추가할 때, 차트 에디터의 Axis 페이지에 있는 Scales 섹션은<b>Visible</b>과 <b>Automatic</b>엔체크가되어있고 <b>Inverted</b>는 체크되어있지 않은것을 볼수있습니다..
+ 에디터 에서 두개의 탭  Maximum and Minimum 이 있습니다. 여기서  <b>Auto</b>에서 체크를 빼고 <b>Offset</b>에 챠트에 보여질 값을 세팅할수 있습니다.
+  <p>&nbsp;</p>
+  <p>&nbsp;</td></tr>
+</table>
+<p>
+<b>Automatic</b> s은 당신의 데이터에 적합한 최상의 축 스케일 범위를 선택합니다. 만약 Automatic을 끈다면 스케일 섹션은 옵션에서 회색이 없어지면서 축 값을 바꿀 수 있게 됩니다. 페이지 왼쪽에 있는 축 목록으로부터 당신이 설정하기를 원하는 축을 선택하는 것을 기억하시는 것이 <b>중요합니다</b> .
+</p>
+<p>차트에 라인 시리즈를 추가하고 아래 코드를 가진 Command 버튼을 추가합니다. :</p>
+<pre>tChart1.removeAllSeries();
+tChart1.addSeries(new Line()).fillSampleValues(40);</pre>
+<p>버튼으로 코드를 실행할때 랜덤한 40개 값과 함께 선시리즈에 그릴수 있습니다. 아마 여기 구성된 축 스케일값은  Maximum 과 Minimum 값으로 형성될겁니다.
+
+</p>
+<pre>tChart1.getAxes().getBottom().setAutomatic(false);
+tChart1.getAxes().getBottom().setMaximum(36);
+tChart1.getAxes().getBottom().setMinimum(5);
+</pre>
+<p>다시 코드를 실행시키면 축에 설정해 놓은 값에 따라 값이 나오는 것을 볼 수 있습니다. 마우스의 오른쪽 버튼을 이용하여 남아있는 있는 값을 스크롤 해서 볼 수 있습니다.</p>
+<p>축 스케일의 최대 최소를 자동으로 개별적으로 세팅할 수 있습니다. 예를 들면 다음과 같습니다:</p>
+
+<pre>tChart1.getAxes().getBottom().setAutomaticMaximum(true);
+tChart1.getAxes().getBottom().setMinimum(5);
+</pre>
+
+<h4><A NAME="Increment"></A><b>증가(Increment)</b></h4>
+<p>축의 간격을 맞출 수도 있습니다. <b>Desired Increment</b> 콤보 박스를 축 페이지의 스케일 섹션에서 선택하고 원하는 만큼의 증가를 추가하십시오. 이것은 실행시에 코드를 이용하여 바꿀 수 있습니다.:
+</p>
+<pre>tChart1.getAxes().getBottom().setIncrement(20);
+</pre>
+<p><b>시계열 데이터(Datetime data)</b></p>
+<table height="297"><tr><td height="275"><img src="timages/SeriesGeneral.gif" width="483" height="390" ></td>
+  <td height="275">만약 당신의 데이터가 날짜시간이라면 (General 페이지의 시리즈로 가면 당신의 시리즈를 위해 데이터를 <b>날짜시간(DateTime)</b>으로 설정 , 차트와 축 페이지, 스케일 섹션은 날짜와시간 범위를 보여줍니다. <b> Desired Increment</b> 콤보 박스에서 보여지는 범위로부터 증가를 선택하십시오. </td></tr>
+</table>
+<p><br>
+<br>
+<i>몇가지 셈플데이타</i></p>
+<pre>tChart1.getAxes().getBottom().setIncrement(Utils.getDateTimeStep(DateTimeStep.ONEDAY));
+tChart1.getAxes().getBottom().getLabels().setDateTimeFormat(&quot;dd
+MMM yyyy&quot;);
+
+DateTime d = DateTime.getNow(); d.add(5,1);
+tChart2.getSeries(0).add(d, 20); d.add(5,1);
+tChart2.getSeries(0).add(d, 30); d.add(5,1);
+tChart2.getSeries(0).add(d, 40); d.add(5,1);
+tChart2.getSeries(0).add(d, 35);
+
+</pre>
+<p>실행시 증가(Increment) 바꾸기:</p>
+<pre> tChart2.getAxes().getBottom().setIncrement(com.steema.teechart.DateTimeStep.ONEWEEK);
+</pre>
+<p>데이터 축 라벨링 에 관하여 더많은 정보를 Axis.ExactDateTime 속성에서 볼수 있습니다.
+</p>
+
+
+<h4><A NAME="Titles"></A><b>제목(Titles)</b></h4>
+<p>제목은 축 페이지의 타이틀 섹션에 세팅되어 있습니다. 축과 글꼴을 위해서 제목 텍스트를 바꿀 수 있습니다. 각도는 0, 90,180, 270도 값 중에서 선택할 수 있습니다. 실행시을 위해서는 <A HREF="Javascript:CallHelp('TChartAxisTitle','Tc7')">축 제목 섹션</a>을 보시기 바랍니다.</p>
+
+
+<h4><A NAME="Labels"></A><b>라벨(Labels)</b></h4>
+
+<p><i><b>주의사항</b></i></p>
+<p>축 라벨 빈도수를 바꿀 때, LabelsSeparation 속성 세팅에 따라서 TeeChart는 라벨이 겹치는 것을 막는다는 것을 염두에 두시기 바랍니다. 이것은 만약 라벨 빈도수가 라벨에 적합한 것보다 너무 높으면 TeeChart는 '최적'을 할당할 것입니다. 라벨 각도와 라벨 간격을 바꾸려면 원하는 라벨에 맞출 수 있도록 도와줄 수 있는 두 가지 옵션이 있습니다. <A HREF="#Labels">라벨(Labels)</a> 섹션 과 LabelsAngle 속성을 보십시오.
+</p>
+
+<p><b>라벨 형식(Label formats)</b><br>
+당신은 축 라벨에 모두 표준 숫자와 날짜 형식을 적용할 수 있습니다. 축 페이지 라벨 섹션은 "Values format" 필드를 포함하고 있습니다. 만약 당신의 데이터가 날짜라면 필드 이름은 "Date time format" 으로 바뀝니다. 에디터에서 도움말 "?" 아이콘을 드래그하여 필드 위에 얹으면 옵션의 모든 목록이 나옵니다. 실행시에 사용할 때는 다음과 같습니다: </p>
+<pre>tChart1.getAxes().getBottom().getLabels().setValueFormat(&quot;#,##0.00;(#,##0.00)&quot;);<span style="background-color: #FFFF00">
+
+</span>//or for Datetime data<span style="background-color: #FFFF00">
+
+</span>tChart1.getAxes().getBottom().getLabels().setDateTimeFormat(&quot;dddd/mmmm/yyyy&quot;);
+
+</pre>
+
+<p><b>다중선 라벨(MultiLine labels)</b><br>
+축 라벨은 한 줄 텍스트 대신에 다중선 텍스트로 디스플레이 될 수 있습니다. 선들은 캐리지 리턴 아스키 문자(#13)를 사용하면 분리됩니다.</p>
+
+<i>예제</i> 
+<pre>//Add the Series labels in this way and apply 'Marks' as Axis labelling style
+tChart1.getSeries(0).add(1234, &quot;New&quot;+com.steema.teechart.Texts.LineSeparator+&quot; cars&quot;, Color.Blue );
+tChart1.getSeries(0).add(2000, &quot;Old&quot;+com.steema.teechart.Texts.LineSeparator+&quot; bicycles&quot;, Color.Green);
+tChart1.getPanel().setMarginBottom(10);
+</pre>
+
+<i>시계열레벨 예제</i>
+
+</p>
+
+
+<H4><A NAME="Ticks"></A>Ticks</H4>
+
+<table><tr><td><img src="timages/ticks.gif" width="275" height="150" ></td><td>&nbsp;&nbsp;&nbsp;</td><td>
+<p>3개의 Tick 타입이 있습니다. 각 Tick 타입의 길이, 넓이, 칼라를 변경할수 있습니다. 
+만일 tick 넓이가 1(기본)으로 세팅되었으면 몇개의 라인 타입 (dot, dash 등)의 하나에서 스타일을 바꿀수 있습니다.
+만약에 넓이가 1보다 크면 스타일은 무시됩니다.
+</p>
+
+
+</td></tr></table>
+<pre>tChart1.getAxes().getBottom().getTicks().setLength(7);
+tChart1.getAxes().getBottom().getTicks().setColor(Color.GREEN);
+tChart1.getAxes().getBottom().setMinorTickCount(10);
+</pre>
+
+<H4><A NAME="Position"></A>축 위치(Axis position)</H4>
+<p>축은 각각의 축이 위치한 곳에서 변경할 수 있는 속성을 지니고 있습니다. 여기서 제시된 예제에서는, 축은 전체 차트 너비의 50%로 움직였고, 그래서 차트 가운데서 보이게 됩니다. :</p>
+<pre>tChart1.getAxes().getLeft().setRelativePosition(50);
+</pre>
+
+
+<br>
+<hr>
+<h3><A NAME="AdditionalAxes">부가 축(Additional Axes)</a></h3>
+
+<H4><A NAME="Customdraw"></A>축 복사(Copying axes)</H4>
+<p>TeeChart는 데이터 시리즈와 관련되는 Left, Top, Bottom, Right, Depth의 5개 축을 제공합니다. 새로운 시리즈를 차트에 추가할 때는 어떤 축이 시리즈와 관련되어야 할 것인지를 (General 페이지의 Series 탭으로 가십시오) 정의할 수 있습니다. 앞의 4 축중에서 어떤 것이든 (또는 모두를 ) Axis Customdraw 메소드를 사용하면 차트에서 어떠한 곳에라도 반복시킬 수 있습니다. 이 메소드는 당신의 축을 복사하는 것이지 새로운 사용자 지정 축을 추가하는 것이 아님을 기억하십시오. 보다 자세한 정보를 위해서는 다음 섹션인 다중 사용자 지정 축 섹션을 보십시오.   </p>
+<pre><span style="background-color: #FFFF00">//</span><span style="background-color: #FFFF00">fill</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> Series </span><span style="background-color: #FFFF00">for</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">this</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">example</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">with</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">random</span><span style="background-color: #FFFF00"> data
+</span><span style="background-color: #FFFF00">procedure</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">TForm1</span><span style="background-color: #FFFF00">.BitBtn1Click(Sender: </span><span style="background-color: #FFFF00">TObject</span><span style="background-color: #FFFF00">);
+</span><span style="background-color: #FFFF00">Var</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">t:integer</span><span style="background-color: #FFFF00">;
+</span><span style="background-color: #FFFF00">begin</span><span style="background-color: #FFFF00">
+  </span><span style="background-color: #FFFF00">For</span><span style="background-color: #FFFF00"> t := 0 </span><span style="background-color: #FFFF00">To</span><span style="background-color: #FFFF00"> 20 do
+    Series1.</span><span style="background-color: #FFFF00">AddXY(t</span><span style="background-color: #FFFF00">, </span><span style="background-color: #FFFF00">Random</span><span style="background-color: #FFFF00">(100) - </span><span style="background-color: #FFFF00">Random</span><span style="background-color: #FFFF00">(70), '', </span><span style="background-color: #FFFF00">clRed</span><span style="background-color: #FFFF00">);
+</span><span style="background-color: #FFFF00">end</span><span style="background-color: #FFFF00">;
+
+//</span><span style="background-color: #FFFF00">Put</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">this</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">code</span><span style="background-color: #FFFF00"> in </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">OnBeforeDrawValues</span><span style="background-color: #FFFF00">() </span><span style="background-color: #FFFF00">event</span><span style="background-color: #FFFF00">:
+</span><span style="background-color: #FFFF00">procedure</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">TForm1</span><span style="background-color: #FFFF00">.Series1BeforeDrawValues(Sender: </span><span style="background-color: #FFFF00">TObject</span><span style="background-color: #FFFF00">);
+</span><span style="background-color: #FFFF00">var</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> :</span><span style="background-color: #FFFF00">Integer</span><span style="background-color: #FFFF00">;
+</span><span style="background-color: #FFFF00">begin</span><span style="background-color: #FFFF00">
+  </span><span style="background-color: #FFFF00">With</span><span style="background-color: #FFFF00"> Chart1 do
+  </span><span style="background-color: #FFFF00">begin</span><span style="background-color: #FFFF00">
+    </span><span style="background-color: #FFFF00">If</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">LeftAxis.Maximum</span><span style="background-color: #FFFF00"> &gt; 0 </span><span style="background-color: #FFFF00">Then</span><span style="background-color: #FFFF00">
+    </span><span style="background-color: #FFFF00">begin</span><span style="background-color: #FFFF00">
+      //</span><span style="background-color: #FFFF00">When</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">scrolling</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">or</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">on</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">zoom</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">always</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">keep</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">gridlines</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">enclosed</span><span style="background-color: #FFFF00"> in </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">Chart</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">rectangle</span><span style="background-color: #FFFF00">
+      </span><span style="background-color: #FFFF00">Canvas.ClipRectangle(ChartRect</span><span style="background-color: #FFFF00">);
+      //</span><span style="background-color: #FFFF00">Always</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">draw</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> 2nd vertical </span><span style="background-color: #FFFF00">Axis</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">at</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">middle</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">point</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">of</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">Chart</span><span style="background-color: #FFFF00">
+      </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> := (</span><span style="background-color: #FFFF00">ChartRect.Left</span><span style="background-color: #FFFF00">) + (</span><span style="background-color: #FFFF00">ChartRect.Right</span><span style="background-color: #FFFF00"> - </span><span style="background-color: #FFFF00">ChartRect.Left</span><span style="background-color: #FFFF00">) </span><span style="background-color: #FFFF00">div</span><span style="background-color: #FFFF00"> 2;
+      </span><span style="background-color: #FFFF00">LeftAxis.CustomDraw(posaxis</span><span style="background-color: #FFFF00"> - 10, </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> - 20, </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00">, </span><span style="background-color: #FFFF00">True</span><span style="background-color: #FFFF00">);
+      //</span><span style="background-color: #FFFF00">Draw</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> 2nd Horizontal </span><span style="background-color: #FFFF00">axis</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">at</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">level</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">of</span><span style="background-color: #FFFF00"> &quot;10&quot; </span><span style="background-color: #FFFF00">on</span><span style="background-color: #FFFF00"> </span><span style="background-color: #FFFF00">the</span><span style="background-color: #FFFF00"> vertical </span><span style="background-color: #FFFF00">axis</span><span style="background-color: #FFFF00">
+      </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> := (</span><span style="background-color: #FFFF00">LeftAxis.CalcYPosValue</span><span style="background-color: #FFFF00">(10));
+      </span><span style="background-color: #FFFF00">BottomAxis.CustomDraw(posaxis</span><span style="background-color: #FFFF00"> + 10, </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00"> + 40, </span><span style="background-color: #FFFF00">posaxis</span><span style="background-color: #FFFF00">, </span><span style="background-color: #FFFF00">True</span><span style="background-color: #FFFF00">);
+      </span><span style="background-color: #FFFF00">Canvas.UnClipRectangle</span><span style="background-color: #FFFF00">;
+    </span><span style="background-color: #FFFF00">end</span><span style="background-color: #FFFF00">;
+  </span><span style="background-color: #FFFF00">end</span><span style="background-color: #FFFF00">;
+</span><span style="background-color: #FFFF00">end</span><span style="background-color: #FFFF00">;</span>
+</pre>
+<table><tr><td><img src="timages/custaxis.gif" width="478" height="282" ></td><td>&nbsp;&nbsp;&nbsp;</td><td><b>사용자 축(Custom axes)</b></td></tr></table>
+<p>이 예제에서 TeeChart는 당신의 차트 가운데에서 하나는 가로이며 또 하나는 세로인 새로운 축을 플롯할 것입니다. 차트를 (마우스 오른쪽 버튼을 가지고 드래그 하여) 스크롤 할 때 새로운 세로 축은 언제나 차트의 오른쪽에 남아있으며 새로운 가로 축은 수직 방향으로 스크롤 하는 것에 따라서 위 아래로 움직입니다. 새로운 축은 기본값 축과 똑같이 복사된 것입니다.</p>
+<hr>
+<H4><A NAME="MultiAxis"></A>다중 사용자 축(Multiple Custom Axes)</H4>
+<p>PositionPercent 속성과 stretching 속성을 함께 이용하면 차트 어디에서나 무한한 축을 띄우는 것이 가능해집니다. 스크롤(Scroll), 줌(zoom)과 축 명중 검출(axis hit-detection) 역시 사용자 지정으로 만들어진 축에 적용할 수 있습니다. 이제는 별도의 축을 차트 에디터를 이용하여 디자인시에도 만들 수 있고 몇 줄의 코딩을 이용하여 실행시에도 만들 수 있게 되었습니다. :</p>
+<p>&nbsp;</p>
+<p><b>차트 에디터를 통해서</b><br>
+TeeChart는 실행시에 사용자 지정 축을 만들 수 있게 해 주며 Tee Chart의 tee 파일 형식으로 저장될 수 있습니다. 이렇게 하기 위해서, 차트 에디터를 열고 축 탭을 클릭 한 후 "+" 버튼을 선택하여 사용자 지정 축을 추가해 줍니다. 그리고 나서 위치 탭을 선택하면 새로운 사용자 축이 강조되어 확인할 수 있습니다. 이 페이지의 수평 체크 상자는 새로운 사용자 지정 축을 가로 축으로 정의시켜 주거나 혹은 기본값인 세로 축으로 그대로 있도록 해 줍니다. 이 페이지의 나머지와 축 페이지의 다른 탭들은 규모, 증가, 제목, 라벨, 표시, 작은 표시, 위치와 사용자 지정 축을 위에서 설명한 것처럼 바꾸는 데 사용할 수 있습니다. 원하는 데이터 시리즈를 가지고 새로운 사용자 지정 축에 결합시키기 위해서는 시리즈 탭을 선택하고 일반 페이지의 콤보 박스에 있는 가로 축이나 세로 축으로 가면 새로운 사용자 지정 축을 미리 가로나 세로로 정의해 준 것에 따라 선택 할 수 있도록 해 줍니다. 
+</p>
+<p><b>코드를 통하여 작업하기(Via Code)</b></p>
+<i>예제</i>
+<pre>Line line1 = new Line();
+Line line2 = new Line();
+  tChart2.getAspect().setView3D(false);
+  tChart2.getPanel().getGradient().setVisible(true);
+  tChart2.getHeader().setText(&quot;TeeChart Multiple Axes&quot;);
+  tChart2.getSeries(0).add(line1);
+  tChart2.getSeries(1).add(line2);
+    for(int t = 0; t &lt;= 10; ++t) {
+      line1.add(t, (10 + t), Color.Red);
+      if(t &gt; 1) { 
+        line2.add(t, t, Color.Green);
+    }
+} 
+  tChart2.getAxes().getLeft().setStartPosition(0);
+  tChart2.getAxes().getLeft().setEndPosition(50);
+  tChart2.getAxes().getLeft().getAxisPen().color = Color.Red;
+  tChart2.getAxes().getLeft().getTitle().getFont().setColor(Color.Red);
+  tChart2.getAxes().getLeft().getTitle().getFont().setBold(true);
+  tChart2.getAxes().getLeft().getTitle().setText(&quot;1st Left Axis&quot;);</pre>
+You are able to then position the new Axis in overall relation to the Chart by 
+StartPosition 과 EndPosition 속성을 사용하여 차트에서 새로운 축의 모든관계에 위치할수 있습니다. 이 숫자들은 0을 가진 차트 사각형(세로 축의 경우)가 위쪽에 오는 백분율로서 표현됩니다. 이 속성들은 차트 안에 완전히 분할된 'SubCharts'를 만드는 표준 축에 적용될 수 있습니다.</pre>
+<pre><span style="background-color: #FFFF00">
+</span>&nbsp; Axis axis1 = new Axis(false, false, tChart2.getChart());
+&nbsp; tChart2.getAxes().getCustom().add(axis1);
+&nbsp; line2.setCustomVertAxis(axis1);
+&nbsp;&nbsp;&nbsp; axis1.setStartPosition(50);
+&nbsp;&nbsp;&nbsp; axis1.setEndPosition(100);
+&nbsp;&nbsp;&nbsp; axis1.getAxisPen().setColor(Color.Green);
+&nbsp;&nbsp;&nbsp; axis1.getTitle().getFont().setColor(Color.Green);
+&nbsp;&nbsp;&nbsp; axis1.getTitle().getFont().setBold(true);
+&nbsp;&nbsp;&nbsp; axis1.getTitle().setText(&quot;Extra Axis&quot;);
+&nbsp;&nbsp;&nbsp; axis1.setRelativePosition(20);
+&nbsp;&nbsp;&nbsp; }
+}&nbsp;&nbsp;&nbsp;
+</pre><p>다음과 같은 차트가 나타날 것입니다.:</p><table><tr><td><img src="timages/multaxis.gif" width="401" height="251" ></td><td>&nbsp;&nbsp;&nbsp;</td><td><b>다중 축(Multiple axes)</b></td></tr></table><p><br>
+
+</p>
+<p>옵션에 제한이 없습니다! 사용자 정의 축을 있는 그대로 사용할 때는 화면을 새로운 축으로 채우기 시작할 때는 쉽지만 다루고자 했던 것을 놓치는 것 역시 쉽다는 점을 주의하시기를 바랍니다.</p><p>&nbsp;</p>
+
+<hr>
+<BR>
+<P ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial3.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD><TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial5.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD></TR></TABLE></CENTER><hr>
+&copy; 1996-2012 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

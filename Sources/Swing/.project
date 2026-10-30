@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>TeeChartSwing</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>shared-common</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common/src</locationURI>
+		</link>
+		<link>
+			<name>shared-desktop</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Desktop/src</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

@@ -1,0 +1,15 @@
+{
+  "ready_for_publication": true,
+  "intended_first_party_license": "Apache-2.0",
+  "license_applied": true,
+  "owner_authorized_first_party_apache_2_0": true,
+  "owner_confirmed_asset_and_translation_rights": true,
+  "publication_target": "Steema/TeeChartJava",
+  "review": "LICENSING.md",
+  "pending": [],
+  "clearance_basis": "Owner authorization, documented source replacements, compatibility tests, compiler builds and snapshot hygiene review",
+  "validation_limits": [
+    "Legacy toolchains retained; not a complete vulnerability audit",
+    "Standalone AndroidDemo, full IDE/runtime/device testing and complete legacy Ant builds not validated"
+  ]
+}

@@ -1,0 +1,42 @@
+1841 Spain
+1528 Portugal
+857 France
+1938 UK
+803 Ireland
+1954 North Ireland
+1248 Italy
+1018 Germany
+774 Denmark
+776 Denmark
+778 Denmark
+780 Denmark
+1251 Italy (Sardinia)
+862 France (Corcega)
+1252 Italy (Sicilia)
+193 Belgium
+1421 Netherlands
+58 Austria
+1319 Luxembourg
+1877 Sweden
+818 Finland
+1029 Greece
+1835 Slovenia
+816 Czech Republic
+1316 Slovakia
+1524 Poland
+1084 Hungary
+301 Bulgaria
+1577 Romania
+807 Estonia
+1312 Latvia
+1313 Lithuania
+811 Estonia
+808 Estonia
+1843 Spain (Mallorca)
+1842 Spain (Menorca)
+1844 Spain (Ibiza)
+1060 Greece (Rodhes)
+1223 UK (Isle of Man)
+846 Faroe Islands
+850 Faroe Islands
+1342 Malta

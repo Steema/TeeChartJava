@@ -1,0 +1,401 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-gb">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Tutorial 1 - Getting started</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TOPMARGIN=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD WIDTH=60%>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT>&nbsp;<A HREF="contents.htm">Contents&nbsp;page</A>&nbsp;<BR>&nbsp;<A HREF="tutorial2.htm">Next</A>&nbsp;
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+
+<H2><a name="TeeChart_tutorial_1">Tutorial 1 - Getting started</a></H2>
+
+
+<p><b>Getting Started - building Charts and populating Data Series</b></p>
+<p><b>Contents</b><br><b><a href="#Introduction">Introduction</a><br>
+
+<a href="#BuildChart">Building a Chart</a><br>
+
+&nbsp;&nbsp;&nbsp;
+
+<a href="#IncTChart">Including TeeChart on a Form</a><br>
+	&nbsp;&nbsp;&nbsp; <a href="#Editor">
+<span style="background-position: 0% 0%">P</span></a><a href="#PopSeries">opulate 
+the new data Series</a><br>
+	
+
+<a href="#Editor">The Chart Editor</a><br>
+&nbsp;&nbsp;&nbsp; <a href="#AccessEditor">Accessing the Chart Editor at Runtime</a><br>
+&nbsp;&nbsp;&nbsp; <a href="#Gallery">The Chart Series Gallery</a><br>
+<a href="#SelSeries">Selecting a Series type to suit your needs</a><br>
+
+
+&nbsp;</b></p>
+
+<hr>
+
+<u><b>
+
+<a name="Introduction"><font size="3" face="Arial">Introduction</font></a></b></u><br> 
+<br>
+You may define the Chart appearance, titles, Legend characteristics and 3D aspect without having to include a data Series. 
+<br>
+That gives you the freedom to add and remove different data Series types at runtime without having to redefine the whole Chart look and feel.
+<br><br>
+<table><tr><td><img src="timages/pieces.png" border=0 width="188" height="86">&nbsp;<br><br>
+Everything comes together to make the final Chart, with Chart axes being the interface between Chart and Series. 
+  <br>
+  A Series has data, and its values will influence the label characteristics of the Chart axes. 
+  <br>
+  The axes appearance, colours, grid frequency and label fonts may all be defined for the Chart before adding data Series.
+  <br>
+  TeeChart will make a best estimate of most values to minimise the need for you to manually define Chart and Series 
+  methods.
+</td></tr></table>
+<p> <br>
+<br>
+The steps in this tutorial highlight how easy it is to build a Chart from scratch and will introduce you to the Chart Editor to enable you, through later tutorials, to modify and further enhance the appearance and functionality of the Chart 
+at runtime. Good Charting !!
+<br>&nbsp; </p>
+<HR>
+<font face="Arial">
+<a name="BuildChart"><u><b><font size="3">Building a Chart</font></b></u></a><font size="3">
+</font></font>
+<a name="IncTChart"><h3><font size="2">Including TeeChart on a Form</font></h3></a>
+
+By following the installation instructions for TeeChart you should have succeeded in adding the TeeChart Pro icons to the 
+Java Component palette.
+
+<br>
+The TeeChart icon is a representation of a circled (Pie) Chart. <br>
+You will find TeeChart,
+the TChart component, in the <b>Additional</b> section of the Java Component Palette.
+
+<p>
+<img src="timages/button1.gif" border=0 width="29" height="29"></p>
+
+<p>&nbsp;</p>
+
+<p>Select the first icon of the three and click and drag out to size TChart on a Form. 
+<br>
+You will see TChart as a panel with some basic Chart features such as Axis and Title. 
+<br>
+<br>
+</p>
+
+<hr>
+<p><b><a name="PopSeries"><font size="2">Populate the new data Series</font></a></b></p>
+
+For programmed input of data you will need to write some code. This section will show you the steps necessary to build a chart with coded input.
+<br><br>
+&nbsp;At runtime the Series will be empty of data unless you manually populate it. Select a Command button from the Component palette and place it on your Form. Double-click on the button to access the code editor.
+
+In the code Editor type these lines:
+<br><br>
+<br>
+<pre>Series bar = new Bar(tChart1.getChart());
+tChart1.getAxes().getBottom().setIncrement(1);
+bar.add(400, &quot;pears&quot;, Color.Green);
+bar.add(500, &quot;apples&quot;, Color.Red);
+bar.add(400, &quot;bananas&quot;, Color.Yellow);
+bar.add(200, &quot;oranges&quot;, Color.Orange);
+</pre>
+<br>
+Run the project and press the command button. Three new bars will appear on your Chart. That's it !! There's no more to it.
+<br><br>
+<p>The Series' Add method accepts 3 variables, Value, Label and Colour. The Add method thus assumes equal spacing of values on the Label axis (in this case the X-Axis). If your data contains 2 variables you may use the AddXY Method. Add another Command button to your project and put this code in it. Run the Project and add points using this code:</p>
+<br><br>
+<pre>Random rnd = new Random();
+
+Series bar = new Bar(tChart1.getChart());
+
+	if (bar.getCount() &gt; 0)
+	{
+	// Increment X Axis value and add a new random point 
+		bar.add((bar.getXValues().getLast() + rnd.nextInt(10)), 
+			((bar.getYValues().getLast() / (bar.getYValues().getLast() - 1.0)) + 
+			rnd.nextInt(10)), &quot;Lemons&quot;, Color.GreenYellow); 
+	}
+	else
+	{
+		// Add a new random point
+		bar.add(1, rnd.nextInt(10), &quot;Lemons&quot;, Color.Yellow);
+	} 
+</pre>
+<br>
+<p>
+<br>
+</p>
+<hr>
+
+<h3><u><a name="Editor">The Chart Editor</a></u></h3>
+
+<a name="AccessEditor"><h3><font size="2">Accessing the Chart Editor at Runtime</font></h3></a>
+
+<p>To access the Chart Editor select a command button and place it on your Form. 
+Double click it and add the following line of code.</p>
+<pre>ChartEditor.editChart(tChart2.getChart());
+</pre>
+<p></p>
+<p>Run the project and click the button to view the Chart Editor </p>
+<p>The Chart Editor allows you access to most of the commonly used Chart 
+properties at runtime. </p>
+
+<p><img src="timages/TeeEditCht1.gif" border=0 width="483" height="374"></p>
+
+<p>To add a new Series, mouseclick on the <b>Add...</b> button and select the 
+Series type from the Series Gallery. If after selecting a Series type you wish 
+to change it later you may do so (with a few exceptions where the Series data 
+content may be incompatible) by returning to the first Editor screen and 
+selecting the <b>Change..</b> button.</p>
+
+<hr>
+<a name="Gallery"><h3><font size="2">The Chart Series Gallery</font></h3></a>
+
+<p>
+<IMG SRC="timages/TeeGallery.gif" ALT="TeeChart gallery" BORDER=0 width="400" height="350"></p>
+
+<p>The Gallery consists of six tabbed pages: </p>
+
+<p><img src="timages/Blbullet.gif" border=0 width="8" height="8">&#09;Standard Series</p>
+<p>Standard Series types: those likely to be called upon most frequently. </p>
+<p><img src="timages/Blbullet.gif" border=0 width="8" height="8">&#09;Financial</p>
+<p>Financial Series include more specialised Financial Series types for financial 
+applications.</p>
+<p><img src="timages/Blbullet.gif" border=0 width="8" height="8">&#09;Stats</p>
+<p>Stats Series include more specialised Statistical Series types for planning or 
+mapping applications.</p>
+<p><img src="timages/Blbullet.gif" border=0 width="8" height="8">&#09;Extended Series</p>
+<p>Extended Series include more specialized Series types for Financial, planning or mapping applications.
+</p>
+<p><img src="timages/Blbullet.gif" border=0 width="8" height="8">&#09;3D</p>
+<p>3D Series Types, those types that take three (X, Y, Z) rather than two (X, Y) 
+variables. </p>
+<p><img src="timages/Blbullet.gif" border=0 width="8" height="8">&#09;Other</p>
+<p>Miscellaneous Series types.<br></p>
+<p>Select a Series type. For this exercise we will choose a Bar Series type. The Gallery will close and the new Series will be displayed in the first Chart Editor screen.
+</p>
+<p>&nbsp;</p>
+<hr>
+<a name="SelSeries"><h3><u>Selecting a Series Type to suit your data needs</u></h3></a>
+<p>The last coded example generated new X and Y values. The X axis distance 
+between points may not be constant, depending on the values used, which may 
+cause overlapping of Bars in some cases. This would be desirable for some but 
+not all applications. Using the Chart Editor to Change the Series type (Enter 
+the Chart Editor at Design time and use the <b>Change</b> button on the first 
+page) to a LineSeries shows an alternative way to graphically represent data 
+with 2 variables. If your data contains more than 2 variables, there are other 
+Series Types suited to displaying the data. The following table shows the 
+composition of TeeChart Series types.
+<BR><BR>
+<ALIGN="LEFT"></align="left">
+<LEFT></left>
+</p>
+<TABLE BORDER=1 BORDERCOLOR=#b5b500 CELLSPACING=1 CELLPADDING=7 WIDTH=450>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ceceff">
+<P><b>Series Type</b></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ceceff">
+<b>No. of variables</b></TD><TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ceceff">
+<P><b>Datasource Properties</b></TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Standard types</B></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Line</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Horizontal Line</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Fast Line</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Bar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues (called Bar), XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>HorizBar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues (called Bar), XLabel</TD>
+</TR>
+<tr>
+  <TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Area</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</tr>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P><span lang="es">
+HorizArea</span></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Point</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Xvalues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Pie</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+1</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>PieValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Arrow</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+4</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>StartXValues, StartYValues, XLabel, EndXValues, EndYValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Bubble</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Xvalues, YValues, XLabel, RadiusValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Gantt</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>StartValues, EndValues, AY (Y axis level), AXLabel (Label optionally shown on 
+Y-axis or as mark)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Shape</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+4</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>X0 (Top), Y0 (Bottom), X1 (Left), Y1 (Right)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Subset of Extended Types</B></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Bezier</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Candle</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+5</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>OpenValues, CloseValues, HighValues, LowValues, DateValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Contour</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel, ZValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Error Bar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel, ErrorValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Point3D</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, XLabel, ZValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Polar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, Labels (Polar has Angle and Radius)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Radar</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, Labels (Radar has Angle and Radius)</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>3D Surface</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+3</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues, ZValues</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Volume</TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+2</TD>
+<TD WIDTH="50%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>XValues, YValues (VolumeValues), XLabel</TD>
+</TR>
+</TABLE>
+
+<BR><BR><hr>
+<ALIGN="CENTER"><TABLE BORDER=0 CELLSPACING=1 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+</TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<a href="tutorial2.htm">
+<img src="timages/fwdtut.gif" border=0 width="116" height="81"></a></TD>
+</TR>
+</TABLE>
+<hr>
+&copy; 1996-2018 Steema Software SL. All rights reserved.
+
+</BODY>
+</HTML>

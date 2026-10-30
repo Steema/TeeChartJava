@@ -1,0 +1,27 @@
+1243 Iran
+1256 Irak
+5 Azerbaijan
+9 Azerbaijan
+11 Armenia
+870 Georgia
+1889 Syria
+1311 Lebanon
+773 Cyprus
+1246 Israel
+1289 Jordan
+1822 Saudi Arabia
+2128 Yemen
+1344 Oman
+1892 United Arab Emirates
+1568 Qatar
+1305 Kuwait
+1523 Pakistan
+3 Afghanistan
+1925 Turkmenistan
+2098 Uzbekistan
+1903 Tajikistan
+1294 Kyrgyzstan
+2098 Uzbekistan
+1307 Kazakhstan
+1306 Kuwait
+2119 West Bank

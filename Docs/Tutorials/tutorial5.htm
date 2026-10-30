@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Tutorial 5 - Legend design</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('%27url(%27url(timages/headerback.png)%27)%27')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT><FONT SIZE=2>&nbsp;
+<A HREF="contents.htm">Contents&nbsp;page</A>&nbsp;<BR>&nbsp;
+<A HREF="tutorial4.htm">Previous</A>&nbsp;|&nbsp;<A HREF="tutorial6.htm">Next</A>&nbsp;<P></FONT>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<H2><A NAME="TeeChart_tutorial_5"></A>Tutorial 5 - Legend design</H2>
+<hr>
+<p>
+See TeeChart coded Legend example in the Examples folder below your TeeChart installation folder
+for a working example of some of the techniques outlined in this Tutorial.
+</p>
+
+<!--Legend-->
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#LegendControl">Legend control</a></h3>
+<P>
+<A HREF="#Editor"><FONT SIZE=2>Style Tab</FONT></A><BR>
+<A HREF="#Position"><FONT SIZE=2>Positioning the Legend</FONT></A><BR>
+<A HREF="#NumRows"><FONT SIZE=2>Number of rows in a horizontal Legend</FONT></A><BR>
+<A HREF="#Colorwidth"><FONT SIZE=2>Colour box modification</FONT></A><BR>
+</p>
+<p>
+<BR>
+</p>
+</td></tr></table>
+<hr>
+<h3><A NAME="LegendControl">Legend control</A></h3>
+
+<H4><A NAME="Editor"></A>Style tab</H4>
+
+<p>Legend parameters are accessible via the Chart Editor, Chart tab, Legend page.</p>
+<table><tr><td><img src="timages/TeeLegend.gif" width="483" height="372"></td><td>&nbsp;&nbsp;&nbsp;</td>
+<td><p>Legend parameters. See Legend class help for more information</p></td></tr></table>
+<p><b>Legend Style</b><br>Legend default Style "Automatic" will put Series point values in the Legend when there is only one Series in the Chart. When the Chart contains more than one Series, "Automatic" will put Series names in the Legend. In the Editor, use the Dropdown Combobox to obtain values other than the default. If you change the Legend Style to display values and there
+is more than one Series in your Chart, TeeChart Pro will display the values of the first Series. You may modify the display using custom options.</p>
+<pre> tChart1.getLegend().setLegendStyle(LegendStyles.LASTVALUES);
+//Puts the last value of each Series in the Legend box
+</pre>
+<p><b>Text Style</b><br>See the TextStyle method for a list of possible Legend text styles. The Text Style formats the Series entry in the Legend
+(e.g. Showing value as a percentage of total, etc).</p>
+
+
+<H4><A NAME="Position"></A>Positioning the Legend (Position tab options)</H4>
+<p><b>Alignment</b><br>
+<p>There are 4 default positions available using the Alignment method, Top, Bottom, Left and Right. Right is the default position. The default positioning of the Legend will always be outside the Chart.  </p>
+<p><b>Resize Chart</b><br>The Resize Chart method, when not enabled, will draw the legend within the Chart frame area. Whilst this may be satisfactory for some Legend positioning requirements, better control of Legend positioning in relation to the Chart frame can be achieved by using the Legend HorizMargin and VertMargin properties.</p>
+<p><b>HorizMargin & VertMargin</b><br>
+Horizmargin applies to Left and Right aligned Legends. VertMargin applies to Top and Bottom aligned
+Legends. Changing the Horizmargin method value will move the Chart frame in relation to the Legend, NOT vice versa. Thus, making a Horizmargin value negative will move the Chart over the Legend (increasing the size of the Chart rectangle area). However, the 
+methods are not intended for repositioning of the Legend over the Chart,
+to achieve this it is better to use the techniques outlined below.</p>
+<p><b>Custom position</b><br>
+Set the Legend CustomPosition method to true, then set the Top and Left pixel co-ordinates of the Legend to custom position it.</p>
+<P>Example</p>
+<pre>tChart1.getLegend().setCustomPosition(true);
+tChart1.getLegend().setTop(100);
+tChart1.getLegend().setLeft(100);
+</pre>
+
+<H4><A NAME="NumRows"></A>Number of rows in a horizontal Legend</H4>
+<p>When the Legend is aligned horizontally (top or bottom), the number of rows can be specified:</p>
+<pre>tChart1.getLegend().setMaxNumRows(3);
+</pre>
+<p>By default, MaxNumRows is 0 (zero), meaning the Legend will show all values using as many rows as necessary.</p>
+<BR>
+<H4><A NAME="Colorwidth"></A>Colour box modification (Symbols tab of Editor)</H4>
+<P>Use the Colorwidth method to set the width of the colour boxes in the Legend.
+<p>Example</p>
+<pre>//move the colour boxes to the right of the value list
+tChart1.getLegend().getSymbol().setPosition(LegendSymbolPosition.RIGHT);
+//set the boxes as continuous
+tChart1.getLegend().getSymbol().setContinuous(true);
+//Make the boxes wider
+tChart1.getLegend().setColorWidth(40);
+//Hide the Pen of the line between the boxes
+tChart1.getLegend().getDividingLines().setVisible(false);
+</pre>
+<pre></pre>
+<hr>
+<BR>
+<P ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial4.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<FONT SIZE=2><P></FONT><A HREF="tutorial6.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+
+<hr>
+&copy; 1996-2018 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

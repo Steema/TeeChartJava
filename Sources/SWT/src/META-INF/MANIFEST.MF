@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Specification-Title: TeeChart for Java
+Specification-Version: 2.0
+Specification-Vendor: Steema Software SL
+Implementation-Title: TeeChart for Java
+Implementation-Version: 2.0
+Implementation-Vendor: Steema Software SL
+Created-By: 2.0 (Steema Software SL)
+
+Name: com/steema/teechart/TChart.class
+Java-Bean: True
+
+Name:  com/steema/teechart/Commander.class
+Java-Bean: True
+
+Name:  com/steema/teechart/editors/ButtonPen.class
+Java-Bean: True
+
+Name:  com/steema/teechart/editors/ButtonColor.class
+Java-Bean: True
+
+Name:  com/steema/teechart/editors/ChartEditor.class
+Java-Bean: True
+
+Name:  com/steema/teechart/printer/PreviewPanel.class
+Java-Bean: True
+

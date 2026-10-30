@@ -1,0 +1,40 @@
+1683 Russia
+1807 Russia
+1815 Russia
+1817 Russia
+1818 Russia
+596 China
+614 China
+1923 Taiwan
+1495 Nepal
+300 Buthan
+1328 Mongolia
+1224 India
+592 Sri Lanka
+1257 Japan
+1261 Japan
+1262 Japan
+1263 Japan
+1267 Japan
+1271 Japan
+1280 Japan
+1282 Japan
+1297 South Korea
+1295 North Korea
+208 Bangladesh
+220 Burma
+1896 Thailand
+1310 Laos
+2112 Vietnam
+590 Cambodia
+1383 Malaysia
+1385 Malaysia
+1177 Indonesia
+1214 Indonesia
+1087 Indonesia
+1089 Indonesia
+1106 Indonesia
+1130 Indonesia
+1580 Philippines
+1601 Philippines
+1611 Philippines

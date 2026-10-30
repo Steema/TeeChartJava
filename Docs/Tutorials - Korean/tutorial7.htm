@@ -1,0 +1,480 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=EUC-kr">
+<title>Tutorial 7 - Working with Functions</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('%27url(%27url(timages/headerback.png)%27)%27')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT>
+<FONT SIZE=2>&nbsp;
+<A HREF="Contents.HTM">목차</A>&nbsp;<BR>&nbsp;
+<A HREF="Tutorial6.htm">이전</A>&nbsp;|&nbsp;<A HREF="Tutorial8.htm">다음</A>&nbsp;</FONT>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<H2><a name="TeeChart_tutorial_7"></a>Tutorial 7 - 함수로 작업하기(Working with Functions)</H2>
+<hr>
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#FunctionTypes">함수타입(Function Types)</a></h3>
+<P>
+<A HREF="#Features">함수 특성 (Function characteristics)</A><BR>
+<A HREF="#AddFunction">함수 추가하기 (Adding a Function)</A><BR>
+<A HREF="#Datasource">데이터소스 정의하기 (Defining a datasource)</A><BR>
+<a HREF="#FunctionPeriod">함수 Period (Function Period)</a><br>
+<a HREF="#FunctionPeriodAlign">함수 Period 정렬 (Function Period Align)</a>&nbsp;<br>
+<a href="#DerivingVCL">커스톰 함수 끌어내기 (Deriving custom functions)</a><BR>
+</p>
+</td></tr></table>
+<hr>
+<h3><A NAME="FunctionTypes">함수 타입 (Function Types)</a></h3>
+<h4><A NAME="Features">함수 특성 (Function characteristics)</A></h4>
+<p>TeeChart Pro의 함수는 수학 함수는 일종의 시리즈로, 대부분의 시리즈 유형을 포함하며, 그것은 수학적 함수가 적용되거나 다른 차트의 데이터소스 이다. </p>
+<p>모든 함수는  Teefunction 클래스에서 파생되며  TeeFunction의 <A HREF="#FunctionPeriod">Period 속성
+<span style="background-position: 0% 0%"></span></a>을 상속합니다.</p>
+<p>TTeeChart Pro는 다음 목록에 나오는 것과 같은 미리 정의된 함수를 제공합니다. Please see the TeeChart Editor Gallery and Helpfile for a full list of all Function Types:</p>
+
+<ALIGN="LEFT"><LEFT><TABLE BORDER=1 BORDERCOLOR=#b5b500 CELLSPACING=1 CELLPADDING=7 WIDTH=474>
+<TR><TD WIDTH="123" VALIGN="TOP" BGCOLOR="#ceceff">
+<P><b>함수 유형(Function Type)</b></TD>
+<TD WIDTH="60" VALIGN="TOP" BGCOLOR="#ceceff">
+<b>입력 횟수(No. of inputs)</b></TD><TD WIDTH="233" VALIGN="TOP" BGCOLOR="#ceceff">
+<P><b>설명(Description)</b></TD>
+</TR>
+<TR>
+  <td width="123">&nbsp;</TD>
+<TD width="60">&nbsp;</TD>
+<TD width="233">&nbsp;</TD>
+</TR>
+
+<tr>
+  <TD width="123">Add(더하기)</TD>
+<TD width="60">Unlimited(제한없음)</TD>
+<TD width="233">Plots sum of inputs(입력된 합계를 표시합니다.)</TD>
+</tr>
+<tr>
+  <TD width="123">Averag(평균)</TD>
+<TD width="60">Unlimited(제한없음)</TD>
+<TD width="233">The Average Function will calculate the average of every group of Period points(평균 함수는 Period 포인트에서 모든 그룹의 평균을 계산합니다.)</TD>
+</tr>
+<tr>
+  <TD width="123">Copy(복사)</TD>
+<TD width="60">1</TD>
+<TD width="233">A direct copy of the input Series(input-Serise의 복사 명령)</TD>
+</tr>
+<tr>
+  <TD width="123">Divide(나누기)</TD>
+<TD width="60">Unlimited(제한없음)</TD>
+<TD width="233">The Divide Function plots inputs divided in descending order of inclusion(나누기 함수는 계산 합계의 내림차 순으로 나눈 입력을 플롯합니다. )</TD>
+</tr>
+<tr>
+  <TD width="123">High(고)</TD>
+<TD width="60">Unlimited(제한없음)</TD>
+<TD width="233">The High Function plots high point of inputs(고 함수는 입력이 높은 포인트를 플롯합니다. )</TD>
+</tr>
+<tr>
+  <TD width="123">Low(저)</TD>
+<TD width="60">Unlimited(제한없음)</TD>
+<TD width="233">The Low Function plots low point of inputs(저 함수는 입력이 낮은 포인트를 플롯합니다. )</TD>
+</tr>
+<tr>
+  <TD width="123">Multiply(곱하기)</TD>
+<TD width="60">Unlimited(제한없음)</TD>
+<TD width="233">The Multiply Function plots value of inputs multiplied(곱하기 함수는 입력을 곱한 값을 플롯합니다.)</TD>
+</tr>
+<tr>
+  <TD width="123">Subtract(빼기)</TD>
+<TD width="60">Unlimited(제한없음)</TD>
+<TD width="233">Plots value of inputs subtracted in descending order of inclusion(계산 합계의 내림차 순으로 뺀 입력 값을 플롯합니다.) </TD>
+</tr>
+<tr>
+  <TD width="123">Mode(모드)</TD>
+<TD width="60">1</TD>
+<TD width="233">The mode function returns the source series value that is repeated more times.(모드함수 시리즈값 소스를 받아 다음번에 반복합니다.)</TD>
+</tr>
+<tr>
+  <TD width="123">Median(메디안)</TD>
+<TD width="60">1</TD>
+<TD width="233">Calculates the median value of the source series values.(소스시리즈의 중간값을 계산합니다.)</TD>
+</tr>
+<tr>
+  <TD width="123">Count(카운트)</TD>
+<TD width="60">1</TD>
+<TD width="233">Draws horizontal line at Y position that is defined by the number of points in underlying Series.(아래있는 시리즈에 포인트수에 의해 규정하여 계산 합계의 내림차 순으로 뺀 입력 값을 플롯합니다.)</TD>
+</tr>
+
+
+<tr>
+<TD width="123"><b>Subset of Pro version only functions</b></TD>
+<TD width="60">&nbsp;</TD>
+<TD width="233">&nbsp;</TD>
+</tr>
+
+
+<TR><TD width="123">Bollinger(볼링어)</TD>
+<TD width="60">1</TD>
+<TD width="233">The Bollinger Function uses simple or exponential moving average to constructs Bollinger Trading Bands(재정 함수. 이동 평균(지수일 수 있습니다)과 표준  편차를 이용합니다. )</TD>
+</TR>
+<tr>
+<TD width="123">Curve Fitting(곡선)</TD>
+<TD width="60">1</TD>
+<TD width="233">Draws fitted polynomial through data inputs using the TypeFitting formulaTypeFitting (수식을 이용하여 데이터 입력을 통해 곡선을 그립니다. )</TD>
+</tr>
+<tr>
+<TD width="123">Exponential Average(지수평균)</TD>
+<TD width="60">1</TD>
+<TD width="233">Exponential average based on Weight(지수 평균 가중치를 지닌 추이)</TD>
+</tr>
+<tr>
+  <TD width="123">Exponential Moving Average(지수이동평균)</TD>
+<TD width="60">1</TD>
+<TD width="233">Exponential moving average based on Weight&nbsp;(지수이동평균 함수는 Period 포인트의 모든 그룹의 단순 평균이나 가중치 평균을 계산합니다.)</TD>
+</tr>
+<tr>
+  <TD width="123">Exponential Trend(지수추이)</TD>
+<TD width="60">1</TD>
+<TD width="233">Draws best exponential trend line through points in input series(Input series에서 포인트롤 통하여 지수추이를 그립니다.)</TD>
+</tr>
+
+<TR><TD width="123">MACD</TD>
+<TD width="60">1</TD>
+<TD width="233">Moving Average Convergence Divergence(재정 함수. 이동 평균 수렴 분기)</TD>
+</TR>
+<TR><TD width="123">Momentum(추진력)</TD>
+<TD width="60">1</TD>
+<TD width="233">Each Y value is the current point's Y value less the last Period point's Y value(각각의 Y값은 현재 포인트의 Y값에서 지난 Period 포인트의 Y 값보다 적습니다. )</TD>
+</TR>
+<TR><TD width="123">Momentum Division(추진력 분할)</TD>
+<TD width="60">1</TD>
+<TD width="233">Each Y values is the current point's Y value divided by the last
+  Period point's YValue, expressed in percents(각각의 Y값은 현재 포인트의 Y값에서 지난 Period 포인트의 Y 값을 나눕니다. 퍼센티지로 표현됩니다.)</TD>
+</TR>
+<TR><TD width="123">Moving Average(이동 평균)</TD>
+<TD width="60">1</TD>
+<TD width="233">The Moving Average Function will calculate the simple or weighted average of every group of Period points(이동 평균 함수는 Period 포인트의 모든 그룹의 단순 평균이나 가중치 평균을 계산합니다.)</TD>
+</TR>
+
+<TR><TD width="123">Root Mean Square(제곱평균)</TD>
+<TD width="60">Unlimited(제한없음)</TD>
+<TD width="233">The Root Mean Square Function plots RMS value of inputs(제곱평균함수를 띄워 RMS 값을 넣습니다.)</TD>
+</TR>
+<TR><TD width="123">Relative Strength Index(관계 강도 인덱스)</TD>
+<TD width="60">1</TD>
+<TD width="233">RSI Function calculates a percent value based on financial data.
+  Depending on TRSISyle type different formula will be used to calculate RSI
+  value</TD>
+</TR>
+<TR><TD width="123">Standard Deviation(표준 탈피)</TD>
+<TD width="60">1</TD>
+<TD width="233">Maps the Standard Deviation (or Complete Standard Deviation) of every group of Period points(지도에서 Period 포인트의 모든 그룹에 표준탈피 (또는 완벽표준탈피)</TD>
+</TR>
+<tr>
+  <TD width="123">Stochastic(확률)</TD>
+<TD width="60">1</TD>
+<TD width="233">&nbsp;</TD>
+</tr>
+<tr>
+  <TD width="123">Trend(추이)</TD>
+<TD width="60">1</TD>
+<TD width="233">Draws best trend line through points of input Series(입력 시리즈 포인트를 통해 최적의 추이 선을 그립니다. )</TD>
+</tr>
+<TR><TD width="123">&nbsp;</TD>
+<TD width="60">&nbsp;</TD>
+<TD width="233">&nbsp;</TD>
+</TR>
+</TABLE>
+<p>몇몇 함수 유형은 오직 입력 시리즈만을 지원합니다. 그렇지만 함수들을 연결시키는 것은 가능합니다. 예를 들어 당신의 차트에서 몇몇 시리즈의 평균을 가지고 평균 함수 시리즈를 만든 후, 추이 함수에 입력시키는 것으로 평균 함수를 사용하여 평균의 추이를 알아내는 것 등입니다.</p>
+
+<h4><A NAME="AddFunction">함수 추가하기 (Adding a Function)</A></h4>
+<p>차트에 새로운 시리즈를 추가하는 것과 마찬가지로 차트 에디터를 가지고 처음 차트 페이지에서  <b>Add</b> 버튼을 선택하십시오. 필요한 함수를 선택하기 위해 TeeChart 갤러리에서 함수 탭을 고르십시오. 각각의 함수는 선 시리즈로 나타나며, 함수와 관련된 시리즈 유형은 나중에 첫번째 차트 페이지에서 <b>Change</b> 버튼을 가지고 바꿀 수 있습니다. 함수 정의는 나중에  함수 시리즈의 데이터 소스 페이지에서 쉽게 바꿀 수 있습니다.   다음과 같이 하면, 아주 간단하게 함수의 차트에 추가한 일반 시리즈의 정의를 바꿀 수 있습니다. (함수는 사실 데이터 소스의 정의이지 시리즈 유형의 정의는 아닙니다.) 
+<p>
+<p>아래의 이미지는 함수를 에디팅할 때의 데이터 소스 페이지를 보여줍니다. 선 시리즈 (이름은"Series1",제목은 "Average") 가 정의 되어있습니다. 데이터 소스 페이지의 아래쪽에 있는  왼쪽 목록 상자는 입력이 가능한 차트 안에 있는 다른 시리즈들을 보여줍니다. (여기서는 "Series0")</p>
+<img src="timages/Function1.png" BORDER=0 width="414" height="354">
+<br>
+<p>완전히 비어있는 차트를 가지고 시작하는 것으로 가정한다면,  코딩으로 차트에 관련된 단순한 시리즈 함수를 만드는 과정은 다음과 같습니다.</p>
+<pre>private void Load() {
+
+//Add a data Series 
+Line line1 = new Line(tChart1.getChart());
+
+//Populate it with data (here random) 
+line1.fillSampleValues(10); 
+
+//Add a series to be used for an Average Function 
+Line line2 = new Line(tChart1.getChart()); 
+
+//Define the Function Type for the new Series 
+com.steema.teechart.functions.Average average1 = new com.steema.teechart.functions.Average(); 
+line2.setFunction(average1); 
+
+//Define the Datasource for the new Function Series 
+line2.setDataSource(line1); 
+
+//*Note - When populating your input Series manually you will need to 
+//use the Checkdatasource method 
+//- See the section entitled 'Defining a Datasource' 
+//Change the Period of the Function so that it groups averages 
+//every 2 Points 
+line2.getFunction().setPeriod(2); 
+line2.checkDataSource();
+}
+
+</pre>
+<p>앞서의 함수에 대해 우리에게 몇가지를 알려주는 다른 함수를 추가할 수 있습니다. </p>
+<pre>public void button1_actionPerformed(ActionEvent e) {
+
+//Let's change to 2D for visibility 
+tChart1.getAspect().setView3D(false); 
+//Add another Series to be used for a 2nd Function 
+Line line3 = new Line(tChart1.getChart()); 
+//Define the Function Type for the new Series 
+com.steema.teechart.functions.High high1 = new com.steema.teechart.functions.High(); 
+line3.setFunction(high1); 
+//Define the Datasource for the new Function Series 
+//Use the existing Function (Series2) as input 
+line3.setDataSource(tChart1.getSeries(1)); 
+//Leave the Period at default 0 (No Period set) to draw 
+//A line at Highest of all points of the Average Function 
+</pre>
+
+<h4><A NAME="Datasource">데이터소스 정의하기 (Defining a datasource)</A></h4>
+<p>앞서의 섹션에서 살펴본 예제는 함수를 코딩으로 채우기 위해 데이터 소스를 사용하는 것을 강조했습니다. 시리즈는 함수를 위해 입력을 정의하고자 데이터 소스를 사용하거나 또는 시리즈 ODBC 데이터 소스를 정의하는데 사용됩니다. (데이터 베이스에 액세스하기에 관련된 자습서를 보십시오)</p>
+<p>차트 에디터를 이용하여 함수를 추가하고 나면, 함수 시리즈의 데이터 소스 페이지가 함수 정의 안에서의 포함이 가능한 시리즈의 목록을 보여줄 것입니다. 여기서 시리즈에 적용하고자 하는 함수 유형으로 바꿀 수 있습니다. 그리고 왼쪽 목록 상자인 "Available" 것들"로부터 시리즈를 선택하고 나서 오른쪽 목록 상자인 "Selected" 것들에 추가할 수 있습니다. </p>
+<p>코딩에 의한 데이터소스는 Series.Datasource 속성을 사용합니다. </p>
+<p><b>예제</b></p>
+<p>Suppose we have 2 data Series in a Chart added in at design-time via the 
+TeeChart Editor. We add a Function composed of the average of the 2 Series:</p>
+<pre>private void Load() {
+ tChart1.getAspect().setView3D(false); 
+  bar1.fillSampleValues(10); 
+  bar2.fillSampleValues(10); 
+ }
+
+public void button1_actionPerformed(ActionEvent e) {
+  com.steema.teechart.styles.Line line1 = new 
+  com.steema.teechart.styles.Line(tChart1.getChart()); 
+  com.steema.teechart.functions.Average average3 = new 
+  com.steema.teechart.functions.Average(); 
+  Object[] tmpDataSource ={bar1,bar1};
+  line1.setFunction(tmpDataSource); 
+  line1.setDataSource(bar1); 
+
+  line1.getMarks().setVisible(true);
+}
+</pre>
+
+<p>두 시리즈에 포인트를 추가합니다:</p>
+<pre>public void button1_actionPerformed(ActionEvent e) {
+
+  java.util.Random rnd = new java.util.Random();
+    for(int i = 0; i &lt; 10; ++i) 
+     bar1.add(rnd.nextInt(500)); 
+     bar2.add(rnd.nextInt(500)); 
+   }
+}
+</pre>
+<p>함수가 디스플레이 되지 않는다는 점을 알수 있습니다.  함수의 값을 읽어내기 위해서는 CheckDatasource 메소드를 사용해야 합니다. </p>
+<pre>tChart1.getSeries(2).checkDataSource();</pre>
+<p>함수 정의는 새로운 함수를 시리즈에 할당시키기 위해서 실행시에  Setfunction 메소드를 사용하면 바뀔 수 있습니다. 
+DataSource method:</p>
+
+<pre>public void button3_actionPerformed(ActionEvent e) {
+	com.steema.teechart.functions.Cumulative cumulative1 = new com.steema.teechart.functions.Cumulative(); 
+	tChart1.getSeries(2).setFunction(cumulative1);
+</pre>
+
+<h4><A NAME="FunctionPeriod">함수 Period</A></h4>
+<p>Period은 함수가 순환적으로 적용되는 함수와 교차하는  포인트 범위를 Period로 정의한 함수를 움직이는 데 있어서 중요한 속성입니다. 
+</p>
+<p><b>예제(Example)</b></p>
+
+<p>다음과 같이 값을 지닌 6 개의 데이타 포인트를  (예를 들어 막대 시리즈의 막대들) 가지고 있습니다:</p>
+
+<p>	3, 8, 6, 2, 9, 12 </p>
+
+<p>Period 0 (기본값)을 가진  함수 시리즈를 평균이 그려지도록 정의하면 다음과 같습니다:</p>
+
+<p>	6.667</p>
+
+<p>Period을 2로 세팅하면  이 함수으로부터의 출력으로 다음과 같은 평균의 3 값을 얻게 됩니다:</p>
+
+<p>	5.5, 4, 10.5</p>
+
+<p>이들 값은 각각의 구간 범위 안에서 중앙으로 플롯을 할 것입니다. 예를 들면 입력 시리즈에서 막대 1과 2 사이의 첫번째 값은, 막대 3과 4 사이의 두번째 값 등등입니다. </p>
+
+<p>데이터 소스 페이지에서 적절한 시리즈와 함수를 선택하고 "Options" 탭을 클릭하는 것으로 구간을 정의할 수 있으며 또는 FunctionType을 이용하여 실행시에 Period을 변경할 수 있습니다.</p>
+
+<p>예를 들어 시리즈 2가 있는 곳의 함수 시리즈는 다음과 같습니다:</p>
+
+<pre>line1.getFunction().setPeriod(2);
+</pre>
+
+<p>아래의 두 차트는 적용된 Period의 효과를 강조하고 있습니다.</p>
+
+<ALIGN="LEFT"><LEFT><TABLE BORDER=0 CELLSPACING=1 CELLPADDING=7 WIDTH=450>
+<TR><TD><img src="timages/Period0.gif" BORDER=0 width="275" height="304"></TD><TD>
+  <img src="timages/Period2.gif" BORDER=0 width="275" height="304"></TD><TR></TABLE>
+
+
+<p>&nbsp;</p>
+<h4><a NAME="FunctionPeriodAlign">Period 스타일(Period Style)</a></h4>
+<p>Period은 범위로 정의될 수 있습니다.  이것은 날짜 시리즈를 사용할 때와 "한달" 혹은 "하루" 등과 같은 날짜 단계에서 함수의 "Period"으로 표현하고자 할 때 매우 유용합니다.  "PeriodStyle" 속성은 어떻게  "Period"이 표현될 것인가를 컨트롤합니다.  <br>
+<br>
+예를 들어 당신은 이제  날짜 소스 시리즈에 있는 표준 "Average" 함수를 사용하고 함수 period를 "one month"로 설정만 하면 "monthly average of sales" 함수를 플롯할 수 있습니다.:</p>
+
+
+<p><pre>private void Load() {
+        //Add in a BarSeries and Average Function at design-time. 
+        java.util.Random rnd = new java.util.Random();   
+        tChart1.getAspect().setView3D(false);   
+
+        DateTime today = DateTime.getToday();
+    
+        bar1.getMarks().setVisible(false); 
+        bar1.getXValues().setDateTime(true); 
+        tChart1.getAxes().getBottom().getLabels().setAngle(90); 
+    
+        for(int i = 0; i < 60; ++i)  
+            today = today.addDays(5); 
+            bar1.add(today, rnd.nextInt(100),"",Color.red); 
+    
+    
+        average1.setPeriodAlign(com.steema.teechart.functions.PeriodAligns.FIRST); 
+        average1.setPeriodStyle(com.steema.teechart.functions.PeriodStyles.RANGE); 
+        average1.setPeriod(30); 
+        line1.setDataSource(bar1); 
+        line1.checkDataSource();
+}</pre></p>
+<p>이것은 몇몇 포인트 안에서 결과가 나올 것이며, 각각은 시리즈0 안에서 매 달 별 데이터의 "average"을 보여주게 됩니다. <br>.
+계산 함수가 날짜 구간일 때  소스 Series0 안에서 포인트가 반드시 날짜별로 분류되어야만 합니다.  
+범위는 또한 날짜가 아닌 시리즈에도 쓰일 수 있습니다:
+</p>
+
+<p><Pre>for(int i = 0; i < 60; ++i)  
+             bar1.add(new Double(i), rnd.nextInt(100),"",Color.red); 
+        
+        average1.setPeriodAlign(com.steema.teechart.functions.PeriodAligns.FIRST); 
+        average1.setPeriodStyle(com.steema.teechart.functions.PeriodStyles.RANGE); 
+        average1.setPeriod(6);
+</Pre></p>
+
+<p>매 "6"의 간격 안에서 각각의 포인트 그룹의 평균을 계산할 것입니다. <br>
+(X >=6, X < 6 를 가진 포인트는 첫번째 평균으로 계산될 것이며,  with X >=6, X < 12를 가진 포인트는 두번째 평균으로 계산되는 등등....).<br>
+이것은 매 6 포인트마다 평균을 계산하는 것과는 다른 것임을 주의하십시오.  
+<br>
+<br>
+<b>Period Alignment</b> 속성을 이용하여 함수 포인트를 시리즈 범위 안에서 정렬시키십시오. 아래와 같이 하면   함수 포인트를 월별 구간의 마지막으로 플롯 시키게 됩니다.:
+</p>
+
+<p><Pre>	average1.setPeriodAlign(com.steema.teechart.functions.PeriodAligns.FIRST); 
+	average1.setPeriodStyle(com.steema.teechart.functions.PeriodStyles.RANGE); 
+	average1.setPeriod(com.steema.teechart.DateTime.getDaysInMonth(year,month));</Pre>
+<P>Period = Month.TotalDays and PeriodAligns.First
+<br>
+
+아래에 있는 그림에서 볼 수 있듯이, "average"는 매 달의 마지막에 표시됩니다.
+</P>
+
+<P>
+<img border="0" src="timages/periodal1.png" width="448" height="256"></P>
+
+<P>
+Period = Month.TotalDays and PeriodAligns.Last <br>
+이 경우에는 "average"는 매 달의 <b>시작</b>에서 플롯됩니다. . </P>
+
+<P>
+<img border="0" src="timages/periodal2.png" width="448" height="256"></P>
+
+<h4><a name="DerivingVCL">커스톰 함수 끌어내기 (Deriving custom functions)</a></h4>
+<p>새로운 함수 콤포넌트는 새로운 콤포넌트를 함수클래스로부터 불러들여 단순하게 만들수있습니다. 
+(it also can be derived from an existing function ). <o:p>
+</p>
+TTeeFunction에서 2개의 중요한 가상메소드가 있는데, 새 함수타입을 만들어 오버라이드 할수 있습니다.</p>
+<p>1)&nbsp;Function.Calculate: public virtual double Calculate(Series Source,int 
+First,int Last)</p>
+<p>2)&nbsp;Function.CalculateMany: public virtual double CalculateMany(ArrayList 
+SourceSeries, int ValueIndex)</p>
+<p>계산 메소드는 계산함수에서 사용되는데, 만약 단순히 한개의 시리즈가 데이터 소스일때 입니다. CalculateMany 는 복합적 시리즈의 데이터소스에서 사용되어집니다.
+</p>
+<p>&nbsp;</p>
+<p><u>예제 : 새로운 SquareSum 함수 만들기</u></p>
+<p>필요한 SquareSum 함수를 ""sum of squares"돌릴것을 결정할수 있습니다.</p>
+<p>이 함수는 단일 데이타소스 또는 복잡한 데이터 소스에서 사용할 것 있으며, Calculate 와 CalculateMany 속성을 오버라이드 할것입니다.
+</p>
+<pre>public class SquareSum extends Function {
+
+    public SquareSum() {
+     super();
+    } 
+
+
+    public SquareSum(com.steema.teechart.Chart c) {
+	super(c);
+    }
+
+    public double calculate(Series sourceSeries,
+                            int firstIndex,
+                            int lastIndex) {
+        ValueList v = valueList(sourceSeries);
+        if (firstIndex == -1) {
+            return v.getTotal();
+        } else {
+            double result = 0;
+            for (int t = firstIndex; t <= lastIndex; t++) {
+                result+=Math.sqrt(v.getValue(t));
+            }
+            return result;
+        }
+    }
+
+
+
+    public double calculateMany(ArrayList sourceSeriesList,
+                                int valueIndex) {
+        ValueList v;
+        double result = 0;
+
+        for (int t = 0; t < sourceSeriesList.size(); t++) {
+            v = valueList((Series) sourceSeriesList.get(t));
+            if (v.count > valueIndex) {
+                result+=Math.sqrt(v.getValue(valueIndex));
+            }
+        }
+        return result;
+    }
+</pre>
+<p>첫인덱스와 마지막인덱스에서 sum of squares가 계산되는 모든 SourceSeries 포인트에서 "Loop"는 다양하게 사용됩니다. 
+</p>
+<p>"ValueList" 속성은 Steema.Teechart.ValueList 명령을 이용하여 끄집어 냅니다. Xvalues 고정한점 값 과 그렇지 않은 YValues 에서 HorizBarSeries와같은  시리즈유형과 함께 class 작업을 만들수있습니다.
+</p>
+<p> "Calulate" 속성은 데이터소스가 단지 한개의 시리즈에서 사용됩니다. 데이터소스가 한개 이상일때는, "CalculateMany" 속성을 불러서 사용합니다.<br>
+<br>
+"CalculateMany" 는 소스시리즈에서 각 포인트에 불러올것이며, 0점에서 시작하고 모둔데이터수의 최소점에서 끝날것입니다.
+<br>
+<br>
+Calculate와 CalulageMany 사이에 이해는 매우 중요합니다.
+"Calculate"는 데이터소스가 하나일때 와 이전에 불렀던것이 있을때 부릅니다.
+"CalulateMany"는 한개의 시리즈보다 데이터소스가 많을때 여러번 불립니다.
+<br>
+&nbsp;</p>
+
+
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial6.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial8.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2012 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

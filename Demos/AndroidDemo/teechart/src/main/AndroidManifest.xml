@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="android.teechart.steema.com.androiddemo">
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
+        <activity
+            android:name=".Main"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".About" />
+        <activity
+            android:name=".ChartView"
+            android:label="@string/title_activity_chart_view"
+            android:parentActivityName=".Main"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.teechart.steema.com.androiddemo.Main" />
+        </activity>
+        <activity
+            android:name=".Prefs_SetPreferenceActivity"
+            android:label="Preferences" />
+        <activity
+            android:name=".DashboardScrollPager"
+            android:label="@string/title_activity_dashboard_scroll_pager"
+            android:parentActivityName=".Main"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.teechart.steema.com.androiddemo.Main" />
+        </activity>
+        <activity
+            android:name=".DashboardWebAnalytics"
+            android:label="@string/title_activity_dashboard_web_analytics"
+            android:parentActivityName=".Main"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.teechart.steema.com.androiddemo.Main" />
+        </activity>
+        <activity
+            android:name=".DashboardServerStatus"
+            android:label="@string/title_activity_dashboard_server_status"
+            android:parentActivityName=".Main"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.teechart.steema.com.androiddemo.Main" />
+        </activity>
+        <activity
+            android:name=".DashboardRealTime"
+            android:label="@string/title_activity_dashboard_realtime"
+            android:parentActivityName=".Main"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.teechart.steema.com.androiddemo.Main" />
+        </activity>
+        <activity android:name=".Stats_HistogramView" />
+        <activity android:name=".Stats_ImageStatistics" />
+        <activity android:name=".Stats_Volume" />
+        <activity android:name=".Stats_WiFi" />
+        <activity android:name=".Stats_Battery" />
+    </application>
+
+</manifest>

@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>TeeChart tutorial 10</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image: 'url('url(timages/headerback.png)')';position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif" width="288" height="121"></TD>
+<TD ALIGN=RIGHT>
+<font SIZE="2">&nbsp; <a HREF="contents.htm">Contents&nbsp;page</a>&nbsp;<br>
+    &nbsp; <a HREF="tutorial9.htm">Previous</a>&nbsp;|&nbsp;<a HREF="tutorial11.htm">Next</a>&nbsp;</font>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<h2><a name="TeeChart_tutorial_13"></a>Tutorial 10 - Custom drawing on the Chart Panel</h2>
+
+
+
+<hr>
+<p>TeeChart offers extensive custom drawing facilities via the TCanvas3D component. With Canvas you may add shapes, lines and text anywhere on the Chart Panel and define their colours, pen and brush styles.</p>
+
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#Canvas">TeeChart Canvas</a></h3>
+<P>
+<A HREF="#AddLines">Drawing Lines</A><BR>
+<A HREF="#PenBrush">Canvas Pen and Brush</A><BR>
+<A HREF="#AddShapes">Adding 2D Shapes</A><BR>
+<A HREF="#Add3DShapes">Adding 3D Shapes</A><BR>
+<A HREF="#AddText">Adding text</A><BR>
+<A HREF="#egCanvas">Applied example</A><BR>
+<BR>
+</p>
+</td></tr></table>
+<hr>
+<h3><A Name="Canvas">TeeChart Canvas</a></h3>
+
+<h4><A Name="AddLines">Drawing Lines</a></h4>
+
+<p><b>2D Chart</b><br>
+Let's add a Canvas Line:</p>
+<p><i>Example</i></p>
+<pre>private void Load() { 
+        line1.fillSampleValues(20); 
+        line1.setVertAxis(VerticalAxis.BOTH); 
+        line1.setHorizAxis(HorizontalAxis.BOTH); 
+        tChart1.getAspect.setView3D(false); 
+} 
+
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D(); 
+
+        Point s = new Point(tChart1.getAxes().getLeft().getPosition(), tChart1.getAxes().getTop().getPosition()); 
+        Point e = new Point(tChart1.getAxes().getRight().getPosition(), tChart1.getAxes().getBottom().getPosition()); 
+  
+        g.MoveTo(s); 
+        g.LineTo(e,0); 
+
+        }
+    }</pre>
+<p><b>3D&nbsp; Chart</b><br>
+On a 3D Chart the Axis positions are offset from the Chart area due to 3D orthogonal displacement. We can move the Line accordingly:</p> 
+<p><i>Example </i>(drawing a Line diagonally from top left to bottom right in 
+the Chart Area of a 3D Chart)</p>
+<pre>private void Load() { 
+        line1.fillSampleValues(20); 
+        line1.setVertAxis(VerticalAxis.BOTH); 
+        line1.setHorizAxis(HorizontalAxis.BOTH); 
+        tChart1.getAspect.setChart3DPercent(50); 
+} 
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D(); 
+        com.steema.teechart.Point3D s = new com.steema.teechart.Point3D(); 
+        s.x = tChart1.getAxes().getLeft().getPosition(); 
+        s.y = tChart1.getAxes().getTop().getPosition(); 
+        s.z = 0; 
+
+        com.steema.teechart.Point3D e = new com.steema.teechart.Point3D(); 
+        e.x = tChart1.getAxes().getRight().getPosition(); 
+        e.y = tChart1.getAxes().getBottom().getPosition(); 
+        e.z = tChart1.getAspect().width3D; 
+
+        g.moveTo(s); 
+        g.lineTo(e); 
+
+	}
+}</pre>
+
+<h4><A Name="PenBrush">Canvas Pen and Brush</a></h4>
+<p>The Line above is drawn using the Pen and Brush defined for the last object drawn before the Line is drawn. That may or may not be the Pen you want. You can change the Pen accordingly:</p>
+<p><i>Example </i>(define Pen before drawing the Line)</p>
+<pre>    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D();                       
+	    Point p5 = new Point(line1.calcXPos(5), line1.calcYPos(5)); 
+      	    Point p15 = new Point(line1.calcXPos(15), line1.calcYPos(15)); 
+            g.getPen().setDashCap(DashCap.SQUARE);
+            g.getPen().setEndCap(LineCap.MITER);
+            g.getPen().setStyle(DashStyle.DASHDOTDOT); 
+            g.getPen().setTransparency(70); 
+            g.getPen().setWidth(3); 
+            g.getPen().setColor(Color.blue); 
+            g.moveTo(p5); 
+            g.lineTo(p15, 0);   
+       }
+   }</pre>
+
+<h4><A Name="AddShapes">Adding 2D Shapes</a></h4>
+<p>Add 2D Canvas Shapes in a similar manner to Canvas Lines. The following example adds a Rectangle in the centre of the Chart Area:</p>
+
+<p><b>2D Charts</b><br>
+2D Charts support only 2D shapes.</p>
+<i>Example</i>
+<pre>    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D();                       
+
+        Dimension d = new Dimension(100,100); 
+        Point p = new Point(((int)(g.getXCenter() - (d.getWidth()/2))),((int)(g.getYCenter() - (d.getHeight()/2))));         
+        com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(p,d); 
+        g.getPen().setColor(Color.cyan); 
+        g.getBrush().setColor(Color.blue); 
+        g.rectangle(r);
+       }
+   }</pre>
+<p><b>3D Charts</b><br>
+On a 3D Chart you can move the Rectangle in a Z plane too. See the RectangleWithZ method. 
+This example places the Rectangle on the Left Wall but displaces it halfway 
+towards the rear of the Chart (towards the Back Wall). <p>
+<pre>private void Load() { 
+        point3D1.LinePen.Visible = false; 
+        point3D1.fillSampleValues(20); 
+        point3D1.setVertAxis(VerticalAxis.BOTH); 
+        point3D1.setHorizAxis(HorizontalAxis.BOTH); 
+        tChart1.getAspect.setChart3DPercent(50); 
+        tChart1.getAxes().getDepth().setVisible(true); 
+} 
+
+    public void chartEvent(EventArgs e) {
+      if (e instanceof AfterDrawEventArgs) {
+        IGraphics3D g = tChart1.getGraphics3D();   
+        Dimension d = new Dimension(100, 100); 
+        Point l = new Point(((int)tChart1.getAxes().getLeft().getPosition()),((int)(g.getYCenter() - (d.getHeight() / 2)))); 
+        com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(l,d); 
+        g.getPen().setColor(Color.cyan); 
+        g.getBrush().setColor(Color.blue); 
+        g.rectangle(r, tChart1.getAspect().width3D/2);         
+    }
+</pre>
+<br>
+<h4><A Name="Add3DShapes">Adding 3D Shapes</a></h4>
+<p>You may add 3D shapes to 3D Charts. This example draws a Cube in the middle 
+of the Chart rectangle: </p>
+<pre>private void Load() { 
+        point3D1.getLinePen().setVisible(false); 
+        point3D1.fillSampleValues(20); 
+        tChart1.getAspect().setChart3DPercent(50); 
+        tChart1.getLegend().setVisible(false); 
+        tChart1.getAxes().getDepth().setVisible(true); 
+} 
+
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D();                       
+
+        Dimension d = new Dimension(50,50); 
+        Point p = new Point(((int)(g.getXCenter() - (d.getWidth()/2))),((int)(g.getYCenter() - (d.getHeight()/2))));         
+        com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(p,d); 
+        g.cube(r, 0, 20, true);     
+}
+}
+</pre>
+
+
+<br>
+<h4><A Name="AddText">Adding text</a></h4>
+<p><b>2D Text location</b><br>
+Add Text to the last Rectangle:</p>
+<p><i>Example</i></p>
+<pre>    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            String text = "My Text"; 
+            IGraphics3D g = tChart1.getGraphics3D();                       
+            Dimension d = new Dimension(150, 50); 
+            Point p = new Point(((int)(g.getXCenter() - (d.getWidth()/2))),((int)(g.getYCenter() - (d.getHeight()/2)))); 
+            com.steema.teechart.Rectangle r = new com.steema.teechart.Rectangle(p,d); 
+            g.getPen().setColor(Color.blue); 
+            g.rectangle(r); 
+    
+            g.textOut(((int)(g.getXCenter() - (g.textWidth(text)/2))), 
+                  ((int)(g.getYCenter() - (g.textHeight(text)/2))), text);             
+        }
+    }
+</pre>
+<p><b>3D Text location</b><br>
+You can place Text in a differing 3D plane by using the TextOut overload with a 
+z coordinate. </p>
+<i>Example</i>
+<pre> private void Load() { 
+        point3D1.fillSampleValues(20); 
+        point3D1.getLinePen().setVisible(false); 
+        tChart1.getAspect().setChart3DPercent(50); 
+}
+
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            String text = "My Text"; 
+            IGraphics3D g = tChart1.getGraphics3D();            
+            g.textOut(g.getXCenter(), g.getYCenter(), tChart1.getAspect().width3D / 2, text); 
+        }
+    }</pre>
+<br>
+
+<h4><A Name="egCanvas">Applied example</a></h4>
+<p>This example takes the 3rd and 10th values of a Series, plots a Line between them and tells us the value of the first and Last point of the new Line and the difference between them:</p>
+<p><i>Example</i></p>
+<pre>'First add some data to the empty Chart
+procedure TForm1.BitBtn1Click(Sender: TObject);
+begin
+  Series1.FillSampleValues(20);
+end;
+</pre>
+<pre>private void Load() { 
+        tChart1.getAspect().setView3D(false); 
+        line1.fillSampleValues(20); 
+} 
+
+
+    public void chartEvent(EventArgs e) {
+        if (e instanceof AfterDrawEventArgs) {
+            IGraphics3D g = tChart1.getGraphics3D();            
+            if(tChart1.getSeriesCount() > 0){ 
+                if(tChart1.getSeries(0).getCount() > 10) { 
+                    Series s = tChart1.getSeries(0);
+                    int h = Convert.ToInt32(g.TextHeight("H"));
+                    Point p1 = new Point(s.calcXPos(3), s.calcYPos(3));
+                    Point p2 = new Point(s.calcXPos(10), s.calcYPos(10));
+                    g.getPen().setColor(Color.blue);
+                    g.getPen().setWidth(2);
+                    g.getPen().setStyle(com.steema.teechart.drawing.DashStyle.DASH);
+                    g.moveTo(p1);
+                    g.lineTo(p2, 0);                
+                    g.textOut(p1.x, p1.y - h, "Point value: " + s.getYValues(3).toString()); 
+                    g.textOut(p2.x, p2.y, "Point value: " + s.getYValues(10).toString()); 
+                    g.textOut(p2.x, p2.y + h, "Change is: " + s.getYValues(3).toString() - 
+    s.getYValues(10).toString()); 
+            }             
+        }
+    }<br></pre>
+
+<p>&nbsp;</p>
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial9.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial11.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2015 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>

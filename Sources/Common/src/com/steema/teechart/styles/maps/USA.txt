@@ -1,0 +1,95 @@
+72 Alabama
+56 Arizona
+78 Arkansas
+35 California
+37 California
+36 California
+38 California
+34 California
+48 Colorado
+26 Connecticut
+42 Delaware
+41 District of Columbia
+85 Florida
+84 Florida
+86 Florida
+89 Florida
+88 Florida
+87 Florida
+83 Florida
+75 Georgia
+74 Georgia
+11 Idaho
+40 Illinois
+31 Indiana
+16 Iowa
+51 Kansas
+50 Kentucky
+49 Kentucky
+82 Louisiana
+81 Louisiana
+80 Louisiana
+79 Louisiana
+5 Maine
+4 Maine
+47 Maryland
+46 Maryland
+45 Maryland
+44 Maryland
+19 Massachusetts
+18 Massachusetts
+17 Massachusetts
+91 Michigan
+92 Michigan
+94 Michigan
+93 Michigan
+90 Michigan
+13 Minnesota
+73 Mississippi
+55 Missouri
+3 Montana
+20 Nebraska
+32 Nevada
+15 New Hampshire
+30 New Jersey
+71 New Mexico
+24 New York
+23 New York
+22 New York
+21 New York
+61 North Carolina
+62 North Carolina
+63 North Carolina
+59 North Carolina
+60 North Carolina
+58 North Carolina
+6 North Dakota
+39 Ohio
+57 Oklahoma
+14 Oregon
+25 Pennsylvania
+29 Rhode Island
+28 Rhode Island
+27 Rhode Island
+77 South Carolina
+76 South Carolina
+7 South Dakota
+64 Tennessee
+66 Texas
+68 Texas
+69 Texas
+70 Texas
+67 Texas
+65 Texas
+33 Utah
+12 Vermont
+54 Virginia
+53 Virginia
+52 Virginia
+2 Washington
+1 Washington
+0 Washington
+43 West Virginia
+10 Wisconsin
+9 Wisconsin
+8 Wyoming

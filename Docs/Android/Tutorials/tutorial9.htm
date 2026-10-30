@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>TeeChart tutorial 9</title>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="helpstyle.css">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF TEXT=#000000 TopMargin=4>
+<DIV ID=one STYLE="z-index:-10;background-image:url('timages/headerback.png');position:absolute;top:0;left:0;height:75;width:110%">
+&nbsp;
+<table width=100% border=0><tr><td>&nbsp;</td></tr></table></DIV>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%><TR VALIGN=TOP><TD>
+<img src="timages/HeaderLogo.gif"></TD>
+<TD ALIGN=RIGHT>
+<font SIZE="2">&nbsp; <A HREF="contents.htm">Contents&nbsp;page</a>&nbsp;<br>
+    &nbsp; <A HREF="tutorial8.htm">Previous</a>&nbsp;|&nbsp;<A HREF="tutorial10.htm">Next</a>&nbsp;</font>
+</TD><TD WIDTH=20>&nbsp;</TD></TR></TABLE>
+
+<h2><a name="TeeChart_tutorial_9"></a>Tutorial 9 - Exporting and Importing Charts</h2>
+
+
+<hr>
+<p>This tutorial overviews exporting TeeCharts in various formats and importing TeeChart's own .tee format Chart templates. See the TeeChart example code in the Examples folder below your TeeChart installation folder.</p>
+
+<table border=0 width=80% cellpadding = 3><tr><td><b>Contents</b></td></tr>
+<tr><td><h3><A HREF="#Export">Exporting Charts</a></h3>
+<P>
+<A HREF="#Formats">Available formats</A><BR>
+<h3><A HREF="#ExportImg">Exporting Images</a></h3>
+<A HREF="#JPEG">JPEG</A><BR>
+<A HREF="#BMP">BMP</A><BR>
+<A HREF="#PNG">PNG</A><BR>
+<h3><A HREF="#ExportImg">Exporting data</a></h3>
+<p><A HREF="#ExportImg">Text, XML</a></p>
+<h3><A HREF="#ExportTee">TeeChart's 'Tee' template and data export import format</a></h3>
+<A HREF="#TeeExport">Tee files</A><BR>
+</p>
+<h3><A HREF="#Import">Import</a></h3>
+<p>
+<A HREF="#TeeFormat">Importing Tee format files</A><BR>
+<A HREF="#egImport">Example import Tee file</A><BR>
+</p>
+</td></tr></table>
+<hr>
+<h3><A Name="Export">Exporting Charts</a></h3>
+<h4><A Name="Formats">Available Export formats</a></h4>
+<p>All formats may be copied to either a file or 
+Clipboard or to a Stream. <br>
+&nbsp;</p>
+<p>Image formats</p>
+<p><li>JPEG: JPEGFormat Class</li>
+<li>BMP: BMPFormat Class</li>
+<li>PNG: PNGFormat Class</li>
+<p>Data formats<br><br>
+<li>Text: TextFormat Class</li>
+<li>XML: XMLFormat Class</li>
+<li>HTML: HTMLFormat Class</li>
+<li>Excel: ExcelFormat Class</li></p>
+
+<p>Other formats</p>
+<p>Ten format is a flexible format that stores Chart property information and, optionally, Chart data. Files are small (data dependent) and ideal for network use to update live client based Charts.</p>
+<p><li>TEN (TeeChart): TemplateExport Classs</li></p>
+<p><b>Other formats</b><br>
+Tee format is a flexible format that stores Chart property information and, optionally, Chart data. Files are small (data dependent) and ideal for network use to update live client based Charts.</p>
+<table border=0>
+<tr><td><b>TEE (TeeChart)</td><td>
+SaveChartToFile</td></tr>
+</table>
+<br>
+At runtime you can display the export dialogue by using the
+Chart TeeExport method. 
+<p><i>Example</i></p>
+<pre>	    TeeExport(Self,TheChart);
+</pre>
+
+<h4><A Name="EgExport">Example export</a></h4>
+<p>Exporting to a file is reasonable straightforward, in most cases you just need to define the destination filename.</p>
+<p><i>Example</i></p>
+<pre>	    With SaveDialog1 do
+ 		if Execute then Chart1.SaveToBitmapFile(SaveDialog1.FileName);
+</pre>
+<br>
+<h4><A Name="JPEG">JPEG</a></h4>
+<p>JPEG file export has additional parameters for speed and quality. See the <b>
+JPEG demo</b> included in the <b>Examples folder</b>.</p>
+<p><i>Example</i></p>
+<pre>	    int tmpResult = fc.showSaveDialog(JpegExportDemo.this);
+            if (tmpResult == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                String tmpName = file.getAbsolutePath();
+                if (!ExportUtils.isExtension(file, ExportUtils.JPG)) {
+                    tmpName = ExportUtils.replaceExtension(file, ExportUtils.JPG);
+                }                
+                myChart.getExport().getImage().getJPEG().save(tmpName);
+            }     
+</pre>
+<p>Performance, jpegBestQuality, and the Compression Quality percentage (high value less compression), will make the file larger and thus slower to transmit across a network - quality is better though! You will need to decide on the best balance to suit your application.</p>
+
+<h4><A Name="BMP">BMP</a></h4>
+
+<p><i>Example by code</i></p>
+<pre>            int tmpResult = fc.showSaveDialog(BmpExportDemo.this);
+            if (tmpResult == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                String tmpName = file.getAbsolutePath();
+                if (!ExportUtils.isExtension(file, ExportUtils.BMP)) {
+                    tmpName = ExportUtils.replaceExtension(file, ExportUtils.BMP);
+                }
+                myChart.getExport().getImage().getBMP().save(tmpName);
+            } </pre>
+
+<h4><A Name="PNG">PNG</a></h4>
+<p>The PNG format retains many of the advantages of the GIF format but also 
+provides capabilities beyond those of GIF. PNG improves on GIF in its ability to 
+progressively display an image; that is, to display better and better 
+approximations of the image as it arrives over a network connection. <br>
+<br><i>Example</i></p>
+<pre>            int tmpResult = fc.showSaveDialog(PngExportDemo.this);
+            if (tmpResult == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                String tmpName = file.getAbsolutePath();
+                if (!ExportUtils.isExtension(file, ExportUtils.PNG)) {
+                    tmpName = ExportUtils.replaceExtension(file, ExportUtils.PNG);
+                }
+                myChart.getExport().getImage().getPNG().save(tmpName);
+            } </pre>
+<br>
+<h3><A name="ExportImg">Exporting data</a></h3>
+<p>The following examples export the data from a Chart Series in Text or XML format. 
+They may be created and associated with a Chart Series from which they can export data as either File, Stream or to the Clipboard. 
+</p>
+<h4>Text files</a></h4><i>Example </i>
+<pre>            <b>try</b> {
+                    myChart.getExport().getData().getText().save(tmpName);
+                }
+</pre>
+<h4>XML files</a></h4><i>Example </i>
+<pre>            <b>try</b> {
+                    myChart.getExport().getTemplate().toXML(tmpName);
+                    showSavedFile(tmpName);
+                }
+
+</pre>
+
+
+<h3><A name="ExportTee">TeeChart's 'Tee' template and data export/import format</a></h3>
+<h4><A Name="TeeExport">Tee files</a></h4>
+<p>Tee files are TeeChart's own template format for saving Charts and their data 
+and have the .tej extension in Java IDE's.
+Modified Chart properties are saved with the template and reproduced when the template is imported to a new Chart.&nbsp;</p>
+<p>Advantages:</p>
+<ul><li>Tee files are very small in size, in most cases that offers an advantage
+    over pure graphics formats (Quicker).</li> 
+<li>The destination Chart for the template is 'live', it can be zoomed and scrolled and have
+  its properties modified.</li>
+<li>Data may optionally be included with the tee template according to your preference.</li></ul>
+<p><i>Example</i></p>
+<pre>	<b>    try</b> {
+        	    tChart1.getExport().getTemplate().toFile("/temp/chart1.tej");       
+        	} <b>catch</b> (IOException ex1) {
+          	    ex1.printStackTrace();
+        	}<br></pre>
+<h3><A Name="Import">Import</a></h3>
+<h4><A Name="TeeFormat">Importing XML from a URL. </A></h4>
+<p>Example which shows how to export and load from/to xml :
+<pre>Save to xml; 
+
+             <b>try</b> {
+                    myChart.getExport().getTemplate().toXML(tmpName);
+                    showSavedFile(tmpName);
+                } <b>catch</b> (FileNotFoundException e) {
+                    System.out.println(e);
+                }
+
+
+Load from xml:
+             <b>try</b> {                               
+            	    myChart.setChart(myChart.getImport().getTemplate().fromXML(tmpName));
+                    myChart.repaint();
+                }
+                <b>catch</b> (FileNotFoundException e) {
+                    System.out.println(e);
+                }
+</pre>
+
+<h4><A Name="TeeFormat">Importing Tee format files</A></h4>
+<p>Import a saved Tee file from a local file source or http data source.<br>
+<br>
+<h4><A Name="egImport">Example Imports</a></h4>
+<p></p>
+<p><i>Example</i></p>
+<pre>	    import from file 
+    	    tChart1.getImport().getTemplate().fromFile("myFile.tej");
+    
+    or 
+    XML.. 
+    	    tChart1.getImport().getTemplate().fromXML("myFile.xml");
+
+
+    or 
+    Stream.. 
+            <b>try</b> {
+                //( 1) Save the template into a Stream...
+                ByteArrayOutputStream m = new ByteArrayOutputStream();                 
+                myChart.getExport().getTemplate().toStream(m);
+                //( 2) Load the template into other Chart...
+                copyChart.setChart(copyChart.getImport().getTemplate().fromStream(
+                        new ByteArrayInputStream(m.toByteArray())
+                ));
+                //( 3) repaint the Chart
+                copyChart.repaint();
+            } <b>catch</b> (IOException ex) {
+                System.out.println(ex);
+            } <b>catch</b> (ClassNotFoundException ex) {
+                System.out.println(ex);
+            }<br></pre>
+
+<hr>
+<BR>
+<ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=359>
+<TR><TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial8.htm"><img src="timages/backtut.gif" BORDER=0 WIDTH=135 HEIGHT=81></A></TD>
+<TD WIDTH="58%" VALIGN="TOP" BGCOLOR="#ffffff">
+<A HREF="tutorial10.htm"><img src="timages/fwdtut.gif" BORDER=0 WIDTH=116 HEIGHT=81></A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<hr>
+&copy; 1996-2018 Steema Software SL. All rights reserved.
+</BODY>
+</HTML>
