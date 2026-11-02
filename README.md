@@ -7,8 +7,7 @@ TeeChart charting library and examples for **Swing, SWT and Android**, in one
 repository. This candidate preserves the library's existing Java packages, APIs,
 source/target settings and shared-source composition.
 
-<img width="614" height="884" alt="image" src="https://github.com/user-attachments/assets/13119111-536d-4d53-bb9c-1b9d1a31f33b" />
-
+<img width="637" height="883" alt="imagen" src="https://github.com/user-attachments/assets/fc16d097-59c0-4eb8-8f5c-ddbf29a8d735" />
 
 ```text
 Sources/
