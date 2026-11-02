@@ -12,9 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import features.ChartSamplePanel;
 
@@ -69,64 +67,57 @@ public class JDBCImportDemo extends ChartSamplePanel implements ActionListener {
     }
 
     /**
-     * Note, please confirm that you have
-     * com.microsoft.jdbc.sqlserver.SQLServerDriver
-     * on visible path
+     * Uses an in-memory H2 database so the example needs no external server,
+     * credentials, or network connection. Add the H2 driver to the runtime
+     * classpath; see Demos/README.md.
      */
     public void JDBC_addData(Series series) {
-        try {
-            Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver");
-            Connection c = DriverManager.getConnection(
-                    System.getenv("TEECHART_DEMO_JDBC_URL"),
-                    System.getenv("TEECHART_DEMO_JDBC_USER"),
-                    System.getenv("TEECHART_DEMO_JDBC_PASSWORD"));
+        try (Connection connection = DriverManager.getConnection(
+                "jdbc:h2:mem:teechart")) {
+            try (Statement statement = connection.createStatement()) {
+                statement.execute("CREATE TABLE CategorySalesDemo ("
+                        + "CategoryName VARCHAR(40) NOT NULL, "
+                        + "CategorySales DOUBLE NOT NULL)");
+                statement.execute("INSERT INTO CategorySalesDemo VALUES "
+                        + "('Beverages', 18420.50), "
+                        + "('Condiments', 9630.25), "
+                        + "('Confections', 12780.00), "
+                        + "('Dairy Products', 15340.75), "
+                        + "('Seafood', 11210.00)");
+            }
 
-            Statement s = c.createStatement();
-            ResultSet r = s.executeQuery(
-                    "SELECT * from [Category Sales for 1997]");
-
-            series.getYValues().setDataMember("CategorySales");
-            series.setLabelMember("CategoryName");
-
-            series.setDataSource(r);
-            s.close();
-            c.close();
-
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException se) {
-            se.printStackTrace();
+            try (Statement statement = connection.createStatement();
+                    ResultSet results = statement.executeQuery(
+                            "SELECT CategoryName, CategorySales "
+                            + "FROM CategorySalesDemo "
+                            + "ORDER BY CategoryName")) {
+                series.getYValues().setDataMember("CategorySales");
+                series.setLabelMember("CategoryName");
+                series.setDataSource(results);
+            }
+        } catch (SQLException ex) {
+            throw new IllegalStateException("Could not load the JDBC sample data", ex);
         }
     }
 
     protected void initChart() {
         super.initChart();
-        chart1.getHeader().setText("JDBC data from configured database");
+        chart1.getHeader().setText("JDBC data from an in-memory H2 database");
     }
 
     protected void initComponents() {
         super.initComponents();
         loadButton = new JButton("Load!");
-        urlTextField = new JTextField(System.getenv("TEECHART_DEMO_JDBC_URL"));
-        urlTextField.setEditable(false);
     }
 
     protected void initGUI() {
         super.initGUI();
-        JLabel tmpLabel;
         JPanel tmpPane = getButtonPane();
         {
-            tmpLabel = new JLabel("URL:");
-            tmpLabel.setDisplayedMnemonic('U');
-            tmpLabel.setLabelFor(urlTextField);
-            tmpPane.add(tmpLabel);
-            tmpPane.add(urlTextField);
-            tmpPane.add(Box.createHorizontalStrut(10));
             tmpPane.add(loadButton);
             tmpPane.add(Box.createHorizontalGlue());
         }
     }
 
     private JButton loadButton;
-    private JTextField urlTextField;
 }

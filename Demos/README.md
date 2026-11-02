@@ -13,10 +13,10 @@ These directories belong to the same repository as `../Sources`. Keep that
 relative layout. Historical projects, customer issue reproductions, build
 outputs, personal IDE state and signing keys are not included.
 
-The Swing JDBC example needs a separately obtained compatible JDBC driver and
-`TEECHART_DEMO_JDBC_URL`, `TEECHART_DEMO_JDBC_USER` and
-`TEECHART_DEMO_JDBC_PASSWORD` environment variables.
-No database credentials or prebuilt TeeChart library are supplied.
+The Swing JDBC example uses H2 in-memory sample data and makes no network
+connection. To run it, obtain H2 2.2.224 from Maven Central and place
+`h2-2.2.224.jar` in `Demos/Swing/Features/lib/` (the third-party driver is not
+bundled). No database server or credentials are needed.
 
 See [../BUILDING.md](../BUILDING.md) for commands and known legacy-toolchain limits.
 See [../LICENSING.md](../LICENSING.md) for first-party license scope and separate

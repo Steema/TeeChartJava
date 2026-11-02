@@ -8,23 +8,20 @@
         <meta name="keywords" content="import, JDBC">
     </head>
     <body>
-        The Series datasource method can also be used
-        to retrieve data from a JDBC database and automatically add it to
-        the series.
+        The Series datasource method can retrieve data from a JDBC database and
+        automatically add it to the series. This example creates a small H2
+        in-memory database with sample category sales; no external database is
+        contacted. Add H2 2.2.224 to the runtime classpath to run it.
 
 
 
         <br><br><b>Example:</b><br><code>
 
-            Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver");<br>
-            Connection c = DriverManager.getConnection(
-                    System.getenv("TEECHART_DEMO_JDBC_URL"),
-                    System.getenv("TEECHART_DEMO_JDBC_USER"),
-                    System.getenv("TEECHART_DEMO_JDBC_PASSWORD"));<br>
+            Connection c = DriverManager.getConnection("jdbc:h2:mem:teechart");<br>
 
             Statement s = c.createStatement();<br>
-            ResultSet r = s.executeQuery("SELECT * from [Category Sales for
-1997]");<br>
+            ResultSet r = s.executeQuery("SELECT CategoryName, CategorySales
+FROM CategorySalesDemo");<br>
 
             series.getYValues().setDataMember("CategorySales");<br>
             series.setLabelMember("CategoryName");<br>

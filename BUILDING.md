@@ -92,7 +92,8 @@ validation; building this app is not required to validate the root library build
 
 ## JDBC example
 
-The optional Swing JDBC example reads `TEECHART_DEMO_JDBC_URL`,
-`TEECHART_DEMO_JDBC_USER` and `TEECHART_DEMO_JDBC_PASSWORD` from the environment.
-The URL must be a complete JDBC connection URL. Obtain a compatible JDBC driver
-under its own terms. No database connection is attempted by compilation or CI.
+The Swing JDBC example uses an in-memory H2 database with local sample data; it
+does not contact an external database. To run it, obtain H2 2.2.224 from Maven
+Central and place `h2-2.2.224.jar` in `Demos/Swing/Features/lib/`. The driver is
+not bundled; review its license and notices before redistribution. Compilation
+and CI do not connect to any database.
