@@ -53,7 +53,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '11'
-      - run: bash ./gradlew :Sources:Android:assembleDebug :Sources:Android:assembleRelease :Demos:Android:assembleDebug --no-daemon --console=plain
+      - run: bash ./gradlew :Sources:Android:assembleDebug :Sources:Android:assembleRelease --no-daemon --console=plain
 
   publication-clearance:
     # Requires the approved first-party license and exact-snapshot clearance.
