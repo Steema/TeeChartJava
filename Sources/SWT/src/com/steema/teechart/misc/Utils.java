@@ -43,8 +43,7 @@ public class Utils {
     static public double getDateTimeStep(int value) {
         return (int) com.steema.teechart.DateTimeStep.STEP[value];
     }
-    static public final String BuildNumber = "3.2021.0803";
-    static public final String VersionMode = "EVALUATION VERSION";
+    static public final String BuildNumber = "3.2021.0804";
     static final long TicksPerMillisecond = 10000;
     static final long TicksPerSecond = TicksPerMillisecond * 1000;
     static final long TicksPerMinute = TicksPerSecond * 60;

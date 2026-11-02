@@ -18,7 +18,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Method;
 
-import com.steema.teechart.misc.ERMode;
 
 /**
  *
@@ -106,8 +105,7 @@ final public class AboutDialog extends JDialog {
         backgroundPane.add(new JLabel(image), BorderLayout.CENTER);
         backgroundPane.add(urlLabel, BorderLayout.PAGE_END);
         label1.setText(Language.getString("TeeChart_for_Java")+" "
-                       +com.steema.teechart.misc.Utils.BuildNumber+" "
-                       +ERMode.ERDescription());
+         +com.steema.teechart.misc.Utils.BuildNumber);
         label2.setText(Language.getString("Copyright"));
         label3.setText(Language.getString("All_Rights_Reserved"));
         label4.setText(Language.getString("Java_Version") +

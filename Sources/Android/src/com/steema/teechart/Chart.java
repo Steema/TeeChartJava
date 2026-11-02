@@ -39,7 +39,6 @@ import com.steema.teechart.functions.Function;
 import com.steema.teechart.imports.Imports;
 import com.steema.teechart.languages.Language;
 import com.steema.teechart.legend.Legend;
-import com.steema.teechart.misc.ERMode;
 import com.steema.teechart.misc.Utils;
 import com.steema.teechart.printer.Printer;
 import com.steema.teechart.styles.HorizontalAxis;
@@ -765,8 +764,6 @@ public class Chart extends TeeBase implements IBaseChart, Serializable,
 
         chartRect = drawTitlesAndLegend(g, rect, true);
 
-        ERMode.ERPublish(g, chartBounds);
-
         calcInvertedRotation();
 
         setSeriesZOrder();
@@ -790,8 +787,6 @@ public class Chart extends TeeBase implements IBaseChart, Serializable,
         drawAxesSeries(g, rect);
 
         rect = drawTitlesAndLegend(g, rect, false);
-
-        ERMode.ERPublish(g, chartBounds);
 
         // Draw all Tools...
         broadcastToolEvent(new ChartDrawEvent(this, ChartDrawEvent.PAINTED,

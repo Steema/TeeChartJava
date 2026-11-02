@@ -16,7 +16,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Composite;
 
-import com.steema.teechart.misc.ERMode;
 import com.steema.teechart.languages.Language;
 
 public class AboutDialog extends Dialog {
@@ -78,8 +77,7 @@ public class AboutDialog extends Dialog {
   	
   	Label labelBuild = new Label(pane, SWT.CENTER);
   	labelBuild.setText(Language.getString("TeeChart_for_Java")
-        +" "+com.steema.teechart.misc.Utils.BuildNumber+" "
-        +ERMode.ERDescription());
+         +" "+com.steema.teechart.misc.Utils.BuildNumber);
   	labelBuild.setLayoutData(new GridData(SWT.TRANSPARENCY_ALPHA, SWT.TOP, true, false));
   	
   	Label labelCopy = new Label(pane, SWT.CENTER);
