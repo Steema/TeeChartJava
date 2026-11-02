@@ -7,7 +7,6 @@
 | `Swing/CandleScrollerRealTime` | Real-time candle example, NetBeans/Ant |
 | `Swing`, `AWT` | Additional desktop examples |
 | `SWT/Features` | SWT Features, Eclipse project in `src` |
-| `Android` | Original Android Features, root Gradle project and Eclipse metadata |
 | `AndroidDemo` | Separate Gradle 5.6.4 / plugin 3.6.4 app; source-library dependency |
 
 These directories belong to the same repository as `../Sources`. Keep that

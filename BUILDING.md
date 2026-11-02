@@ -62,7 +62,7 @@ SWT also retains its
 pre-existing dependency on `sun.awt.image.IntegerComponentRaster`; a strict
 `--release` API surface is not supported by that code.
 
-## Android library and original Features demo
+## Android library
 
 Use **JDK 11**, Gradle 5.4.1 (wrapper), plugin 3.5.0, SDK Platform 29 and Build-Tools
 29.0.0. Configure your SDK path locally; do not commit `local.properties`.
@@ -70,15 +70,14 @@ Use **JDK 11**, Gradle 5.4.1 (wrapper), plugin 3.5.0, SDK Platform 29 and Build-
 ```powershell
 $env:ANDROID_HOME = Join-Path $env:LOCALAPPDATA 'Android\Sdk'
 $env:ANDROID_SDK_ROOT = $env:ANDROID_HOME
-.\gradlew.bat :Sources:Android:assembleDebug :Sources:Android:assembleRelease :Demos:Android:assembleDebug --no-daemon --console=plain
+.\gradlew.bat :Sources:Android:assembleDebug :Sources:Android:assembleRelease --no-daemon --console=plain
 ```
 
 Gradle can install missing SDK packages only when the appropriate licenses have
-already been accepted. Outputs are in `Sources/Android/build/outputs/aar` and
-`Demos/Android/build/outputs/apk/debug`.
+already been accepted. Outputs are in `Sources/Android/build/outputs/aar`.
 
 Current Android Studio's bundled JVM is not this legacy Gradle JVM. IDE sync and
-running the demos on devices/emulators are separate validation tasks.
+running the app on devices/emulators are separate validation tasks.
 
 ## Separate AndroidDemo project
 

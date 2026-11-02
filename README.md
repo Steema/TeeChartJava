@@ -36,10 +36,10 @@ python -m unittest discover -s Sources/tools -p "test_*.py" -v
 python tools/check_publication.py
 ```
 
-The root Gradle project builds the Android library and original Features demo.
-`Demos/AndroidDemo` retains its separate legacy Gradle project and now references
-the source library rather than a bundled TeeChart JAR. This does not migrate it
-to AndroidX or update its Java/SDK levels.
+The root Gradle project builds the Android library. `Demos/AndroidDemo` is the
+Android app and retains its separate legacy Gradle project; it references the
+source library rather than a bundled TeeChart JAR. This does not migrate it to
+AndroidX or update its Java/SDK levels.
 
 ## Publication scope
 
