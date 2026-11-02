@@ -6,11 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
-public class About extends AppCompatActivity implements View.OnClickListener {
-    ImageView ivTwitter, ivFacebook;
-
+public class About extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,23 +19,20 @@ public class About extends AppCompatActivity implements View.OnClickListener {
             actionBar.setElevation(0);
             actionBar.setTitle(R.string.itAbout);
         }
-        ivFacebook = (ImageView) findViewById(R.id.ivFacebook);
-        ivTwitter = (ImageView) findViewById(R.id.ivTwitter);
-        ivFacebook.setOnClickListener(this);
-        ivTwitter.setOnClickListener(this);
+        openLink(R.id.linkWebsite, "https://www.steema.com");
+        openLink(R.id.linkGithub, "https://github.com/Steema/TeeChartJava");
+        openLink(R.id.linkX, "https://x.com/SteemaSoftware");
+        openLink(R.id.linkLinkedin, "https://www.linkedin.com/company/steema-software");
+        openLink(R.id.linkYoutube, "https://www.youtube.com/c/Steema");
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ivFacebook:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/SteemaSoftware")));
-                break;
-
-            case R.id.ivTwitter:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/SteemaSoftware")));
-                break;
-        }
+    private void openLink(int viewId, final String url) {
+        findViewById(viewId).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            }
+        });
     }
 
     @Override

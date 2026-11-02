@@ -1,59 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="android.teechart.steema.com.demoandroid.about"
-    android:gravity="center_horizontal"
-    android:layout_margin="20dp">
+    android:fillViewport="true">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_steema"
-        />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        >
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tvAboutSteema"
-                android:textSize="15sp"
-                />
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/ivFacebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/logo_facebook"/>
-                <ImageView
-                    android:id="@+id/ivTwitter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/logo_twitter"/>
-                <ImageView
-                    android:id="@+id/ivGoolePlus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/logo_google_plus"/>
+            android:layout_marginTop="12dp"
+            android:text="TEECHART FOR ANDROID"
+            android:textColor="?attr/colorAccent"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="Powerful charting. Made for Android."
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="4dp"
+            android:text="@string/tvAboutSteema"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="8dp"
+            android:text="EXPLORE STEEMA"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linkWebsite"
+            style="@style/AboutLinkRow">
+            <TextView style="@style/AboutLinkIcon" android:text="⌂" />
+            <LinearLayout style="@style/AboutLinkText">
+                <TextView style="@style/AboutLinkTitle" android:text="Steema website" />
+                <TextView style="@style/AboutLinkSubtitle" android:text="www.steema.com" />
             </LinearLayout>
+            <TextView style="@style/AboutLinkArrow" android:text="↗" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linkGithub"
+            style="@style/AboutLinkRow">
+            <ImageView
+                style="@style/AboutLinkIconImage"
+                android:contentDescription="GitHub"
+                android:src="@drawable/github_mark" />
+            <LinearLayout style="@style/AboutLinkText">
+                <TextView style="@style/AboutLinkTitle" android:text="GitHub" />
+                <TextView style="@style/AboutLinkSubtitle" android:text="Steema / TeeChartJava" />
+            </LinearLayout>
+            <TextView style="@style/AboutLinkArrow" android:text="↗" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linkX"
+            style="@style/AboutLinkRow">
+            <TextView style="@style/AboutLinkIcon" android:text="X" />
+            <LinearLayout style="@style/AboutLinkText">
+                <TextView style="@style/AboutLinkTitle" android:text="X" />
+                <TextView style="@style/AboutLinkSubtitle" android:text="@SteemaSoftware" />
+            </LinearLayout>
+            <TextView style="@style/AboutLinkArrow" android:text="↗" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linkLinkedin"
+            style="@style/AboutLinkRow">
+            <TextView style="@style/AboutLinkIcon" android:text="in" />
+            <LinearLayout style="@style/AboutLinkText">
+                <TextView style="@style/AboutLinkTitle" android:text="LinkedIn" />
+                <TextView style="@style/AboutLinkSubtitle" android:text="Steema Software" />
+            </LinearLayout>
+            <TextView style="@style/AboutLinkArrow" android:text="↗" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linkYoutube"
+            style="@style/AboutLinkRow">
+            <TextView style="@style/AboutLinkIcon" android:text="▶" />
+            <LinearLayout style="@style/AboutLinkText">
+                <TextView style="@style/AboutLinkTitle" android:text="YouTube" />
+                <TextView style="@style/AboutLinkSubtitle" android:text="Steema channel" />
+            </LinearLayout>
+            <TextView style="@style/AboutLinkArrow" android:text="↗" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Steema Software · Charting since 1995"
+            android:textSize="13sp" />
+    </LinearLayout>
+</ScrollView>
