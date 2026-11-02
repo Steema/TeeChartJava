@@ -104,6 +104,9 @@ def check_baseline(layout, baseline):
 def check_output(output, roots):
     output = Path(output).resolve()
     for root in roots:
+        # Normalize both sides: Windows temporary paths can use 8.3 aliases,
+        # while resolve() on the output expands them to their long names.
+        root = Path(root).resolve()
         for parent, child in ((root, output), (output, root)):
             try:
                 child.relative_to(parent)

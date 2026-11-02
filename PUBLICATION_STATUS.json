@@ -5,6 +5,7 @@
   "owner_authorized_first_party_apache_2_0": true,
   "owner_confirmed_asset_and_translation_rights": true,
   "publication_target": "Steema/TeeChartJava",
+  "repository_visibility": "private",
   "review": "LICENSING.md",
   "pending": [],
   "clearance_basis": "Owner authorization, documented source replacements, compatibility tests, compiler builds and snapshot hygiene review",
