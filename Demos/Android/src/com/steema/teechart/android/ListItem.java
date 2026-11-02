@@ -78,11 +78,13 @@ public class ListItem extends Activity implements OnClickListener {
 		buttonTools.setOnClickListener(this);
 		buttonThemes = (Button) findViewById(R.id.buttonThemes);
 		buttonThemes.setOnClickListener(this);
+		selectTab(R.id.buttonSeries);
 
 	}
 
 	public void onClick(View v) {
 		if (v.getId() == R.id.buttonSeries) {
+			selectTab(R.id.buttonSeries);
 
 			listItemSeries = getResources().getStringArray(R.array.SeriesArray);
 			listview = (ListView) findViewById(R.id.listView1);
@@ -123,6 +125,7 @@ public class ListItem extends Activity implements OnClickListener {
 			});
 
 		} else if (v.getId() == R.id.buttonThemes) {
+			selectTab(R.id.buttonThemes);
 			listItemThemes = getResources().getStringArray(R.array.ThemesArray);
 			m_Devices = new ArrayList<Device>();
 			for (int i = 0; i < listItemThemes.length; i++) {
@@ -161,6 +164,7 @@ public class ListItem extends Activity implements OnClickListener {
 			});
 
 		} else if (v.getId() == R.id.buttonTools) {
+			selectTab(R.id.buttonTools);
 			listItemTools = getResources().getStringArray(R.array.toolsArray);
 			m_Devices = new ArrayList<Device>();
 
@@ -200,6 +204,12 @@ public class ListItem extends Activity implements OnClickListener {
 			});
 
 		}
+	}
+
+	private void selectTab(int selectedId) {
+		buttonSeries.setSelected(selectedId == R.id.buttonSeries);
+		buttonTools.setSelected(selectedId == R.id.buttonTools);
+		buttonThemes.setSelected(selectedId == R.id.buttonThemes);
 	}
 
 }

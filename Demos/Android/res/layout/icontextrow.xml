@@ -3,7 +3,7 @@
  android:layout_width="fill_parent"
  android:layout_height="wrap_content"
  android:orientation="horizontal"
- android:background="#FFFFFFFF"
+ android:background="#1B2029"
  >
 <ImageView
  android:id="@+id/icon"
@@ -14,7 +14,7 @@
  android:id="@+id/name"
  android:layout_width="fill_parent"
  android:layout_height="wrap_content"
- android:textColor="#FF000000"
+ android:textColor="#FFF3F4F6"
  android:paddingLeft="20px"
  android:paddingTop="4px"
  />

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DemoTheme" parent="@android:style/Theme.Black">
+        <item name="android:windowTitleBackgroundStyle">@style/DemoWindowTitleBackground</item>
+    </style>
+
+    <style name="DemoWindowTitleBackground">
+        <item name="android:background">#1B2029</item>
+    </style>
+</resources>

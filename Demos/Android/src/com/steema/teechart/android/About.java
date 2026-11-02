@@ -5,41 +5,25 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.ImageView;
 
-public class About extends Activity
-		 {
+public class About extends Activity {
 
-	private EditText textEdit;
-	private ImageView facebook,twitter;
 	public void onCreate(Bundle savedInstanceState) {
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
-		textEdit = (EditText) findViewById(R.id.editText1);
-		textEdit.setEnabled(false);
-		facebook = (ImageView) findViewById(R.id.facebook);
-		facebook.setOnClickListener(new OnClickListener(){
-
-			public void onClick(View v) {
-				 Uri uri = Uri.parse("http://www.facebook.com/SteemaSoftware");
-				 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-				 startActivity(intent);
-				
-			}});
-		twitter = (ImageView) findViewById(R.id.twitter);
-		twitter.setOnClickListener(new OnClickListener(){
-
-			public void onClick(View v) {
-				 Uri uri = Uri.parse("http://twitter.com/#!/SteemaSoftware");
-				 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-				 startActivity(intent);
-				
-			}});
-		
+		openLink(R.id.linkWebsite, "https://www.steema.com");
+		openLink(R.id.linkGithub, "https://github.com/Steema/TeeChartJava");
+		openLink(R.id.linkX, "https://x.com/SteemaSoftware");
+		openLink(R.id.linkLinkedin, "https://www.linkedin.com/company/steema-software");
+		openLink(R.id.linkYoutube, "https://www.youtube.com/c/Steema");
 	}
 
-
+	private void openLink(int viewId, final String url) {
+		findViewById(viewId).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+			}
+		});
+	}
 }

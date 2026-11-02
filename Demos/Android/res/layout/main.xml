@@ -1,28 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:baselineAligned="true" android:orientation="vertical" android:layout_height="fill_parent" android:layout_width="fill_parent">
-    <ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/scrollView1">
-        <LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout2" android:layout_height="fill_parent" android:orientation="vertical">
-            <TextView android:layout_height="wrap_content" android:id="@+id/label1" android:layout_width="wrap_content" android:text=" "></TextView>
-            <TextView android:layout_height="wrap_content" android:id="@+id/label2" android:layout_width="wrap_content" android:text=" "></TextView>
-            <TextView android:layout_height="wrap_content" android:gravity="center" android:id="@+id/textTitle" android:textStyle="bold" android:layout_width="wrap_content" android:text="@string/hello" android:textColor="#FFFFFF" android:layout_gravity="center"></TextView>
-            <TextView android:layout_height="wrap_content" android:id="@+id/label5" android:layout_width="wrap_content" android:text=" "></TextView>
-            <TextView android:layout_height="wrap_content" android:id="@+id/label6" android:layout_width="wrap_content" android:text=" "></TextView>
-            <LinearLayout android:id="@+id/LinearLayout03" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                <Button  android:layout_height="wrap_content" android:gravity="center" android:background="@drawable/button_teechart" android:id="@+id/buttonTeechart" android:layout_width="wrap_content" android:clickable="true" android:layout_gravity="center"></Button>
-            </LinearLayout>
-            <LinearLayout android:id="@+id/linearLayout1" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                <TextView android:layout_height="wrap_content" android:id="@+id/textView1" android:layout_width="wrap_content" android:text=" "></TextView>
-                <Button  android:layout_height="wrap_content" android:gravity="center" android:background="@drawable/button_statistics" android:id="@+id/buttonStatistics" android:layout_width="wrap_content" android:clickable="true" android:layout_gravity="center"></Button>
-            </LinearLayout>
-            <LinearLayout android:id="@+id/LinearLayout02" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                <TextView android:layout_height="wrap_content" android:id="@+id/TextView01" android:layout_width="wrap_content" android:text=" "></TextView>
-                <Button  android:layout_height="wrap_content" android:gravity="center" android:background="@drawable/button_about" android:id="@+id/buttonAbout" android:layout_width="wrap_content" android:clickable="true" android:layout_gravity="center"></Button>
-            </LinearLayout>
-            <LinearLayout android:id="@+id/LinearLayout01" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                <TextView android:layout_height="wrap_content" android:id="@+id/TextView02" android:layout_width="wrap_content" android:text=" "></TextView>
-                <Button  android:layout_height="wrap_content" android:gravity="center" android:background="@drawable/button_exit" android:id="@+id/buttonExit" android:layout_width="wrap_content" android:clickable="true" android:layout_gravity="center"></Button>
-            </LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#101318"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="CHARTING, YOUR WAY"
+            android:textColor="#4169E1"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12" />
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Explore TeeChart"
+            android:textColor="#F3F4F6"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:lineSpacingExtra="4dp"
+            android:text="Discover interactive charts, explore device data, and see what you can build."
+            android:textColor="#A5ADBA"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/demo_card"
+            android:elevation="3dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CHART GALLERY"
+                android:textColor="#F3F4F6"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="16dp"
+                android:text="Browse series, tools and visual themes."
+                android:textColor="#A5ADBA"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/buttonTeechart"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/demo_button_primary"
+                android:gravity="center"
+                android:text="Explore charts  ›"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+        <Button
+            android:id="@+id/buttonStatistics"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/demo_button_secondary"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="▥   Device statistics"
+            android:textAllCaps="false"
+            android:textColor="#F3F4F6"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/buttonAbout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/demo_button_secondary"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="ⓘ   About TeeChart"
+            android:textAllCaps="false"
+            android:textColor="#F3F4F6"
+            android:textSize="16sp" />
+
+            <Button
+            android:id="@+id/buttonExit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:text="Close demo"
+            android:textAllCaps="false"
+            android:textColor="#A5ADBA"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</ScrollView>
