@@ -11,6 +11,6 @@
   "clearance_basis": "Owner authorization, documented source replacements, compatibility tests, compiler builds and snapshot hygiene review",
   "validation_limits": [
     "Legacy toolchains retained; not a complete vulnerability audit",
-    "Standalone AndroidDemo, full IDE/runtime/device testing and complete legacy Ant builds not validated"
+    "Standalone AndroidDemo debug/release builds and launch on Pixel 3a API 34 verified; full IDE testing, broader device/runtime coverage and complete legacy Ant builds not validated"
   ]
 }
